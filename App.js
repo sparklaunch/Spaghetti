@@ -12,6 +12,7 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import TextRecognition from "react-native-text-recognition";
 import ImageEditor from "@react-native-community/image-editor";
 import refineText from "./utils/refineText";
+import ImageColors from "react-native-image-colors";
 
 const LEFT_OFFSET = 0.15;
 const TOP_OFFSET = 0.1;
@@ -67,19 +68,36 @@ const App = () => {
       console.log("[takePhoto] error: ", error);
     }
   };
+  const detectColors = async path => {
+    try {
+      const result = await ImageColors.getColors(path, {
+        key: "unique_key"
+      });
+      return result.vibrant;
+    } catch (error) {
+      console.log("[detectColors] error: ", error);
+    }
+  };
   const onTap = () => {
     takePhoto()
       .then(response => {
         const {path, width} = response;
         cropPhoto(`file://${path}`, width)
           .then(croppedPath => {
-            recognizeText(croppedPath)
+            detectColors(croppedPath)
               .then(response => {
-                const refinedText = refineText(response);
-                console.log("Result: ", refinedText);
+                console.log("Dominant Color: ", response);
+                recognizeText(croppedPath)
+                  .then(response => {
+                    const refinedText = refineText(response);
+                    console.log("Result: ", refinedText);
+                  })
+                  .catch(error => {
+                    console.log("[onTap: recognizeText] error: ", error);
+                  });
               })
               .catch(error => {
-                console.log("[onTap: recognizeText] error: ", error);
+                console.log("[onTap: detectColors] error: ", error);
               });
           })
           .catch(error => {
