@@ -13,6 +13,7 @@ import TextRecognition from "react-native-text-recognition";
 import ImageEditor from "@react-native-community/image-editor";
 import refineText from "./utils/refineText";
 import ImageColors from "react-native-image-colors";
+import getBuilderVersion from "./utils/getBuilderVersion";
 
 const LEFT_OFFSET = 0.15;
 const TOP_OFFSET = 0.1;
@@ -73,7 +74,7 @@ const App = () => {
       const result = await ImageColors.getColors(path, {
         key: "unique_key"
       });
-      return result.vibrant;
+      return result.average;
     } catch (error) {
       console.log("[detectColors] error: ", error);
     }
@@ -86,7 +87,8 @@ const App = () => {
           .then(croppedPath => {
             detectColors(croppedPath)
               .then(response => {
-                console.log("Dominant Color: ", response);
+                const version = getBuilderVersion(response);
+                console.log("Phonics Builder " + version);
                 recognizeText(croppedPath)
                   .then(response => {
                     const refinedText = refineText(response);
