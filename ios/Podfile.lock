@@ -302,6 +302,9 @@ PODS:
   - React-jsinspector (0.70.6)
   - React-logger (0.70.6):
     - glog
+  - react-native-image-editor (2.3.0):
+    - React
+    - React-RCTImage
   - react-native-text-recognition (1.0.0):
     - React-Core
   - React-perflogger (0.70.6)
@@ -430,6 +433,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - "react-native-image-editor (from `../node_modules/@react-native-community/image-editor`)"
   - react-native-text-recognition (from `../node_modules/react-native-text-recognition`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -509,6 +513,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-image-editor:
+    :path: "../node_modules/@react-native-community/image-editor"
   react-native-text-recognition:
     :path: "../node_modules/react-native-text-recognition"
   React-perflogger:
@@ -579,6 +585,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: b4a65947391c658450151275aa406f2b8263178f
   React-jsinspector: 60769e5a0a6d4b32294a2456077f59d0266f9a8b
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
+  react-native-image-editor: 9361a215c3991cafbe5e7f28cbbad6e72c9c2705
   react-native-text-recognition: 51841db99caa890674e44ed6efbf2870b84f4161
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466
