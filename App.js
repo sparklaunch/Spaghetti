@@ -76,6 +76,7 @@ const App = () => {
           isActive={true}
           photo={true}
         />
+        <View style={styles.boundary} />
       </MaskedView>
     </Pressable>
   );
@@ -104,9 +105,19 @@ const styles = StyleSheet.create({
   rectangle: {
     width: "80%",
     height: "80%",
-    borderRadius: 16,
+    borderRadius: 8,
     overflow: "hidden",
     backgroundColor: "black"
+  },
+  boundary: {
+    position: "absolute",
+    left: "10%",
+    top: "10%",
+    right: "10%",
+    bottom: "10%",
+    borderRadius: 8,
+    borderWidth: 3,
+    borderColor: "lightgreen"
   }
 });
 
