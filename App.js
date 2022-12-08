@@ -1,10 +1,17 @@
-import {ActivityIndicator, Pressable, StyleSheet, View} from "react-native";
+import {
+  ActivityIndicator,
+  Platform,
+  Pressable,
+  StyleSheet,
+  View
+} from "react-native";
 import {useCameraDevices} from "react-native-vision-camera/src";
 import {Camera} from "react-native-vision-camera";
 import {useEffect, useRef, useState} from "react";
 import MaskedView from "@react-native-masked-view/masked-view";
 import TextRecognition from "react-native-text-recognition";
 import ImageEditor from "@react-native-community/image-editor";
+import refineText from "./utils/refineText";
 
 const LEFT_OFFSET = 0.15;
 const TOP_OFFSET = 0.1;
@@ -49,7 +56,12 @@ const App = () => {
   };
   const takePhoto = async () => {
     try {
-      const photo = await camera.current.takePhoto();
+      let photo;
+      if (Platform.OS === "ios") {
+        photo = await camera.current.takePhoto();
+      } else {
+        photo = await camera.current.takeSnapshot();
+      }
       return photo;
     } catch (error) {
       console.log("[takePhoto] error: ", error);
@@ -63,7 +75,8 @@ const App = () => {
           .then(croppedPath => {
             recognizeText(croppedPath)
               .then(response => {
-                console.log("Result: ", response);
+                const refinedText = refineText(response);
+                console.log("Result: ", refinedText);
               })
               .catch(error => {
                 console.log("[onTap: recognizeText] error: ", error);
