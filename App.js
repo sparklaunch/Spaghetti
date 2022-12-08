@@ -4,6 +4,7 @@ import {Camera} from "react-native-vision-camera";
 import {useEffect, useRef, useState} from "react";
 import MaskedView from "@react-native-masked-view/masked-view";
 import TextRecognition from "react-native-text-recognition";
+import ImageEditor from "@react-native-community/image-editor";
 
 const LEFT_OFFSET = 0.15;
 const TOP_OFFSET = 0.1;
@@ -24,6 +25,24 @@ const App = () => {
     try {
       const result = await TextRecognition.recognize(path);
       return result;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const cropPhoto = async (path, width) => {
+    const cropData = {
+      offset: {
+        x: width * LEFT_OFFSET,
+        y: width * TOP_OFFSET
+      },
+      size: {
+        width: width * (1 - LEFT_OFFSET * 2),
+        height: width * (1 - TOP_OFFSET * 2)
+      }
+    };
+    try {
+      const croppedPath = await ImageEditor.cropImage(path, cropData);
+      return croppedPath;
     } catch (error) {
       console.log(error);
     }
