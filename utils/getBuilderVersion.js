@@ -13,7 +13,7 @@ const getBuilderVersion = hexColor => {
   } else if (g > r && g > b) {
     return "2";
   } else {
-    return "N/A";
+    return "1";
   }
 };
 

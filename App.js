@@ -91,7 +91,7 @@ const App = () => {
                 console.log("Phonics Builder " + version);
                 recognizeText(croppedPath)
                   .then(response => {
-                    const refinedText = refineText(response);
+                    const refinedText = refineText(response, version);
                     console.log("Result: ", refinedText);
                   })
                   .catch(error => {
