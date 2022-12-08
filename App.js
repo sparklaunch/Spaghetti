@@ -26,7 +26,7 @@ const App = () => {
       const result = await TextRecognition.recognize(path);
       return result;
     } catch (error) {
-      console.log(error);
+      console.log("[recognizeText] error: ", error);
     }
   };
   const cropPhoto = async (path, width) => {
@@ -44,7 +44,7 @@ const App = () => {
       const croppedPath = await ImageEditor.cropImage(path, cropData);
       return croppedPath;
     } catch (error) {
-      console.log(error);
+      console.log("[cropPhoto] error: ", error);
     }
   };
   const takePhoto = async () => {
@@ -52,23 +52,29 @@ const App = () => {
       const photo = await camera.current.takePhoto();
       return photo;
     } catch (error) {
-      console.log(error);
+      console.log("[takePhoto] error: ", error);
     }
   };
   const onTap = () => {
     takePhoto()
       .then(response => {
-        const {path} = response;
-        recognizeText(path)
-          .then(response => {
-            console.log("Result: ", response);
+        const {path, width} = response;
+        cropPhoto(`file://${path}`, width)
+          .then(croppedPath => {
+            recognizeText(croppedPath)
+              .then(response => {
+                console.log("Result: ", response);
+              })
+              .catch(error => {
+                console.log("[onTap: recognizeText] error: ", error);
+              });
           })
           .catch(error => {
-            console.log(error);
+            console.log("[onTap: cropPhoto] error: ", error);
           });
       })
       .catch(error => {
-        console.log(error);
+        console.log("[onTap: takePhoto] error: ", error);
       });
   };
   useEffect(() => {
