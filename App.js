@@ -5,6 +5,9 @@ import {useEffect, useRef, useState} from "react";
 import MaskedView from "@react-native-masked-view/masked-view";
 import TextRecognition from "react-native-text-recognition";
 
+const LEFT_OFFSET = 0.15;
+const TOP_OFFSET = 0.1;
+
 const App = () => {
   const camera = useRef(null);
   const [cameraPermission, setCameraPermission] = useState();
@@ -107,18 +110,18 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   rectangle: {
-    width: "70%",
-    height: "80%",
+    width: `${(1 - LEFT_OFFSET * 2) * 100}%`,
+    height: `${(1 - TOP_OFFSET * 2) * 100}%`,
     borderRadius: 8,
     overflow: "hidden",
     backgroundColor: "black"
   },
   boundary: {
     position: "absolute",
-    left: "15%",
-    top: "10%",
-    right: "15%",
-    bottom: "10%",
+    left: `${LEFT_OFFSET * 100}%`,
+    top: `${TOP_OFFSET * 100}%`,
+    right: `${LEFT_OFFSET * 100}%`,
+    bottom: `${TOP_OFFSET * 100}%`,
     borderRadius: 8,
     borderWidth: 3,
     borderColor: "lightgreen",
