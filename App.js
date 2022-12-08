@@ -76,7 +76,11 @@ const App = () => {
           isActive={true}
           photo={true}
         />
-        <View style={styles.boundary} />
+        <View style={styles.boundary}>
+          <View style={styles.divider} />
+          <View style={styles.divider} />
+          <View style={styles.placeholderDivider} />
+        </View>
       </MaskedView>
     </Pressable>
   );
@@ -103,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   rectangle: {
-    width: "80%",
+    width: "70%",
     height: "80%",
     borderRadius: 8,
     overflow: "hidden",
@@ -111,13 +115,22 @@ const styles = StyleSheet.create({
   },
   boundary: {
     position: "absolute",
-    left: "10%",
+    left: "15%",
     top: "10%",
-    right: "10%",
+    right: "15%",
     bottom: "10%",
     borderRadius: 8,
     borderWidth: 3,
-    borderColor: "lightgreen"
+    borderColor: "lightgreen",
+    flexDirection: "row"
+  },
+  divider: {
+    flex: 1,
+    borderRightWidth: 1,
+    borderRightColor: "lightgreen"
+  },
+  placeholderDivider: {
+    flex: 1
   }
 });
 
