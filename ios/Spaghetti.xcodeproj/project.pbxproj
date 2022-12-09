@@ -76,6 +76,8 @@
 		3D5751682942D2C9008ED0B5 /* x.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D5750B82942CE81008ED0B5 /* x.mp3 */; };
 		3D5751692942D2C9008ED0B5 /* y.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D5750A72942CE81008ED0B5 /* y.mp3 */; };
 		3D57516A2942D2C9008ED0B5 /* z.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D5750BA2942CE81008ED0B5 /* z.mp3 */; };
+		3D57516C29433681008ED0B5 /* Click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3D57516B29433681008ED0B5 /* Click.wav */; };
+		3D57516E294336A7008ED0B5 /* Shutter.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D57516D294336A7008ED0B5 /* Shutter.mp3 */; };
 		7699B88040F8A987B510C191 /* libPods-Spaghetti-SpaghettiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Spaghetti-SpaghettiTests.a */; };
 /* End PBXBuildFile section */
 
@@ -166,6 +168,8 @@
 		3D5751152942CEAE008ED0B5 /* ay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = ay.mp3; path = "../../../../../Downloads/sb/이퓨처 파닉스 음원/Book 5_two letter vowels/ay.mp3"; sourceTree = "<group>"; };
 		3D5751162942CEAE008ED0B5 /* oa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = oa.mp3; path = "../../../../../Downloads/sb/이퓨처 파닉스 음원/Book 5_two letter vowels/oa.mp3"; sourceTree = "<group>"; };
 		3D5751172942CEAE008ED0B5 /* ow_au.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = ow_au.mp3; path = "../../../../../Downloads/sb/이퓨처 파닉스 음원/Book 5_two letter vowels/ow_au.mp3"; sourceTree = "<group>"; };
+		3D57516B29433681008ED0B5 /* Click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Click.wav; sourceTree = "<group>"; };
+		3D57516D294336A7008ED0B5 /* Shutter.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Shutter.mp3; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Spaghetti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spaghetti.release.xcconfig"; path = "Target Support Files/Pods-Spaghetti/Pods-Spaghetti.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Spaghetti-SpaghettiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spaghetti-SpaghettiTests.debug.xcconfig"; path = "Target Support Files/Pods-Spaghetti-SpaghettiTests/Pods-Spaghetti-SpaghettiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-Spaghetti.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Spaghetti.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +248,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3D57516D294336A7008ED0B5 /* Shutter.mp3 */,
+				3D57516B29433681008ED0B5 /* Click.wav */,
 				3D5751142942CEAE008ED0B5 /* ai.mp3 */,
 				3D57510B2942CEAC008ED0B5 /* ar.mp3 */,
 				3D5751152942CEAE008ED0B5 /* ay.mp3 */,
@@ -442,6 +448,7 @@
 				3D57512E2942D2C9008ED0B5 /* ee.mp3 in Resources */,
 				3D57512F2942D2C9008ED0B5 /* er.mp3 in Resources */,
 				3D5751302942D2C9008ED0B5 /* ir.mp3 in Resources */,
+				3D57516C29433681008ED0B5 /* Click.wav in Resources */,
 				3D5751312942D2C9008ED0B5 /* oa.mp3 in Resources */,
 				3D5751322942D2C9008ED0B5 /* oi.mp3 in Resources */,
 				3D5751332942D2C9008ED0B5 /* oo_lax_u.mp3 in Resources */,
@@ -490,6 +497,7 @@
 				3D57515E2942D2C9008ED0B5 /* n.mp3 in Resources */,
 				3D57515F2942D2C9008ED0B5 /* o.mp3 in Resources */,
 				3D5751602942D2C9008ED0B5 /* p.mp3 in Resources */,
+				3D57516E294336A7008ED0B5 /* Shutter.mp3 in Resources */,
 				3D5751612942D2C9008ED0B5 /* q.mp3 in Resources */,
 				3D5751622942D2C9008ED0B5 /* r.mp3 in Resources */,
 				3D5751632942D2C9008ED0B5 /* s.mp3 in Resources */,
