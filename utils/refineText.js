@@ -84,24 +84,3 @@ const refineText = chunks => {
 };
 
 export default refineText;
-
-const mapper = {
-  Native: "Neitive [neitiv]",
-  React: "Riaictre [riektr]",
-  Component: "Camponent [kāponā]",
-  Library: "Laibréri [lebreri]",
-  Feature: "Fichre [fikr]",
-  Solution: "Soluchen [solyshā]",
-  January: "Jainjuéri [d3ād3yeri]",
-  February: "Februéri [febryeri]",
-  March: "Marche [marsh]",
-  April: "Eiprel [eprel]",
-  May: "Mei [me]",
-  June: "Jun [d3ā]",
-  July: "Julai [d3yle]",
-  August: "Ageste [ad3est]",
-  September: "Septembre [septābr]",
-  October: "Actobre [aktobr]",
-  November: "Novembre [novābr]",
-  December: "Disembre [dizābr]"
-};
