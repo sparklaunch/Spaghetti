@@ -19,6 +19,7 @@ import Tts from "react-native-tts";
 Sound.setCategory("Playback");
 
 Tts.setDefaultLanguage("en-IE");
+Tts.setDefaultRate(0.1);
 
 const LEFT_OFFSET = 0.15;
 const TOP_OFFSET = 0.1;
