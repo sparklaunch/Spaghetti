@@ -1,26 +1,10 @@
-const refineText = (chunks, version) => {
-  console.log("Raw Text: ", chunks.join(" "));
-  switch (version) {
-    case "1":
-      const filteredChunks = chunks
-        .filter(chunk => {
-          return chunk.length <= 5;
-        })
-        .map(chunk => {
-          return chunk.replace(/\s+/g, "");
-        });
-      return filteredChunks;
-      break;
-    case "2":
-      return "Phonics Builder 2";
-      break;
-    case "3":
-      return "Phonics Builder 3";
-      break;
-    default:
-      return "N/A";
-      break;
-  }
+const refineText = chunks => {
+  console.log("Raw Text: ", chunks);
+  const eFutureIndex = chunks.indexOf(chunk => {
+    return chunk.includes("future");
+  });
+  const slicedChunks = chunks.slice(0, eFutureIndex - 1);
+  return slicedChunks[0];
 };
 
 export default refineText;

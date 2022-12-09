@@ -13,7 +13,6 @@ import TextRecognition from "react-native-text-recognition";
 import ImageEditor from "@react-native-community/image-editor";
 import refineText from "./utils/refineText";
 import ImageColors from "react-native-image-colors";
-import getBuilderVersion from "./utils/getBuilderVersion";
 
 const LEFT_OFFSET = 0.15;
 const TOP_OFFSET = 0.1;
@@ -74,7 +73,11 @@ const App = () => {
       const result = await ImageColors.getColors(path, {
         key: "unique_key"
       });
-      return result.average;
+      if (Platform.OS === "ios") {
+        return result.primary;
+      } else {
+        return result.average;
+      }
     } catch (error) {
       console.log("[detectColors] error: ", error);
     }
@@ -85,21 +88,13 @@ const App = () => {
         const {path, width} = response;
         cropPhoto(`file://${path}`, width)
           .then(croppedPath => {
-            detectColors(croppedPath)
+            recognizeText(croppedPath)
               .then(response => {
-                const version = getBuilderVersion(response);
-                console.log("Phonics Builder " + version);
-                recognizeText(croppedPath)
-                  .then(response => {
-                    const refinedText = refineText(response, version);
-                    console.log("Result: ", refinedText);
-                  })
-                  .catch(error => {
-                    console.log("[onTap: recognizeText] error: ", error);
-                  });
+                const refinedText = refineText(response);
+                console.log("Result: ", refinedText);
               })
               .catch(error => {
-                console.log("[onTap: detectColors] error: ", error);
+                console.log("[onTap: recognizeText] error: ", error);
               });
           })
           .catch(error => {
