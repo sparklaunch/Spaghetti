@@ -12,7 +12,6 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import TextRecognition from "react-native-text-recognition";
 import ImageEditor from "@react-native-community/image-editor";
 import refineText from "./utils/refineText";
-import ImageColors from "react-native-image-colors";
 import Sound from "react-native-sound";
 import Tts from "react-native-tts";
 
@@ -88,20 +87,6 @@ const App = () => {
       return photo;
     } catch (error) {
       console.log("[takePhoto] error: ", error);
-    }
-  };
-  const detectColors = async path => {
-    try {
-      const result = await ImageColors.getColors(path, {
-        key: "unique_key"
-      });
-      if (Platform.OS === "ios") {
-        return result.primary;
-      } else {
-        return result.average;
-      }
-    } catch (error) {
-      console.log("[detectColors] error: ", error);
     }
   };
   const onTap = () => {
