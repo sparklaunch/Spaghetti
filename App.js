@@ -14,8 +14,11 @@ import ImageEditor from "@react-native-community/image-editor";
 import refineText from "./utils/refineText";
 import ImageColors from "react-native-image-colors";
 import Sound from "react-native-sound";
+import Tts from "react-native-tts";
 
 Sound.setCategory("Playback");
+
+Tts.setDefaultLanguage("en-IE");
 
 const LEFT_OFFSET = 0.15;
 const TOP_OFFSET = 0.1;
@@ -117,6 +120,7 @@ const App = () => {
                         console.log(
                           "Successfully finished playing all 3 chunks!"
                         );
+                        Tts.speak(refinedText.join(""));
                       });
                     });
                   });
