@@ -385,6 +385,8 @@ PODS:
   - RNSound/Core (0.11.2):
     - React-Core
   - SocketRocket (0.6.0)
+  - TextToSpeech (4.1.0):
+    - React
   - VisionCamera (2.15.2):
     - React
     - React-callinvoker
@@ -458,6 +460,7 @@ DEPENDENCIES:
   - RNFS (from `../node_modules/react-native-fs`)
   - RNImageColors (from `../node_modules/react-native-image-colors`)
   - RNSound (from `../node_modules/react-native-sound`)
+  - TextToSpeech (from `../node_modules/react-native-tts`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -558,6 +561,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-colors"
   RNSound:
     :path: "../node_modules/react-native-sound"
+  TextToSpeech:
+    :path: "../node_modules/react-native-tts"
   VisionCamera:
     :path: "../node_modules/react-native-vision-camera"
   Yoga:
@@ -617,6 +622,7 @@ SPEC CHECKSUMS:
   RNImageColors: fd9777591fc765780e035f4bec7a42edabc86eb4
   RNSound: 6c156f925295bdc83e8e422e7d8b38d33bc71852
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  TextToSpeech: b3aa777ff5585705f179c0a2436bfd0926d1716e
   VisionCamera: 4cfd685b1e671fea4aa0400905ab397f0e972210
   Yoga: 99caf8d5ab45e9d637ee6e0174ec16fbbb01bcfc
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
