@@ -113,7 +113,6 @@ const App = () => {
             recognizeText(croppedPath)
               .then(response => {
                 const refinedText = refineText(response);
-                console.log("Refined Text: ", refinedText);
                 if (refinedText.length === 3) {
                   playSound(refinedText[0], () => {
                     playSound(refinedText[1], () => {
@@ -121,7 +120,7 @@ const App = () => {
                         console.log(
                           "Successfully finished playing all 3 chunks!"
                         );
-                        Tts.speak(refinedText.join(""));
+                        Tts.speak(refinedText);
                       });
                     });
                   });
