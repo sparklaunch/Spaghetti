@@ -113,20 +113,13 @@ const App = () => {
             recognizeText(croppedPath)
               .then(response => {
                 const refinedText = refineText(response);
-                if (refinedText.length === 3) {
-                  playSound(refinedText[0], () => {
-                    playSound(refinedText[1], () => {
-                      playSound(refinedText[2], () => {
-                        console.log(
-                          "Successfully finished playing all 3 chunks!"
-                        );
-                        Tts.speak(refinedText);
-                      });
+                playSound(refinedText[0], () => {
+                  playSound(refinedText[1], () => {
+                    playSound(refinedText[2], () => {
+                      Tts.speak(refinedText.join(""));
                     });
                   });
-                } else {
-                  console.log("Error: refinedText.length !== 3");
-                }
+                });
               })
               .catch(error => {
                 console.log("[onTap: recognizeText] error: ", error);

@@ -1,5 +1,5 @@
 const refineText = chunks => {
-  // Initial phase.
+  // Phase 0: Initial phase.
   const rawText = chunks.join("");
   console.log("Raw Text: ", rawText);
 
@@ -7,7 +7,7 @@ const refineText = chunks => {
   const phase1 = rawText.split("future")[0];
   console.log("Phase 1: ", phase1);
 
-  // Phase 2: Get the actual chunk before "Show", only if it has one.
+  // Phase 2: Get the actual chunk before "Show", only if there is any.
   let phase2;
   if (phase1.includes("Show")) {
     phase2 = phase1.split("Show")[0];
@@ -16,7 +16,7 @@ const refineText = chunks => {
   }
   console.log("Phase 2: ", phase2);
 
-  // Phase 3: Lower the case.
+  // Phase 3: Lower the cases.
   const phase3 = phase2.toLowerCase();
   console.log("Phase 3: ", phase3);
 
@@ -48,6 +48,7 @@ const refineText = chunks => {
     if (phase3.includes(middleChunk)) {
       const [first, third] = phase3.split(middleChunk);
       phase4 = [first, middleChunk, third];
+      break;
     }
   }
   console.log("Phase 4: ", phase4);
@@ -73,12 +74,13 @@ const refineText = chunks => {
   console.log("Phase 6: ", phase6);
 
   // Phase 7: Remove all vowel occurrences in the first and third chunk.
-  const first = phase6[0].replace(/[aeiou]/, "");
-  const third = phase6[2].replace(/[aeiou]/, "");
+  const first = phase6[0].replace(/[aeiou]/, "").trim();
+  const third = phase6[2].replace(/[aeiou]/, "").trim();
   const phase7 = [first, phase6[1], third];
   console.log("Phase 7: ", phase7);
 
-  return "N/A";
+  // Phase 8: Return the final result.
+  return phase7;
 };
 
 export default refineText;
