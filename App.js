@@ -39,15 +39,30 @@ const App = () => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
         console.log("[playSound] error: ", error);
-        return;
+      } else {
+        sound.play(success => {
+          if (success) {
+            callback();
+          } else {
+            console.log("[playSound] error: Audio decoding error.");
+          }
+        });
       }
-      sound.play(success => {
-        if (success) {
-          callback();
-        } else {
-          console.log("[playSound] error: Audio decoding error.");
-        }
-      });
+    });
+  };
+  const playClickSound = callback => {
+    const clickSound = new Sound("click.wav", Sound.MAIN_BUNDLE, error => {
+      if (error) {
+        console.log("[playClickSound] error: ", error);
+      } else {
+        clickSound.play(success => {
+          if (success) {
+            callback();
+          } else {
+            console.log("[playClickSound] error: Audio decoding error.");
+          }
+        });
+      }
     });
   };
   const recognizeText = async path => {
@@ -90,33 +105,35 @@ const App = () => {
     }
   };
   const onTap = () => {
-    takePhoto()
-      .then(response => {
-        const {path, width} = response;
-        cropPhoto(`file://${path}`, width)
-          .then(croppedPath => {
-            recognizeText(croppedPath)
-              .then(response => {
-                const refinedText = refineText(response);
-                playSound(refinedText[0], () => {
-                  playSound(refinedText[1], () => {
-                    playSound(refinedText[2], () => {
-                      Tts.speak(refinedText.join(""));
+    playClickSound(() => {
+      takePhoto()
+        .then(response => {
+          const {path, width} = response;
+          cropPhoto(`file://${path}`, width)
+            .then(croppedPath => {
+              recognizeText(croppedPath)
+                .then(response => {
+                  const refinedText = refineText(response);
+                  playSound(refinedText[0], () => {
+                    playSound(refinedText[1], () => {
+                      playSound(refinedText[2], () => {
+                        Tts.speak(refinedText.join(""));
+                      });
                     });
                   });
+                })
+                .catch(error => {
+                  console.log("[onTap: recognizeText] error: ", error);
                 });
-              })
-              .catch(error => {
-                console.log("[onTap: recognizeText] error: ", error);
-              });
-          })
-          .catch(error => {
-            console.log("[onTap: cropPhoto] error: ", error);
-          });
-      })
-      .catch(error => {
-        console.log("[onTap: takePhoto] error: ", error);
-      });
+            })
+            .catch(error => {
+              console.log("[onTap: cropPhoto] error: ", error);
+            });
+        })
+        .catch(error => {
+          console.log("[onTap: takePhoto] error: ", error);
+        });
+    });
   };
   useEffect(() => {
     getCameraAndMicrophonePermission();
