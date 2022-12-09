@@ -109,6 +109,7 @@ const App = () => {
             recognizeText(croppedPath)
               .then(response => {
                 const refinedText = refineText(response);
+                console.log("Refined Text: ", refinedText);
                 if (refinedText.length === 3) {
                   playSound(refinedText[0], () => {
                     playSound(refinedText[1], () => {

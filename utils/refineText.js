@@ -3,7 +3,9 @@ const refineText = chunks => {
   const eFutureIndex = chunks.indexOf(chunk => {
     return chunk.includes("future");
   });
-  const slicedChunks = chunks.slice(0, eFutureIndex - 1);
+  const slicedChunks = chunks
+    .slice(0, eFutureIndex - 1)
+    .map(chunk => chunk.toLowerCase());
   console.log("Phase: ", slicedChunks);
   if (slicedChunks.length === 1) {
     const splitChunks = slicedChunks[0].split(" ");
