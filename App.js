@@ -42,6 +42,7 @@ const App = () => {
       } else {
         sound.play(success => {
           if (success) {
+            sound.release();
             callback();
           } else {
             console.log("[playSound] error: Audio decoding error.");
@@ -57,6 +58,7 @@ const App = () => {
       } else {
         clickSound.play(success => {
           if (success) {
+            clickSound.release();
             callback();
           } else {
             console.log("[playClickSound] error: Audio decoding error.");
