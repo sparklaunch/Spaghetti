@@ -33,7 +33,7 @@ const App = () => {
     setMicrophonePermission(newMicrophonePermission);
   };
   const playSound = (chunk, callback) => {
-    const sound = new Sound(chunk, Sound.MAIN_BUNDLE, error => {
+    const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
         console.log("[playSound] error: ", error);
         return;
@@ -109,7 +109,19 @@ const App = () => {
             recognizeText(croppedPath)
               .then(response => {
                 const refinedText = refineText(response);
-                console.log("Result: ", refinedText);
+                if (refinedText.length === 3) {
+                  playSound(refinedText[0], () => {
+                    playSound(refinedText[1], () => {
+                      playSound(refinedText[2], () => {
+                        console.log(
+                          "Successfully finished playing all 3 chunks!"
+                        );
+                      });
+                    });
+                  });
+                } else {
+                  console.log("Error: refinedText.length !== 3");
+                }
               })
               .catch(error => {
                 console.log("[onTap: recognizeText] error: ", error);
