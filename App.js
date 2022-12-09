@@ -13,6 +13,9 @@ import TextRecognition from "react-native-text-recognition";
 import ImageEditor from "@react-native-community/image-editor";
 import refineText from "./utils/refineText";
 import ImageColors from "react-native-image-colors";
+import Sound from "react-native-sound";
+
+Sound.setCategory("Playback");
 
 const LEFT_OFFSET = 0.15;
 const TOP_OFFSET = 0.1;
@@ -28,6 +31,21 @@ const App = () => {
     const newMicrophonePermission = await Camera.requestMicrophonePermission();
     setCameraPermission(newCameraPermission);
     setMicrophonePermission(newMicrophonePermission);
+  };
+  const playSound = (chunk, callback) => {
+    const sound = new Sound(chunk, Sound.MAIN_BUNDLE, error => {
+      if (error) {
+        console.log("[playSound] error: ", error);
+        return;
+      }
+      sound.play(success => {
+        if (success) {
+          callback();
+        } else {
+          console.log("[playSound] error: Audio decoding error.");
+        }
+      });
+    });
   };
   const recognizeText = async path => {
     try {
