@@ -27,6 +27,7 @@ const App = () => {
   const camera = useRef(null);
   const [cameraPermission, setCameraPermission] = useState();
   const [microphonePermission, setMicrophonePermission] = useState();
+  const [isTakingPhotoAvailable, setIsTakingPhotoAvailable] = useState(true);
   const devices = useCameraDevices();
   const device = devices.back;
   const getCameraAndMicrophonePermission = async () => {
@@ -107,6 +108,10 @@ const App = () => {
     }
   };
   const onTap = () => {
+    if (!isTakingPhotoAvailable) {
+      return;
+    }
+    setIsTakingPhotoAvailable(false);
     playClickSound(() => {
       takePhoto()
         .then(response => {
@@ -120,6 +125,7 @@ const App = () => {
                     playSound(refinedText[1], () => {
                       playSound(refinedText[2], () => {
                         Tts.speak(refinedText.join(""));
+                        setIsTakingPhotoAvailable(true);
                       });
                     });
                   });
