@@ -1,7 +1,7 @@
 import {
   ActivityIndicator,
+  Button,
   Platform,
-  Pressable,
   StyleSheet,
   View
 } from "react-native";
@@ -132,14 +132,17 @@ const App = () => {
                 })
                 .catch(error => {
                   console.log("[onTap: recognizeText] error: ", error);
+                  setIsTakingPhotoAvailable(true);
                 });
             })
             .catch(error => {
               console.log("[onTap: cropPhoto] error: ", error);
+              setIsTakingPhotoAvailable(true);
             });
         })
         .catch(error => {
           console.log("[onTap: takePhoto] error: ", error);
+          setIsTakingPhotoAvailable(true);
         });
     });
   };
@@ -155,7 +158,7 @@ const App = () => {
     return <ActivityIndicator />;
   }
   return (
-    <Pressable style={styles.block} onPress={onTap}>
+    <View style={styles.block}>
       <MaskedView
         style={styles.maskedView}
         maskElement={
@@ -176,7 +179,10 @@ const App = () => {
           <View style={styles.placeholderDivider} />
         </View>
       </MaskedView>
-    </Pressable>
+      <View>
+        <Button style={styles.tapButton} title={"Tap"} onPress={onTap} />
+      </View>
+    </View>
   );
 };
 
@@ -225,7 +231,8 @@ const styles = StyleSheet.create({
   },
   placeholderDivider: {
     flex: 1
-  }
+  },
+  tapButton: {}
 });
 
 export default App;
