@@ -16,6 +16,7 @@ import refineText from "./utils/refineText";
 import Sound from "react-native-sound";
 import Tts from "react-native-tts";
 import logError from "./utils/logError";
+import Chunk from "./components/Chunk";
 
 Sound.setCategory("Playback");
 
@@ -30,7 +31,9 @@ const App = () => {
   const [cameraPermission, setCameraPermission] = useState();
   const [microphonePermission, setMicrophonePermission] = useState();
   const [isTakingPhotoAvailable, setIsTakingPhotoAvailable] = useState(true);
-  const [isCameraVisible, setIsCameraVisible] = useState(true);
+  const [firstChunkAnimation, setFirstChunkAnimation] = useState(false);
+  const [secondChunkAnimation, setSecondChunkAnimation] = useState(false);
+  const [thirdChunkAnimation, setThirdChunkAnimation] = useState(false);
   const devices = useCameraDevices();
   const device = devices.back;
   const getCameraAndMicrophonePermission = async () => {
@@ -182,9 +185,13 @@ const App = () => {
           photo={true}
         />
         <View style={styles.boundary}>
-          <View style={styles.divider} />
-          <View style={styles.divider} />
-          <View style={styles.placeholderDivider} />
+          <View style={styles.divider}>{firstChunkAnimation && <Chunk />}</View>
+          <View style={styles.divider}>
+            {secondChunkAnimation && <Chunk />}
+          </View>
+          <View style={styles.placeholderDivider}>
+            {thirdChunkAnimation && <Chunk />}
+          </View>
         </View>
       </MaskedView>
       <View style={styles.tapButton}>
