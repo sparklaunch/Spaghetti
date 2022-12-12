@@ -130,6 +130,9 @@ const App = () => {
     if (!isTakingPhotoAvailable) {
       return;
     }
+    setFirstChunkAnimation(false);
+    setSecondChunkAnimation(false);
+    setThirdChunkAnimation(false);
     setIsCameraVisible(false);
     setIsTakingPhotoAvailable(false);
     setIsMegaphoneVisible(false);
