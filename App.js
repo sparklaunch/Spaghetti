@@ -35,6 +35,7 @@ const App = () => {
   const [secondChunkAnimation, setSecondChunkAnimation] = useState(false);
   const [thirdChunkAnimation, setThirdChunkAnimation] = useState(false);
   const [isCameraVisible, setIsCameraVisible] = useState(true);
+  const [isMegaphoneVisible, setIsMegaphoneVisible] = useState(false);
   const [chunk, setChunk] = useState([]);
   const devices = useCameraDevices();
   const device = devices.back;
@@ -52,6 +53,7 @@ const App = () => {
   const onTTSFinished = () => {
     setIsTakingPhotoAvailable(true);
     setIsCameraVisible(true);
+    setIsMegaphoneVisible(true);
   };
   const playSound = (chunk, callback) => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
@@ -130,6 +132,7 @@ const App = () => {
     }
     setIsCameraVisible(false);
     setIsTakingPhotoAvailable(false);
+    setIsMegaphoneVisible(false);
     playClickSound(() => {
       takePhoto()
         .then(response => {
@@ -165,7 +168,10 @@ const App = () => {
         });
     });
   };
-  const onReplay = () => {};
+  const onReplay = () => {
+    const joinedChunks = chunk.join("");
+    Tts.speak(joinedChunks);
+  };
   useEffect(() => {
     getCameraAndMicrophonePermission();
   }, []);
@@ -216,7 +222,13 @@ const App = () => {
           <Image source={require("./assets/images/camera.png")} />
         </TouchableOpacity>
       </View>
-      <View style={[styles.playButton]}>
+      <View
+        style={[
+          styles.playButton,
+          isMegaphoneVisible || {
+            display: "none"
+          }
+        ]}>
         <TouchableOpacity activeOpacity={0.5} onPress={onReplay}>
           <Image source={require("./assets/images/megaphone.png")} />
         </TouchableOpacity>
