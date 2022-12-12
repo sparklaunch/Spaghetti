@@ -1,8 +1,9 @@
 import {
   ActivityIndicator,
-  Button,
+  Image,
   Platform,
   StyleSheet,
+  TouchableOpacity,
   View
 } from "react-native";
 import {useCameraDevices} from "react-native-vision-camera/src";
@@ -36,6 +37,7 @@ const App = () => {
     setCameraPermission(newCameraPermission);
     setMicrophonePermission(newMicrophonePermission);
   };
+  const showChunk = (chunk, position) => {};
   const playSound = (chunk, callback) => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
@@ -186,8 +188,10 @@ const App = () => {
           <View style={styles.placeholderDivider} />
         </View>
       </MaskedView>
-      <View>
-        <Button style={styles.tapButton} title={"Tap"} onPress={onTap} />
+      <View style={styles.tapButton}>
+        <TouchableOpacity activeOpacity={0.5} onPress={onTap}>
+          <Image source={require("./assets/images/camera.png")} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -239,7 +243,19 @@ const styles = StyleSheet.create({
   placeholderDivider: {
     flex: 1
   },
-  tapButton: {}
+  tapButton: {
+    position: "absolute",
+    right: `${LEFT_OFFSET * 100}%`,
+    top: "50%",
+    transform: [
+      {
+        translateY: -50
+      },
+      {
+        translateX: 50
+      }
+    ]
+  }
 });
 
 export default App;
