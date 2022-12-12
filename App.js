@@ -20,7 +20,7 @@ import Chunk from "./components/Chunk";
 
 Sound.setCategory("Playback");
 
-Tts.setDefaultLanguage("en-IE");
+Tts.setDefaultLanguage("en-US");
 Tts.setDefaultRate(0.1);
 
 const LEFT_OFFSET = 0.1;

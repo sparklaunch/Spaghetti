@@ -61,7 +61,15 @@ const Chunk = ({chunk}) => {
         }
       ]}>
       <Pressable onPress={onTapChunk}>
-        <Text style={styles.text}>{chunk}</Text>
+        <Text
+          style={[
+            styles.text,
+            chunk.length >= 2 && {
+              fontSize: 96
+            }
+          ]}>
+          {chunk}
+        </Text>
       </Pressable>
     </Animated.View>
   );
