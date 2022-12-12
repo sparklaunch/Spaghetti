@@ -136,8 +136,11 @@ const App = () => {
                 .then(response => {
                   const refinedText = refineText(response);
                   setChunk(refinedText);
+                  setFirstChunkAnimation(true);
                   playSound(refinedText[0], () => {
+                    setSecondChunkAnimation(true);
                     playSound(refinedText[1], () => {
+                      setThirdChunkAnimation(true);
                       playSound(refinedText[2], () => {
                         Tts.speak(refinedText.join(""));
                         onTTSFinished();
