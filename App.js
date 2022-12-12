@@ -34,6 +34,7 @@ const App = () => {
   const [firstChunkAnimation, setFirstChunkAnimation] = useState(false);
   const [secondChunkAnimation, setSecondChunkAnimation] = useState(false);
   const [thirdChunkAnimation, setThirdChunkAnimation] = useState(false);
+  const [chunk, setChunk] = useState([]);
   const devices = useCameraDevices();
   const device = devices.back;
   const getCameraAndMicrophonePermission = async () => {
@@ -49,7 +50,6 @@ const App = () => {
   const onTTSFinished = () => {
     setIsTakingPhotoAvailable(true);
   };
-  const showChunk = (chunk, position) => {};
   const playSound = (chunk, callback) => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
@@ -135,6 +135,7 @@ const App = () => {
               recognizeText(croppedPath)
                 .then(response => {
                   const refinedText = refineText(response);
+                  setChunk(refinedText);
                   playSound(refinedText[0], () => {
                     playSound(refinedText[1], () => {
                       playSound(refinedText[2], () => {
@@ -185,12 +186,14 @@ const App = () => {
           photo={true}
         />
         <View style={styles.boundary}>
-          <View style={styles.divider}>{firstChunkAnimation && <Chunk />}</View>
           <View style={styles.divider}>
-            {secondChunkAnimation && <Chunk />}
+            {firstChunkAnimation && <Chunk chunk={chunk[0]} />}
+          </View>
+          <View style={styles.divider}>
+            {secondChunkAnimation && <Chunk chunk={chunk[1]} />}
           </View>
           <View style={styles.placeholderDivider}>
-            {thirdChunkAnimation && <Chunk />}
+            {thirdChunkAnimation && <Chunk chunk={chunk[2]} />}
           </View>
         </View>
       </MaskedView>

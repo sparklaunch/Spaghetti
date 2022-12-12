@@ -1,6 +1,6 @@
 import {View} from "react-native";
 
-const Chunk = () => {
+const Chunk = ({chunk}) => {
   return <View></View>;
 };
 
