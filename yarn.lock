@@ -5744,11 +5744,6 @@ react-native-image-colors@^1.5.1:
   dependencies:
     node-vibrant "3.1.6"
 
-react-native-image-rotate@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-image-rotate/-/react-native-image-rotate-2.1.0.tgz#6275a294d9fafb86f7c82f43b26f04d95ede4b1f"
-  integrity sha512-TN0nk4xF/UmwCO2mcq7cA2kLki7Q9MLhCqamF/PvoLnLwvdgmkeh59o2B+YkvpJ6pADa4qjOxXZ5eFEYjLkJZA==
-
 react-native-sound@^0.11.2:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/react-native-sound/-/react-native-sound-0.11.2.tgz#e542dc5b9e16ab4b3ac7e6eaddb1fc8d98da9038"
