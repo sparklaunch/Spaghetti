@@ -40,6 +40,7 @@ const App = () => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
         console.log("[playSound] error: ", error);
+        setIsTakingPhotoAvailable(true);
       } else {
         sound.play(success => {
           if (success) {
@@ -47,6 +48,7 @@ const App = () => {
             callback();
           } else {
             console.log("[playSound] error: Audio decoding error.");
+            setIsTakingPhotoAvailable(true);
           }
         });
       }
@@ -56,6 +58,7 @@ const App = () => {
     const clickSound = new Sound("click.wav", Sound.MAIN_BUNDLE, error => {
       if (error) {
         console.log("[playClickSound] error: ", error);
+        setIsTakingPhotoAvailable(true);
       } else {
         clickSound.play(success => {
           if (success) {
@@ -63,6 +66,7 @@ const App = () => {
             callback();
           } else {
             console.log("[playClickSound] error: Audio decoding error.");
+            setIsTakingPhotoAvailable(true);
           }
         });
       }
@@ -74,6 +78,7 @@ const App = () => {
       return result;
     } catch (error) {
       console.log("[recognizeText] error: ", error);
+      setIsTakingPhotoAvailable(true);
     }
   };
   const cropPhoto = async (path, width) => {
@@ -92,6 +97,7 @@ const App = () => {
       return croppedPath;
     } catch (error) {
       console.log("[cropPhoto] error: ", error);
+      setIsTakingPhotoAvailable(true);
     }
   };
   const takePhoto = async () => {
@@ -105,6 +111,7 @@ const App = () => {
       return photo;
     } catch (error) {
       console.log("[takePhoto] error: ", error);
+      setIsTakingPhotoAvailable(true);
     }
   };
   const onTap = () => {

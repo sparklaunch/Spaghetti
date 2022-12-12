@@ -78,6 +78,24 @@
 		3D57516A2942D2C9008ED0B5 /* z.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D5750BA2942CE81008ED0B5 /* z.mp3 */; };
 		3D57516C29433681008ED0B5 /* Click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3D57516B29433681008ED0B5 /* Click.wav */; };
 		3D57516E294336A7008ED0B5 /* Shutter.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D57516D294336A7008ED0B5 /* Shutter.mp3 */; };
+		3D5751812946A642008ED0B5 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57516F2946A641008ED0B5 /* Poppins-BoldItalic.ttf */; };
+		3D5751822946A642008ED0B5 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751702946A641008ED0B5 /* Poppins-ExtraBold.ttf */; };
+		3D5751832946A642008ED0B5 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751712946A641008ED0B5 /* Poppins-MediumItalic.ttf */; };
+		3D5751842946A642008ED0B5 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751722946A641008ED0B5 /* Poppins-BlackItalic.ttf */; };
+		3D5751852946A642008ED0B5 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751732946A641008ED0B5 /* Poppins-Bold.ttf */; };
+		3D5751862946A642008ED0B5 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751742946A641008ED0B5 /* Poppins-LightItalic.ttf */; };
+		3D5751872946A642008ED0B5 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751752946A641008ED0B5 /* Poppins-Light.ttf */; };
+		3D5751882946A642008ED0B5 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751762946A641008ED0B5 /* Poppins-Italic.ttf */; };
+		3D5751892946A642008ED0B5 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751772946A641008ED0B5 /* Poppins-ExtraLightItalic.ttf */; };
+		3D57518A2946A642008ED0B5 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751782946A641008ED0B5 /* Poppins-ExtraLight.ttf */; };
+		3D57518B2946A642008ED0B5 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751792946A641008ED0B5 /* Poppins-ExtraBoldItalic.ttf */; };
+		3D57518C2946A642008ED0B5 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57517A2946A641008ED0B5 /* Poppins-SemiBoldItalic.ttf */; };
+		3D57518D2946A642008ED0B5 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57517B2946A642008ED0B5 /* Poppins-Medium.ttf */; };
+		3D57518E2946A642008ED0B5 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57517C2946A642008ED0B5 /* Poppins-ThinItalic.ttf */; };
+		3D57518F2946A642008ED0B5 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57517D2946A642008ED0B5 /* Poppins-Regular.ttf */; };
+		3D5751902946A642008ED0B5 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57517E2946A642008ED0B5 /* Poppins-SemiBold.ttf */; };
+		3D5751912946A642008ED0B5 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57517F2946A642008ED0B5 /* Poppins-Black.ttf */; };
+		3D5751922946A642008ED0B5 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751802946A642008ED0B5 /* Poppins-Thin.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-Spaghetti-SpaghettiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Spaghetti-SpaghettiTests.a */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +188,24 @@
 		3D5751172942CEAE008ED0B5 /* ow_au.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = ow_au.mp3; path = "../../../../../Downloads/sb/이퓨처 파닉스 음원/Book 5_two letter vowels/ow_au.mp3"; sourceTree = "<group>"; };
 		3D57516B29433681008ED0B5 /* Click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Click.wav; sourceTree = "<group>"; };
 		3D57516D294336A7008ED0B5 /* Shutter.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Shutter.mp3; sourceTree = "<group>"; };
+		3D57516F2946A641008ED0B5 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-BoldItalic.ttf"; path = "Fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
+		3D5751702946A641008ED0B5 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraBold.ttf"; path = "Fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		3D5751712946A641008ED0B5 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-MediumItalic.ttf"; path = "Fonts/Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		3D5751722946A641008ED0B5 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-BlackItalic.ttf"; path = "Fonts/Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
+		3D5751732946A641008ED0B5 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Bold.ttf"; path = "Fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		3D5751742946A641008ED0B5 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-LightItalic.ttf"; path = "Fonts/Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
+		3D5751752946A641008ED0B5 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Light.ttf"; path = "Fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
+		3D5751762946A641008ED0B5 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Italic.ttf"; path = "Fonts/Poppins-Italic.ttf"; sourceTree = "<group>"; };
+		3D5751772946A641008ED0B5 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraLightItalic.ttf"; path = "Fonts/Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		3D5751782946A641008ED0B5 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraLight.ttf"; path = "Fonts/Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		3D5751792946A641008ED0B5 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraBoldItalic.ttf"; path = "Fonts/Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		3D57517A2946A641008ED0B5 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBoldItalic.ttf"; path = "Fonts/Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		3D57517B2946A642008ED0B5 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Medium.ttf"; path = "Fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		3D57517C2946A642008ED0B5 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ThinItalic.ttf"; path = "Fonts/Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
+		3D57517D2946A642008ED0B5 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Regular.ttf"; path = "Fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		3D57517E2946A642008ED0B5 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBold.ttf"; path = "Fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		3D57517F2946A642008ED0B5 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Black.ttf"; path = "Fonts/Poppins-Black.ttf"; sourceTree = "<group>"; };
+		3D5751802946A642008ED0B5 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Thin.ttf"; path = "Fonts/Poppins-Thin.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Spaghetti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spaghetti.release.xcconfig"; path = "Target Support Files/Pods-Spaghetti/Pods-Spaghetti.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Spaghetti-SpaghettiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spaghetti-SpaghettiTests.debug.xcconfig"; path = "Target Support Files/Pods-Spaghetti-SpaghettiTests/Pods-Spaghetti-SpaghettiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-Spaghetti.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Spaghetti.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,6 +284,24 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3D57517F2946A642008ED0B5 /* Poppins-Black.ttf */,
+				3D5751722946A641008ED0B5 /* Poppins-BlackItalic.ttf */,
+				3D5751732946A641008ED0B5 /* Poppins-Bold.ttf */,
+				3D57516F2946A641008ED0B5 /* Poppins-BoldItalic.ttf */,
+				3D5751702946A641008ED0B5 /* Poppins-ExtraBold.ttf */,
+				3D5751792946A641008ED0B5 /* Poppins-ExtraBoldItalic.ttf */,
+				3D5751782946A641008ED0B5 /* Poppins-ExtraLight.ttf */,
+				3D5751772946A641008ED0B5 /* Poppins-ExtraLightItalic.ttf */,
+				3D5751762946A641008ED0B5 /* Poppins-Italic.ttf */,
+				3D5751752946A641008ED0B5 /* Poppins-Light.ttf */,
+				3D5751742946A641008ED0B5 /* Poppins-LightItalic.ttf */,
+				3D57517B2946A642008ED0B5 /* Poppins-Medium.ttf */,
+				3D5751712946A641008ED0B5 /* Poppins-MediumItalic.ttf */,
+				3D57517D2946A642008ED0B5 /* Poppins-Regular.ttf */,
+				3D57517E2946A642008ED0B5 /* Poppins-SemiBold.ttf */,
+				3D57517A2946A641008ED0B5 /* Poppins-SemiBoldItalic.ttf */,
+				3D5751802946A642008ED0B5 /* Poppins-Thin.ttf */,
+				3D57517C2946A642008ED0B5 /* Poppins-ThinItalic.ttf */,
 				3D57516D294336A7008ED0B5 /* Shutter.mp3 */,
 				3D57516B29433681008ED0B5 /* Click.wav */,
 				3D5751142942CEAE008ED0B5 /* ai.mp3 */,
@@ -459,13 +513,21 @@
 				3D5751382942D2C9008ED0B5 /* ow_ou.mp3 in Resources */,
 				3D5751392942D2C9008ED0B5 /* oy.mp3 in Resources */,
 				3D57513A2942D2C9008ED0B5 /* ur.mp3 in Resources */,
+				3D57518B2946A642008ED0B5 /* Poppins-ExtraBoldItalic.ttf in Resources */,
+				3D5751882946A642008ED0B5 /* Poppins-Italic.ttf in Resources */,
 				3D57513B2942D2C9008ED0B5 /* bl.mp3 in Resources */,
+				3D5751852946A642008ED0B5 /* Poppins-Bold.ttf in Resources */,
+				3D5751832946A642008ED0B5 /* Poppins-MediumItalic.ttf in Resources */,
 				3D57513C2942D2C9008ED0B5 /* br.mp3 in Resources */,
+				3D5751912946A642008ED0B5 /* Poppins-Black.ttf in Resources */,
 				3D57513D2942D2C9008ED0B5 /* ch.mp3 in Resources */,
 				3D57513E2942D2C9008ED0B5 /* cl.mp3 in Resources */,
+				3D5751822946A642008ED0B5 /* Poppins-ExtraBold.ttf in Resources */,
 				3D57513F2942D2C9008ED0B5 /* cr.mp3 in Resources */,
 				3D5751402942D2C9008ED0B5 /* dr.mp3 in Resources */,
+				3D5751862946A642008ED0B5 /* Poppins-LightItalic.ttf in Resources */,
 				3D5751412942D2C9008ED0B5 /* fl.mp3 in Resources */,
+				3D57518F2946A642008ED0B5 /* Poppins-Regular.ttf in Resources */,
 				3D5751422942D2C9008ED0B5 /* fr.mp3 in Resources */,
 				3D5751432942D2C9008ED0B5 /* gl.mp3 in Resources */,
 				3D5751442942D2C9008ED0B5 /* ng.mp3 in Resources */,
@@ -474,16 +536,22 @@
 				3D5751472942D2C9008ED0B5 /* pr.mp3 in Resources */,
 				3D5751482942D2C9008ED0B5 /* sh.mp3 in Resources */,
 				3D5751492942D2C9008ED0B5 /* sl.mp3 in Resources */,
+				3D57518C2946A642008ED0B5 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				3D57514A2942D2C9008ED0B5 /* sm.mp3 in Resources */,
 				3D57514B2942D2C9008ED0B5 /* sn.mp3 in Resources */,
+				3D5751892946A642008ED0B5 /* Poppins-ExtraLightItalic.ttf in Resources */,
 				3D57514C2942D2C9008ED0B5 /* st.mp3 in Resources */,
 				3D57514D2942D2C9008ED0B5 /* sw.mp3 in Resources */,
+				3D5751872946A642008ED0B5 /* Poppins-Light.ttf in Resources */,
 				3D57514E2942D2C9008ED0B5 /* th.mp3 in Resources */,
 				3D57514F2942D2C9008ED0B5 /* tr.mp3 in Resources */,
 				3D5751502942D2C9008ED0B5 /* wh.mp3 in Resources */,
 				3D5751512942D2C9008ED0B5 /* a.mp3 in Resources */,
 				3D5751522942D2C9008ED0B5 /* b.mp3 in Resources */,
 				3D5751532942D2C9008ED0B5 /* c.mp3 in Resources */,
+				3D5751922946A642008ED0B5 /* Poppins-Thin.ttf in Resources */,
+				3D5751812946A642008ED0B5 /* Poppins-BoldItalic.ttf in Resources */,
+				3D5751842946A642008ED0B5 /* Poppins-BlackItalic.ttf in Resources */,
 				3D5751542942D2C9008ED0B5 /* d.mp3 in Resources */,
 				3D5751552942D2C9008ED0B5 /* e.mp3 in Resources */,
 				3D5751562942D2C9008ED0B5 /* f.mp3 in Resources */,
@@ -494,10 +562,12 @@
 				3D57515B2942D2C9008ED0B5 /* k.mp3 in Resources */,
 				3D57515C2942D2C9008ED0B5 /* l.mp3 in Resources */,
 				3D57515D2942D2C9008ED0B5 /* m.mp3 in Resources */,
+				3D57518A2946A642008ED0B5 /* Poppins-ExtraLight.ttf in Resources */,
 				3D57515E2942D2C9008ED0B5 /* n.mp3 in Resources */,
 				3D57515F2942D2C9008ED0B5 /* o.mp3 in Resources */,
 				3D5751602942D2C9008ED0B5 /* p.mp3 in Resources */,
 				3D57516E294336A7008ED0B5 /* Shutter.mp3 in Resources */,
+				3D57518D2946A642008ED0B5 /* Poppins-Medium.ttf in Resources */,
 				3D5751612942D2C9008ED0B5 /* q.mp3 in Resources */,
 				3D5751622942D2C9008ED0B5 /* r.mp3 in Resources */,
 				3D5751632942D2C9008ED0B5 /* s.mp3 in Resources */,
@@ -506,8 +576,10 @@
 				3D5751662942D2C9008ED0B5 /* v.mp3 in Resources */,
 				3D5751672942D2C9008ED0B5 /* w.mp3 in Resources */,
 				3D5751682942D2C9008ED0B5 /* x.mp3 in Resources */,
+				3D57518E2946A642008ED0B5 /* Poppins-ThinItalic.ttf in Resources */,
 				3D5751692942D2C9008ED0B5 /* y.mp3 in Resources */,
 				3D57516A2942D2C9008ED0B5 /* z.mp3 in Resources */,
+				3D5751902946A642008ED0B5 /* Poppins-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
