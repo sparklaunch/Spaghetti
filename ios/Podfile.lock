@@ -366,6 +366,8 @@ PODS:
   - react-native-image-editor (2.3.0):
     - React
     - React-RCTImage
+  - react-native-image-resizer (3.0.4):
+    - React-Core
   - react-native-text-recognition (1.1.0):
     - GoogleMLKit/TextRecognition
     - React-Core
@@ -503,6 +505,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - "react-native-image-editor (from `../node_modules/@react-native-community/image-editor`)"
+  - "react-native-image-resizer (from `../node_modules/@bam.tech/react-native-image-resizer`)"
   - react-native-text-recognition (from `../node_modules/react-native-text-recognition`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -600,6 +603,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-image-editor:
     :path: "../node_modules/@react-native-community/image-editor"
+  react-native-image-resizer:
+    :path: "../node_modules/@bam.tech/react-native-image-resizer"
   react-native-text-recognition:
     :path: "../node_modules/react-native-text-recognition"
   React-perflogger:
@@ -689,6 +694,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 60769e5a0a6d4b32294a2456077f59d0266f9a8b
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-image-editor: 9361a215c3991cafbe5e7f28cbbad6e72c9c2705
+  react-native-image-resizer: 794abf75ec13ed1f0dbb1f134e27504ea65e9e66
   react-native-text-recognition: 08fea2d072f0b08fee3bfcd958e9bd7ce094625b
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466

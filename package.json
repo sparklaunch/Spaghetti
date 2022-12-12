@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@bam.tech/react-native-image-resizer": "^3.0.4",
     "@react-native-community/image-editor": "^2.3.0",
     "@react-native-masked-view/masked-view": "^0.2.8",
     "prettier": "^2.8.0",
