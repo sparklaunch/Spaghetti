@@ -56,6 +56,9 @@ const App = () => {
     setIsMegaphoneVisible(true);
   };
   const resizeImage = async path => {
+    if (Platform.OS === "ios") {
+      path = "file://" + path;
+    }
     try {
       const response = await ImageResizer.createResizedImage(
         path,
@@ -139,6 +142,7 @@ const App = () => {
       takePhoto()
         .then(response => {
           const {path} = response;
+          console.log(response);
           resizeImage(path)
             .then(resizedPath => {
               recognizeText(resizedPath)
