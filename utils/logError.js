@@ -7,7 +7,9 @@ const prefixes = {
   TAKE_PHOTO_ERROR: "[takePhoto] error: ",
   ON_TAP_RECOGNIZE_TEXT_ERROR: "[onTap: recognizeText] error: ",
   ON_TAP_CROP_PHOTO_ERROR: "[onTap: cropPhoto] error: ",
-  ON_TAP_TAKE_PHOTO_ERROR: "[onTap: takePhoto] error: "
+  ON_TAP_TAKE_PHOTO_ERROR: "[onTap: takePhoto] error: ",
+  RESIZE_IMAGE_ERROR: "[resizeImage] error: ",
+  ON_TAP_RESIZE_ERROR: "[onTap: resizeImage] error: "
 };
 
 const logError = (type, error = "") => {

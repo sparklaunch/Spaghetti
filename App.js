@@ -17,11 +17,12 @@ import Sound from "react-native-sound";
 import Tts from "react-native-tts";
 import logError from "./utils/logError";
 import Chunk from "./components/Chunk";
+import ImageResizer from "@bam.tech/react-native-image-resizer";
 
 Sound.setCategory("Playback");
 
 Tts.setDefaultLanguage("en-US");
-Tts.setDefaultRate(0.1);
+Tts.setDefaultRate(0.5);
 
 const LEFT_OFFSET = 0.1;
 const TOP_OFFSET = 0.12;
@@ -54,6 +55,24 @@ const App = () => {
     setIsTakingPhotoAvailable(true);
     setIsCameraVisible(true);
     setIsMegaphoneVisible(true);
+  };
+  const resizeImage = async path => {
+    try {
+      const response = await ImageResizer.createResizedImage(
+        path,
+        192,
+        108,
+        "JPEG",
+        70,
+        0,
+        null,
+        false
+      );
+      console.log("Resize Image: ", response);
+      return response.path;
+    } catch (error) {
+      errorHandler("RESIZE_IMAGE_ERROR", error);
+    }
   };
   const playSound = (chunk, callback) => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
@@ -142,25 +161,31 @@ const App = () => {
           const {path, width} = response;
           cropPhoto(`file://${path}`, width)
             .then(croppedPath => {
-              recognizeText(croppedPath)
-                .then(response => {
-                  const refinedText = refineText(response);
-                  onTTSFinished();
-                  setChunk(refinedText);
-                  setFirstChunkAnimation(true);
-                  playSound(refinedText[0], () => {
-                    setSecondChunkAnimation(true);
-                    playSound(refinedText[1], () => {
-                      setThirdChunkAnimation(true);
-                      playSound(refinedText[2], () => {
-                        Tts.speak(refinedText.join(""));
-                        onTTSFinished();
+              resizeImage(croppedPath)
+                .then(resizedPath => {
+                  recognizeText(resizedPath)
+                    .then(response => {
+                      const refinedText = refineText(response);
+                      onTTSFinished();
+                      setChunk(refinedText);
+                      setFirstChunkAnimation(true);
+                      playSound(refinedText[0], () => {
+                        setSecondChunkAnimation(true);
+                        playSound(refinedText[1], () => {
+                          setThirdChunkAnimation(true);
+                          playSound(refinedText[2], () => {
+                            Tts.speak(refinedText.join(""));
+                            onTTSFinished();
+                          });
+                        });
                       });
+                    })
+                    .catch(error => {
+                      errorHandler("ON_TAP_RECOGNIZE_TEXT_ERROR", error);
                     });
-                  });
                 })
                 .catch(error => {
-                  errorHandler("ON_TAP_RECOGNIZE_TEXT_ERROR", error);
+                  errorHandler("ON_TAP_RESIZE_ERROR", error);
                 });
             })
             .catch(error => {
