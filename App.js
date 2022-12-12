@@ -158,38 +158,32 @@ const App = () => {
     playClickSound(() => {
       takePhoto()
         .then(response => {
-          const {path, width} = response;
-          cropPhoto(`file://${path}`, width)
-            .then(croppedPath => {
-              resizeImage(croppedPath)
-                .then(resizedPath => {
-                  recognizeText(resizedPath)
-                    .then(response => {
-                      const refinedText = refineText(response);
-                      onTTSFinished();
-                      setChunk(refinedText);
-                      setFirstChunkAnimation(true);
-                      playSound(refinedText[0], () => {
-                        setSecondChunkAnimation(true);
-                        playSound(refinedText[1], () => {
-                          setThirdChunkAnimation(true);
-                          playSound(refinedText[2], () => {
-                            Tts.speak(refinedText.join(""));
-                            onTTSFinished();
-                          });
-                        });
+          const {path} = response;
+          resizeImage(path)
+            .then(resizedPath => {
+              recognizeText(resizedPath)
+                .then(response => {
+                  const refinedText = refineText(response);
+                  onTTSFinished();
+                  setChunk(refinedText);
+                  setFirstChunkAnimation(true);
+                  playSound(refinedText[0], () => {
+                    setSecondChunkAnimation(true);
+                    playSound(refinedText[1], () => {
+                      setThirdChunkAnimation(true);
+                      playSound(refinedText[2], () => {
+                        Tts.speak(refinedText.join(""));
+                        onTTSFinished();
                       });
-                    })
-                    .catch(error => {
-                      errorHandler("ON_TAP_RECOGNIZE_TEXT_ERROR", error);
                     });
+                  });
                 })
                 .catch(error => {
-                  errorHandler("ON_TAP_RESIZE_ERROR", error);
+                  errorHandler("ON_TAP_RECOGNIZE_TEXT_ERROR", error);
                 });
             })
             .catch(error => {
-              errorHandler("ON_TAP_CROP_PHOTO_ERROR", error);
+              errorHandler("ON_TAP_RESIZE_ERROR", error);
             });
         })
         .catch(error => {
