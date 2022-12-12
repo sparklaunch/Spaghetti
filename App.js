@@ -72,7 +72,7 @@ const App = () => {
     });
   };
   const playClickSound = callback => {
-    const clickSound = new Sound("click.wav", Sound.MAIN_BUNDLE, error => {
+    const clickSound = new Sound("shutter.mp3", Sound.MAIN_BUNDLE, error => {
       if (error) {
         errorHandler("PLAY_CLICK_SOUND_ERROR", error);
       } else {
@@ -145,6 +145,7 @@ const App = () => {
               recognizeText(croppedPath)
                 .then(response => {
                   const refinedText = refineText(response);
+                  onTTSFinished();
                   setChunk(refinedText);
                   setFirstChunkAnimation(true);
                   playSound(refinedText[0], () => {

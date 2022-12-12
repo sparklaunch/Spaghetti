@@ -82,8 +82,14 @@ const refineText = chunks => {
     const phase7 = [first, phase6[1], third];
     console.log("Phase 7: ", phase7);
 
-    // Phase 8: Return the final result.
-    return phase7;
+    // Phase 8: Replace "9" with "g".
+    const phase8 = phase7.map(chunk => {
+      return chunk.replace("9", "g");
+    });
+    console.log("Phase 8: ", phase8);
+
+    // Final: Return the final result.
+    return phase8;
   } else {
     // Phase 0: Initial phase.
     const rawText = chunks.join("");
@@ -165,8 +171,13 @@ const refineText = chunks => {
     const phase7 = [first, phase6[1], third];
     console.log("Phase 7: ", phase7);
 
-    // Phase 8: Return the final result.
-    return phase7;
+    // Phase 8: Replace "9" with "g".
+    const phase8 = phase7.map(chunk => {
+      return chunk.replace("9", "g");
+    });
+
+    // Final: Return the final result.
+    return phase8;
   }
 };
 

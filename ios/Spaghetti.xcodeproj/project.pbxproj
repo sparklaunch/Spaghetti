@@ -29,7 +29,6 @@
 		3D5751902946A642008ED0B5 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57517E2946A642008ED0B5 /* Poppins-SemiBold.ttf */; };
 		3D5751912946A642008ED0B5 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57517F2946A642008ED0B5 /* Poppins-Black.ttf */; };
 		3D5751922946A642008ED0B5 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751802946A642008ED0B5 /* Poppins-Thin.ttf */; };
-		3D5751952946D665008ED0B5 /* shutter.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751932946D665008ED0B5 /* shutter.mp3 */; };
 		3D5751962946D665008ED0B5 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751942946D665008ED0B5 /* click.wav */; };
 		3D5751D82946D781008ED0B5 /* ng.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751972946D780008ED0B5 /* ng.mp3 */; };
 		3D5751D92946D781008ED0B5 /* ow_au.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751982946D780008ED0B5 /* ow_au.mp3 */; };
@@ -96,6 +95,7 @@
 		3D5752162946D781008ED0B5 /* sw.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751D52946D781008ED0B5 /* sw.mp3 */; };
 		3D5752172946D781008ED0B5 /* ur.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751D62946D781008ED0B5 /* ur.mp3 */; };
 		3D5752182946D781008ED0B5 /* ai.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751D72946D781008ED0B5 /* ai.mp3 */; };
+		3D57521C294729F9008ED0B5 /* shutter.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D57521B294729F9008ED0B5 /* shutter.mp3 */; };
 		7699B88040F8A987B510C191 /* libPods-Spaghetti-SpaghettiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Spaghetti-SpaghettiTests.a */; };
 /* End PBXBuildFile section */
 
@@ -139,7 +139,6 @@
 		3D57517E2946A642008ED0B5 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBold.ttf"; path = "Fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		3D57517F2946A642008ED0B5 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Black.ttf"; path = "Fonts/Poppins-Black.ttf"; sourceTree = "<group>"; };
 		3D5751802946A642008ED0B5 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Thin.ttf"; path = "Fonts/Poppins-Thin.ttf"; sourceTree = "<group>"; };
-		3D5751932946D665008ED0B5 /* shutter.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shutter.mp3; sourceTree = "<group>"; };
 		3D5751942946D665008ED0B5 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		3D5751972946D780008ED0B5 /* ng.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ng.mp3; sourceTree = "<group>"; };
 		3D5751982946D780008ED0B5 /* ow_au.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ow_au.mp3; sourceTree = "<group>"; };
@@ -206,6 +205,7 @@
 		3D5751D52946D781008ED0B5 /* sw.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sw.mp3; sourceTree = "<group>"; };
 		3D5751D62946D781008ED0B5 /* ur.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ur.mp3; sourceTree = "<group>"; };
 		3D5751D72946D781008ED0B5 /* ai.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ai.mp3; sourceTree = "<group>"; };
+		3D57521B294729F9008ED0B5 /* shutter.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shutter.mp3; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Spaghetti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spaghetti.release.xcconfig"; path = "Target Support Files/Pods-Spaghetti/Pods-Spaghetti.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Spaghetti-SpaghettiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spaghetti-SpaghettiTests.debug.xcconfig"; path = "Target Support Files/Pods-Spaghetti-SpaghettiTests/Pods-Spaghetti-SpaghettiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-Spaghetti.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Spaghetti.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +284,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3D57521B294729F9008ED0B5 /* shutter.mp3 */,
 				3D5751B02946D780008ED0B5 /* a.mp3 */,
 				3D5751D72946D781008ED0B5 /* ai.mp3 */,
 				3D5751B62946D780008ED0B5 /* ar.mp3 */,
@@ -350,7 +351,6 @@
 				3D57519E2946D780008ED0B5 /* y.mp3 */,
 				3D5751AE2946D780008ED0B5 /* z.mp3 */,
 				3D5751942946D665008ED0B5 /* click.wav */,
-				3D5751932946D665008ED0B5 /* shutter.mp3 */,
 				3D57517F2946A642008ED0B5 /* Poppins-Black.ttf */,
 				3D5751722946A641008ED0B5 /* Poppins-BlackItalic.ttf */,
 				3D5751732946A641008ED0B5 /* Poppins-Bold.ttf */,
@@ -504,7 +504,6 @@
 				3D5751DE2946D781008ED0B5 /* d.mp3 in Resources */,
 				3D5751E52946D781008ED0B5 /* l.mp3 in Resources */,
 				3D5751F32946D781008ED0B5 /* p.mp3 in Resources */,
-				3D5751952946D665008ED0B5 /* shutter.mp3 in Resources */,
 				3D5751FD2946D781008ED0B5 /* or.mp3 in Resources */,
 				3D5751EE2946D781008ED0B5 /* c.mp3 in Resources */,
 				3D5751E22946D781008ED0B5 /* fr.mp3 in Resources */,
@@ -570,6 +569,7 @@
 				3D5751EA2946D781008ED0B5 /* m.mp3 in Resources */,
 				3D5752052946D781008ED0B5 /* th.mp3 in Resources */,
 				3D57518D2946A642008ED0B5 /* Poppins-Medium.ttf in Resources */,
+				3D57521C294729F9008ED0B5 /* shutter.mp3 in Resources */,
 				3D5751E02946D781008ED0B5 /* wh.mp3 in Resources */,
 				3D5752022946D781008ED0B5 /* cr.mp3 in Resources */,
 				3D57518E2946A642008ED0B5 /* Poppins-ThinItalic.ttf in Resources */,
