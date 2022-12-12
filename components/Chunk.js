@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins-Bold",
     fontSize: 128,
-    color: "black"
+    color: "blue"
   }
 });
 
