@@ -5754,10 +5754,10 @@ react-native-sound@^0.11.2:
   resolved "https://registry.yarnpkg.com/react-native-sound/-/react-native-sound-0.11.2.tgz#e542dc5b9e16ab4b3ac7e6eaddb1fc8d98da9038"
   integrity sha512-LmGc8lgOK3qecYMVQpyHvww/C+wgT6sWeMpVbOe4NCRGC2yKd4fo4U0KBUo9PO7AqKESO3I/2GZg1/C0+bwiiA==
 
-react-native-text-recognition@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-text-recognition/-/react-native-text-recognition-1.0.0.tgz#86312976c26bf5f86ffe3035a5a4e403f0096a0a"
-  integrity sha512-zJ6rhpLuoW0eBRly5KcA46dQNAEIf/O9+XC+C0uU7PoAnSiGT4Owo5vMr8MU2SiPGYYlI/mZilnEjaQYwyf5bw==
+react-native-text-recognition@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-text-recognition/-/react-native-text-recognition-1.1.0.tgz#d33fca98668df956defd57134978d02e25a1aa2c"
+  integrity sha512-4xRVzHSOLngdDq/Fpf3aUBD23EL514mZ3aGRGL5VeU0z4BhjjoJg2OhErPW0DX1xm0fhJM92FDsLq0VoskyqyA==
 
 react-native-tts@^4.1.0:
   version "4.1.0"
