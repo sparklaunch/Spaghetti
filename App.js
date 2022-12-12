@@ -15,6 +15,7 @@ import ImageEditor from "@react-native-community/image-editor";
 import refineText from "./utils/refineText";
 import Sound from "react-native-sound";
 import Tts from "react-native-tts";
+import logError from "./utils/logError";
 
 Sound.setCategory("Playback");
 
@@ -29,6 +30,7 @@ const App = () => {
   const [cameraPermission, setCameraPermission] = useState();
   const [microphonePermission, setMicrophonePermission] = useState();
   const [isTakingPhotoAvailable, setIsTakingPhotoAvailable] = useState(true);
+  const [isCameraVisible, setIsCameraVisible] = useState(true);
   const devices = useCameraDevices();
   const device = devices.back;
   const getCameraAndMicrophonePermission = async () => {
@@ -37,20 +39,22 @@ const App = () => {
     setCameraPermission(newCameraPermission);
     setMicrophonePermission(newMicrophonePermission);
   };
+  const errorHandler = (type, error) => {
+    logError(type, error);
+    setIsTakingPhotoAvailable(true);
+  };
   const showChunk = (chunk, position) => {};
   const playSound = (chunk, callback) => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
-        console.log("[playSound] error: ", error);
-        setIsTakingPhotoAvailable(true);
+        errorHandler("PLAY_SOUND_ERROR", error);
       } else {
         sound.play(success => {
           if (success) {
             sound.release();
             callback();
           } else {
-            console.log("[playSound] error: Audio decoding error.");
-            setIsTakingPhotoAvailable(true);
+            errorHandler("AUDIO_DECODING_ERROR");
           }
         });
       }
@@ -59,16 +63,14 @@ const App = () => {
   const playClickSound = callback => {
     const clickSound = new Sound("click.wav", Sound.MAIN_BUNDLE, error => {
       if (error) {
-        console.log("[playClickSound] error: ", error);
-        setIsTakingPhotoAvailable(true);
+        errorHandler("PLAY_CLICK_SOUND_ERROR", error);
       } else {
         clickSound.play(success => {
           if (success) {
             clickSound.release();
             callback();
           } else {
-            console.log("[playClickSound] error: Audio decoding error.");
-            setIsTakingPhotoAvailable(true);
+            errorHandler("AUDIO_DECODING_ERROR");
           }
         });
       }
@@ -79,8 +81,7 @@ const App = () => {
       const result = await TextRecognition.recognize(path);
       return result;
     } catch (error) {
-      console.log("[recognizeText] error: ", error);
-      setIsTakingPhotoAvailable(true);
+      errorHandler("RECOGNIZE_TEXT_ERROR", error);
     }
   };
   const cropPhoto = async (path, width) => {
@@ -98,8 +99,7 @@ const App = () => {
       const croppedPath = await ImageEditor.cropImage(path, cropData);
       return croppedPath;
     } catch (error) {
-      console.log("[cropPhoto] error: ", error);
-      setIsTakingPhotoAvailable(true);
+      errorHandler("CROP_PHOTO_ERROR", error);
     }
   };
   const takePhoto = async () => {
@@ -112,8 +112,7 @@ const App = () => {
       }
       return photo;
     } catch (error) {
-      console.log("[takePhoto] error: ", error);
-      setIsTakingPhotoAvailable(true);
+      errorHandler("TAKE_PHOTO_ERROR", error);
     }
   };
   const onTap = () => {
@@ -140,18 +139,15 @@ const App = () => {
                   });
                 })
                 .catch(error => {
-                  console.log("[onTap: recognizeText] error: ", error);
-                  setIsTakingPhotoAvailable(true);
+                  errorHandler("ON_TAP_RECOGNIZE_TEXT_ERROR", error);
                 });
             })
             .catch(error => {
-              console.log("[onTap: cropPhoto] error: ", error);
-              setIsTakingPhotoAvailable(true);
+              errorHandler("ON_TAP_CROP_PHOTO_ERROR", error);
             });
         })
         .catch(error => {
-          console.log("[onTap: takePhoto] error: ", error);
-          setIsTakingPhotoAvailable(true);
+          errorHandler("ON_TAP_TAKE_PHOTO_ERROR", error);
         });
     });
   };
