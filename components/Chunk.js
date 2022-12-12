@@ -3,7 +3,7 @@ import {useEffect, useRef} from "react";
 
 const Chunk = ({chunk}) => {
   const springAnimation = useRef(new Animated.Value(0)).current;
-  const spring = () => {
+  const showSpring = () => {
     Animated.spring(springAnimation, {
       toValue: 1,
       bounciness: 10,
@@ -11,8 +11,16 @@ const Chunk = ({chunk}) => {
       useNativeDriver: true
     }).start();
   };
+  const hideSpring = () => {
+    Animated.spring(springAnimation, {
+      toValue: 0,
+      bounciness: 10,
+      speed: 1,
+      useNativeDriver: true
+    }).start();
+  };
   useEffect(() => {
-    spring();
+    showSpring();
   }, []);
   return (
     <Animated.View

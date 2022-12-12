@@ -34,6 +34,7 @@ const App = () => {
   const [firstChunkAnimation, setFirstChunkAnimation] = useState(false);
   const [secondChunkAnimation, setSecondChunkAnimation] = useState(false);
   const [thirdChunkAnimation, setThirdChunkAnimation] = useState(false);
+  const [isCameraVisible, setIsCameraVisible] = useState(true);
   const [chunk, setChunk] = useState([]);
   const devices = useCameraDevices();
   const device = devices.back;
@@ -45,6 +46,7 @@ const App = () => {
   };
   const errorHandler = (type, error) => {
     logError(type, error);
+    setIsCameraVisible(true);
     setIsTakingPhotoAvailable(true);
   };
   const onTTSFinished = () => {
@@ -125,6 +127,7 @@ const App = () => {
     if (!isTakingPhotoAvailable) {
       return;
     }
+    setIsCameraVisible(false);
     setIsTakingPhotoAvailable(false);
     playClickSound(() => {
       takePhoto()
@@ -200,7 +203,13 @@ const App = () => {
           </View>
         </View>
       </MaskedView>
-      <View style={styles.tapButton}>
+      <View
+        style={[
+          styles.tapButton,
+          isCameraVisible || {
+            display: "none"
+          }
+        ]}>
         <TouchableOpacity activeOpacity={0.5} onPress={onTap}>
           <Image source={require("./assets/images/camera.png")} />
         </TouchableOpacity>
