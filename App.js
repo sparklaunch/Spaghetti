@@ -59,10 +59,10 @@ const App = () => {
     try {
       const response = await ImageResizer.createResizedImage(
         path,
-        192,
-        108,
+        384,
+        216,
         "JPEG",
-        70,
+        100,
         0,
         null,
         false
