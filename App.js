@@ -51,6 +51,7 @@ const App = () => {
   };
   const onTTSFinished = () => {
     setIsTakingPhotoAvailable(true);
+    setIsCameraVisible(true);
   };
   const playSound = (chunk, callback) => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
@@ -164,6 +165,7 @@ const App = () => {
         });
     });
   };
+  const onReplay = () => {};
   useEffect(() => {
     getCameraAndMicrophonePermission();
   }, []);
@@ -212,6 +214,11 @@ const App = () => {
         ]}>
         <TouchableOpacity activeOpacity={0.5} onPress={onTap}>
           <Image source={require("./assets/images/camera.png")} />
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.playButton]}>
+        <TouchableOpacity activeOpacity={0.5} onPress={onReplay}>
+          <Image source={require("./assets/images/megaphone.png")} />
         </TouchableOpacity>
       </View>
     </View>
@@ -274,6 +281,19 @@ const styles = StyleSheet.create({
       },
       {
         translateX: 50
+      }
+    ]
+  },
+  playButton: {
+    position: "absolute",
+    bottom: `${TOP_OFFSET * 100}%`,
+    left: "50%",
+    transform: [
+      {
+        translateY: 50
+      },
+      {
+        translateX: -50
       }
     ]
   }
