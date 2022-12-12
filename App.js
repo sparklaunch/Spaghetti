@@ -263,7 +263,6 @@ const styles = StyleSheet.create({
   rectangle: {
     width: `${(1 - LEFT_OFFSET * 2) * 100}%`,
     height: `${(1 - TOP_OFFSET * 2) * 100}%`,
-    borderRadius: 8,
     overflow: "hidden",
     backgroundColor: "black"
   },
@@ -273,15 +272,14 @@ const styles = StyleSheet.create({
     top: `${TOP_OFFSET * 100}%`,
     right: `${LEFT_OFFSET * 100}%`,
     bottom: `${TOP_OFFSET * 100}%`,
-    borderRadius: 8,
-    borderWidth: 3,
-    borderColor: "lightgreen",
+    borderWidth: 8,
+    borderColor: "rgb(246, 213, 91)",
     flexDirection: "row"
   },
   divider: {
     flex: 1,
-    borderRightWidth: 1,
-    borderRightColor: "lightgreen"
+    borderRightWidth: 3,
+    borderRightColor: "rgb(246, 213, 91)"
   },
   placeholderDivider: {
     flex: 1
