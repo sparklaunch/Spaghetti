@@ -5461,11 +5461,6 @@ react-native-gradle-plugin@^0.70.3:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz#cbcf0619cbfbddaa9128701aa2d7b4145f9c4fc8"
   integrity sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A==
 
-react-native-image-modifier@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/react-native-image-modifier/-/react-native-image-modifier-0.1.9.tgz#6f7b21d632cf02d1b7e29278389704ed856877a8"
-  integrity sha512-AQm/wg8Rwtl/4af2nTaS7GzlDTXNIybV/w7P1dR2bWPSiDzjEP3Yb9TCaOLRpbYI6sE4RqpE3jYzvqkXmoGXeg==
-
 react-native-sound@^0.11.2:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/react-native-sound/-/react-native-sound-0.11.2.tgz#e542dc5b9e16ab4b3ac7e6eaddb1fc8d98da9038"
