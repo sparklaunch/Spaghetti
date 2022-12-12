@@ -43,6 +43,9 @@ const App = () => {
     logError(type, error);
     setIsTakingPhotoAvailable(true);
   };
+  const onTTSFinished = () => {
+    setIsTakingPhotoAvailable(true);
+  };
   const showChunk = (chunk, position) => {};
   const playSound = (chunk, callback) => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
@@ -133,7 +136,7 @@ const App = () => {
                     playSound(refinedText[1], () => {
                       playSound(refinedText[2], () => {
                         Tts.speak(refinedText.join(""));
-                        setIsTakingPhotoAvailable(true);
+                        onTTSFinished();
                       });
                     });
                   });
