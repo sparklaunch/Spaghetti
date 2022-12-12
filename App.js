@@ -11,7 +11,6 @@ import {Camera} from "react-native-vision-camera";
 import {useEffect, useRef, useState} from "react";
 import MaskedView from "@react-native-masked-view/masked-view";
 import TextRecognition from "react-native-text-recognition";
-import ImageEditor from "@react-native-community/image-editor";
 import refineText from "./utils/refineText";
 import Sound from "react-native-sound";
 import Tts from "react-native-tts";
@@ -68,7 +67,6 @@ const App = () => {
         null,
         false
       );
-      console.log("Resize Image: ", response);
       return response.path;
     } catch (error) {
       errorHandler("RESIZE_IMAGE_ERROR", error);
@@ -112,24 +110,6 @@ const App = () => {
       return result;
     } catch (error) {
       errorHandler("RECOGNIZE_TEXT_ERROR", error);
-    }
-  };
-  const cropPhoto = async (path, width) => {
-    const cropData = {
-      offset: {
-        x: width * LEFT_OFFSET,
-        y: width * TOP_OFFSET
-      },
-      size: {
-        width: width * (1 - LEFT_OFFSET * 2),
-        height: width * (1 - TOP_OFFSET * 2)
-      }
-    };
-    try {
-      const croppedPath = await ImageEditor.cropImage(path, cropData);
-      return croppedPath;
-    } catch (error) {
-      errorHandler("CROP_PHOTO_ERROR", error);
     }
   };
   const takePhoto = async () => {
