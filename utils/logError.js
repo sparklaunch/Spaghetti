@@ -11,7 +11,7 @@ const prefixes = {
 };
 
 const logError = (type, error = "") => {
-  console.log(`${prefixes[type]}${error}`);
+  console.log(`${prefixes[type]}${error.message}`);
 };
 
 export default logError;
