@@ -16,7 +16,9 @@
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-fs": "^2.20.0",
+    "react-native-rectangle-scanner": "^1.0.10",
     "react-native-sound": "^0.11.2",
+    "react-native-svg": "^13.6.0",
     "react-native-text-recognition": "^1.1.0",
     "react-native-tts": "^4.1.0",
     "react-native-vision-camera": "^2.15.2"
