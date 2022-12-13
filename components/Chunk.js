@@ -16,12 +16,14 @@ const Chunk = ({chunk}) => {
   const bounceAnimation = Animated.timing(springAnimation, {
     toValue: 1.5,
     easing: Easing.inOut(Easing.ease),
-    useNativeDriver: true
+    useNativeDriver: true,
+    duration: 300
   });
   const debounceAnimation = Animated.timing(springAnimation, {
     toValue: 1,
     easing: Easing.inOut(Easing.ease),
-    useNativeDriver: true
+    useNativeDriver: true,
+    duration: 300
   });
   const showSpring = () => {
     showSpringAnimation.start();
