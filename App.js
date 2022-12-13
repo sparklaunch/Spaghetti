@@ -1,23 +1,13 @@
-import {
-  ActivityIndicator,
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
-import {useCameraDevices} from "react-native-vision-camera/src";
-import {Camera} from "react-native-vision-camera";
-import {useEffect, useRef, useState} from "react";
-import MaskedView from "@react-native-masked-view/masked-view";
-import TextRecognition from "react-native-text-recognition";
-import refineText from "./utils/refineText";
+import {Image, StyleSheet, View} from "react-native";
 import Sound from "react-native-sound";
 import Tts from "react-native-tts";
+import Scanner from "react-native-rectangle-scanner";
+import TextRecognition from "react-native-text-recognition";
+import refineText from "./utils/refineText";
+import {useEffect, useRef, useState} from "react";
 import logError from "./utils/logError";
-import Chunk from "./components/Chunk";
-import ImageResizer from "@bam.tech/react-native-image-resizer";
+import ScannedRectangle from "./components/ScannedRectangle";
+import lineLength from "./utils/lineLength";
 
 Sound.setCategory("Playback");
 
@@ -29,8 +19,9 @@ const TOP_OFFSET = 0.12;
 
 const App = () => {
   const camera = useRef(null);
-  const [cameraPermission, setCameraPermission] = useState();
-  const [microphonePermission, setMicrophonePermission] = useState();
+  const [cropPreview, setCropPreview] = useState("");
+  const [detectedRectangle, setDetectedRectangle] = useState({});
+  const [rectangleCoordinates, setRectangleCoordinates] = useState({});
   const [isTakingPhotoAvailable, setIsTakingPhotoAvailable] = useState(true);
   const [firstChunkAnimation, setFirstChunkAnimation] = useState(false);
   const [secondChunkAnimation, setSecondChunkAnimation] = useState(false);
@@ -39,14 +30,6 @@ const App = () => {
   const [isMegaphoneVisible, setIsMegaphoneVisible] = useState(false);
   const [rawText, setRawText] = useState("");
   const [chunk, setChunk] = useState([]);
-  const devices = useCameraDevices();
-  const device = devices.back;
-  const getCameraAndMicrophonePermission = async () => {
-    const newCameraPermission = await Camera.requestCameraPermission();
-    const newMicrophonePermission = await Camera.requestMicrophonePermission();
-    setCameraPermission(newCameraPermission);
-    setMicrophonePermission(newMicrophonePermission);
-  };
   const errorHandler = (type, error) => {
     logError(type, error);
     setIsCameraVisible(true);
@@ -56,26 +39,6 @@ const App = () => {
     setIsTakingPhotoAvailable(true);
     setIsCameraVisible(true);
     setIsMegaphoneVisible(true);
-  };
-  const resizeImage = async path => {
-    if (Platform.OS === "ios") {
-      path = "file://" + path;
-    }
-    try {
-      const response = await ImageResizer.createResizedImage(
-        path,
-        384,
-        216,
-        "JPEG",
-        100,
-        0,
-        null,
-        false
-      );
-      return response.path;
-    } catch (error) {
-      errorHandler("RESIZE_IMAGE_ERROR", error);
-    }
   };
   const playSound = (chunk, callback) => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
@@ -93,22 +56,6 @@ const App = () => {
       }
     });
   };
-  const playClickSound = callback => {
-    const clickSound = new Sound("shutter.mp3", Sound.MAIN_BUNDLE, error => {
-      if (error) {
-        errorHandler("PLAY_CLICK_SOUND_ERROR", error);
-      } else {
-        clickSound.play(success => {
-          if (success) {
-            clickSound.release();
-            callback();
-          } else {
-            errorHandler("AUDIO_DECODING_ERROR");
-          }
-        });
-      }
-    });
-  };
   const recognizeText = async path => {
     try {
       const result = await TextRecognition.recognize(path);
@@ -117,20 +64,126 @@ const App = () => {
       errorHandler("RECOGNIZE_TEXT_ERROR", error);
     }
   };
-  const takePhoto = async () => {
-    try {
-      let photo;
-      if (Platform.OS === "ios") {
-        photo = await camera.current.takePhoto();
-      } else {
-        photo = await camera.current.takeSnapshot();
-      }
-      return photo;
-    } catch (error) {
-      errorHandler("TAKE_PHOTO_ERROR", error);
-    }
+  // const onTap = () => {
+  //   if (!isTakingPhotoAvailable) {
+  //     return;
+  //   }
+  //   setFirstChunkAnimation(false);
+  //   setSecondChunkAnimation(false);
+  //   setThirdChunkAnimation(false);
+  //   setIsCameraVisible(false);
+  //   setIsTakingPhotoAvailable(false);
+  //   setIsMegaphoneVisible(false);
+  //   playClickSound(() => {
+  //     takePhoto()
+  //       .then(response => {
+  //         const {path} = response;
+  //         resizeImage(path)
+  //           .then(resizedPath => {
+  //             recognizeText(resizedPath)
+  //               .then(response => {
+  //                 setRawText(response.join(""));
+  //                 const refinedText = refineText(response);
+  //                 onTTSFinished();
+  //                 setChunk(refinedText);
+  //                 setFirstChunkAnimation(true);
+  //                 playSound(refinedText[0], () => {
+  //                   setSecondChunkAnimation(true);
+  //                   playSound(refinedText[1], () => {
+  //                     setThirdChunkAnimation(true);
+  //                     playSound(refinedText[2], () => {
+  //                       Tts.speak(refinedText.join(""));
+  //                       onTTSFinished();
+  //                     });
+  //                   });
+  //                 });
+  //               })
+  //               .catch(error => {
+  //                 errorHandler("ON_TAP_RECOGNIZE_TEXT_ERROR", error);
+  //               });
+  //           })
+  //           .catch(error => {
+  //             errorHandler("ON_TAP_RESIZE_ERROR", error);
+  //           });
+  //       })
+  //       .catch(error => {
+  //         errorHandler("ON_TAP_TAKE_PHOTO_ERROR", error);
+  //       });
+  //   });
+  // };
+  const onReplay = () => {
+    const joinedChunks = chunk.join("");
+    Tts.speak(joinedChunks);
   };
-  const onTap = () => {
+  // useEffect(() => {
+  //   getCameraAndMicrophonePermission();
+  // }, []);
+  // if (
+  //   device === null ||
+  //   device === undefined ||
+  //   cameraPermission !== "authorized" ||
+  //   microphonePermission !== "authorized"
+  // ) {
+  //   return <ActivityIndicator />;
+  // }
+
+  // return (
+  //   <View style={styles.block}>
+  //     <View style={styles.rawTextContainer}>
+  //       <Text style={styles.rawText}>Raw Text: {rawText}</Text>
+  //     </View>
+  //     <MaskedView
+  //       style={styles.maskedView}
+  //       maskElement={
+  //         <View style={styles.maskElement}>
+  //           <View style={styles.rectangle} />
+  //         </View>
+  //       }>
+  //       <Camera
+  //         ref={camera}
+  //         style={styles.camera}
+  //         device={device}
+  //         isActive={true}
+  //         photo={true}
+  //       />
+  //       <View style={styles.boundary}>
+  //         <View style={styles.divider}>
+  //           {firstChunkAnimation && <Chunk chunk={chunk[0]} />}
+  //         </View>
+  //         <View style={styles.divider}>
+  //           {secondChunkAnimation && <Chunk chunk={chunk[1]} />}
+  //         </View>
+  //         <View style={styles.placeholderDivider}>
+  //           {thirdChunkAnimation && <Chunk chunk={chunk[2]} />}
+  //         </View>
+  //       </View>
+  //     </MaskedView>
+  //     <View
+  //       style={[
+  //         styles.tapButton,
+  //         isCameraVisible || {
+  //           display: "none"
+  //         }
+  //       ]}>
+  //       <TouchableOpacity activeOpacity={0.5} onPress={onTap}>
+  //         <Image source={require("./assets/images/camera.png")} />
+  //       </TouchableOpacity>
+  //     </View>
+  //     <View
+  //       style={[
+  //         styles.playButton,
+  //         isMegaphoneVisible || {
+  //           display: "none"
+  //         }
+  //       ]}>
+  //       <TouchableOpacity activeOpacity={0.5} onPress={onReplay}>
+  //         <Image source={require("./assets/images/megaphone.png")} />
+  //       </TouchableOpacity>
+  //     </View>
+  //   </View>
+  // );
+  const onPictureProcessed = ({croppedImage}) => {
+    setCropPreview(croppedImage);
     if (!isTakingPhotoAvailable) {
       return;
     }
@@ -140,191 +193,96 @@ const App = () => {
     setIsCameraVisible(false);
     setIsTakingPhotoAvailable(false);
     setIsMegaphoneVisible(false);
-    playClickSound(() => {
-      takePhoto()
-        .then(response => {
-          const {path} = response;
-          resizeImage(path)
-            .then(resizedPath => {
-              recognizeText(resizedPath)
-                .then(response => {
-                  setRawText(response.join(""));
-                  const refinedText = refineText(response);
-                  onTTSFinished();
-                  setChunk(refinedText);
-                  setFirstChunkAnimation(true);
-                  playSound(refinedText[0], () => {
-                    setSecondChunkAnimation(true);
-                    playSound(refinedText[1], () => {
-                      setThirdChunkAnimation(true);
-                      playSound(refinedText[2], () => {
-                        Tts.speak(refinedText.join(""));
-                        onTTSFinished();
-                      });
-                    });
-                  });
-                })
-                .catch(error => {
-                  errorHandler("ON_TAP_RECOGNIZE_TEXT_ERROR", error);
-                });
-            })
-            .catch(error => {
-              errorHandler("ON_TAP_RESIZE_ERROR", error);
+    recognizeText(croppedImage)
+      .then(response => {
+        setRawText(response.join(""));
+        const refinedText = refineText(response);
+        setChunk(refinedText);
+        setFirstChunkAnimation(true);
+        playSound(refinedText[0], () => {
+          setSecondChunkAnimation(true);
+          playSound(refinedText[1], () => {
+            setThirdChunkAnimation(true);
+            playSound(refinedText[2], () => {
+              Tts.speak(refinedText.join(""));
             });
-        })
-        .catch(error => {
-          errorHandler("ON_TAP_TAKE_PHOTO_ERROR", error);
+          });
         });
-    });
-  };
-  const onReplay = () => {
-    const joinedChunks = chunk.join("");
-    Tts.speak(joinedChunks);
+      })
+      .catch(error => {
+        errorHandler("ON_TAP_RECOGNIZE_TEXT_ERROR", error);
+      });
   };
   useEffect(() => {
-    getCameraAndMicrophonePermission();
-  }, []);
-  if (
-    device === null ||
-    device === undefined ||
-    cameraPermission !== "authorized" ||
-    microphonePermission !== "authorized"
-  ) {
-    return <ActivityIndicator />;
-  }
+    if (Object.keys(detectedRectangle).length !== 0) {
+      const {topLeft, topRight, bottomLeft, bottomRight} = detectedRectangle;
+      const left = lineLength(topLeft, topRight).toFixed(0);
+      const top = lineLength(topRight, bottomRight).toFixed(0);
+      const right = lineLength(bottomRight, bottomLeft).toFixed(0);
+      const bottom = lineLength(bottomLeft, topLeft).toFixed(0);
+      console.log(top, right, bottom, left);
+      if (
+        top > 1000 &&
+        bottom > 1000 &&
+        right < 800 &&
+        top + bottom > (left + right) * 2
+      ) {
+        camera.current.capture();
+        setRectangleCoordinates(detectedRectangle);
+      }
+    }
+  }, [detectedRectangle]);
+  const onRectangleDetected = ({detectedRectangle}) => {
+    if (detectedRectangle) {
+      setDetectedRectangle(detectedRectangle);
+    }
+  };
+  const onPictureTaken = imagePaths => {
+    const {croppedImage, initialImage} = imagePaths;
+  };
   return (
     <View style={styles.block}>
-      <View style={styles.rawTextContainer}>
-        <Text style={styles.rawText}>Raw Text: {rawText}</Text>
+      <Scanner
+        filterId={2}
+        onRectangleDetected={onRectangleDetected}
+        onPictureTaken={onPictureTaken}
+        onPictureProcessed={onPictureProcessed}
+        style={styles.block}
+        ref={camera}
+      />
+      <View style={styles.canvas}>
+        {Object.keys(rectangleCoordinates).length !== 0 && (
+          <ScannedRectangle coordinates={rectangleCoordinates} />
+        )}
       </View>
-      <MaskedView
-        style={styles.maskedView}
-        maskElement={
-          <View style={styles.maskElement}>
-            <View style={styles.rectangle} />
-          </View>
-        }>
-        <Camera
-          ref={camera}
-          style={styles.camera}
-          device={device}
-          isActive={true}
-          photo={true}
-        />
-        <View style={styles.boundary}>
-          <View style={styles.divider}>
-            {firstChunkAnimation && <Chunk chunk={chunk[0]} />}
-          </View>
-          <View style={styles.divider}>
-            {secondChunkAnimation && <Chunk chunk={chunk[1]} />}
-          </View>
-          <View style={styles.placeholderDivider}>
-            {thirdChunkAnimation && <Chunk chunk={chunk[2]} />}
-          </View>
+      {cropPreview.length !== 0 && (
+        <View style={styles.cropCanvas}>
+          <Image source={{uri: cropPreview}} style={styles.block} />
         </View>
-      </MaskedView>
-      <View
-        style={[
-          styles.tapButton,
-          isCameraVisible || {
-            display: "none"
-          }
-        ]}>
-        <TouchableOpacity activeOpacity={0.5} onPress={onTap}>
-          <Image source={require("./assets/images/camera.png")} />
-        </TouchableOpacity>
-      </View>
-      <View
-        style={[
-          styles.playButton,
-          isMegaphoneVisible || {
-            display: "none"
-          }
-        ]}>
-        <TouchableOpacity activeOpacity={0.5} onPress={onReplay}>
-          <Image source={require("./assets/images/megaphone.png")} />
-        </TouchableOpacity>
-      </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   block: {
-    backgroundColor: "black",
     flex: 1
   },
-  rawTextContainer: {
-    backgroundColor: "white"
-  },
-  rawText: {
-    fontSize: 16,
-    fontWeight: "bold"
-  },
-  camera: {
-    flex: 1,
-    height: "100%"
-  },
-  maskedView: {
-    flex: 1,
-    flexDirection: "row",
-    height: "100%"
-  },
-  maskElement: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  rectangle: {
-    width: `${(1 - LEFT_OFFSET * 2) * 100}%`,
-    height: `${(1 - TOP_OFFSET * 2) * 100}%`,
-    overflow: "hidden",
-    backgroundColor: "black"
-  },
-  boundary: {
+  canvas: {
     position: "absolute",
-    left: `${LEFT_OFFSET * 100}%`,
-    top: `${TOP_OFFSET * 100}%`,
-    right: `${LEFT_OFFSET * 100}%`,
-    bottom: `${TOP_OFFSET * 100}%`,
-    borderWidth: 8,
-    borderColor: "rgb(246, 213, 91)",
-    flexDirection: "row"
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
   },
-  divider: {
-    flex: 1,
-    borderRightWidth: 3,
-    borderRightColor: "rgb(246, 213, 91)"
-  },
-  placeholderDivider: {
-    flex: 1
-  },
-  tapButton: {
+  cropCanvas: {
     position: "absolute",
-    right: `${LEFT_OFFSET * 100}%`,
-    top: "50%",
-    transform: [
-      {
-        translateY: -50
-      },
-      {
-        translateX: 50
-      }
-    ]
-  },
-  playButton: {
-    position: "absolute",
-    bottom: `${TOP_OFFSET * 100}%`,
-    left: "50%",
-    transform: [
-      {
-        translateY: 50
-      },
-      {
-        translateX: -50
-      }
-    ]
+    zIndex: 2,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
   }
 });
 
