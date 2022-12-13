@@ -139,7 +139,6 @@ const refineText = chunks => {
       break;
     }
   }
-  phase4 = phase4[2].replace("tutues", "");
   console.log("Phase 4: ", phase4);
 
   // Phase 5: Trim the chunks.
