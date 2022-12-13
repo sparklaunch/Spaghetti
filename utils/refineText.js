@@ -6,6 +6,12 @@ const refineText = chunks => {
     modifiedChunks = modifiedChunks.split("future")[0];
   }
 
+  if (modifiedChunks.includes("@")) {
+    modifiedChunks = modifiedChunks.split("@")[0];
+  }
+
+  modifiedChunks = modifiedChunks.replace(/[^a-zA-Z]/g, "");
+
   const middleChunks = [
     "ee",
     "ea",
