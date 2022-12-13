@@ -3,6 +3,7 @@ import {
   Image,
   Platform,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View
 } from "react-native";
@@ -36,6 +37,7 @@ const App = () => {
   const [thirdChunkAnimation, setThirdChunkAnimation] = useState(false);
   const [isCameraVisible, setIsCameraVisible] = useState(true);
   const [isMegaphoneVisible, setIsMegaphoneVisible] = useState(false);
+  const [rawText, setRawText] = useState("");
   const [chunk, setChunk] = useState([]);
   const devices = useCameraDevices();
   const device = devices.back;
@@ -142,11 +144,11 @@ const App = () => {
       takePhoto()
         .then(response => {
           const {path} = response;
-          console.log(response);
           resizeImage(path)
             .then(resizedPath => {
               recognizeText(resizedPath)
                 .then(response => {
+                  setRawText(response.join(""));
                   const refinedText = refineText(response);
                   onTTSFinished();
                   setChunk(refinedText);
@@ -192,6 +194,9 @@ const App = () => {
   }
   return (
     <View style={styles.block}>
+      <View style={styles.rawTextContainer}>
+        <Text style={styles.rawText}>Raw Text: {rawText}</Text>
+      </View>
       <MaskedView
         style={styles.maskedView}
         maskElement={
@@ -248,6 +253,13 @@ const styles = StyleSheet.create({
   block: {
     backgroundColor: "black",
     flex: 1
+  },
+  rawTextContainer: {
+    backgroundColor: "white"
+  },
+  rawText: {
+    fontSize: 16,
+    fontWeight: "bold"
   },
   camera: {
     flex: 1,
