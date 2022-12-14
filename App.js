@@ -31,7 +31,6 @@ const TOP_OFFSET = 0.12;
 const App = () => {
   const camera = useRef(null);
   const [paths, setPaths] = useState([]);
-  const [rawChunks, setRawChunks] = useState([]);
   const [cameraPermission, setCameraPermission] = useState();
   const [microphonePermission, setMicrophonePermission] = useState();
   const [isTakingPhotoAvailable, setIsTakingPhotoAvailable] = useState(true);
@@ -40,7 +39,7 @@ const App = () => {
   const [thirdChunkAnimation, setThirdChunkAnimation] = useState(false);
   const [isCameraVisible, setIsCameraVisible] = useState(true);
   const [isMegaphoneVisible, setIsMegaphoneVisible] = useState(false);
-  const [chunk, setChunk] = useState([]);
+  const [chunks, setChunks] = useState([]);
   const devices = useCameraDevices();
   const device = devices.back;
   const getCameraAndMicrophonePermission = async () => {
@@ -183,10 +182,9 @@ const App = () => {
               recognizeChunks(croppedPaths)
                 .then(chunks => {
                   console.log("Raw Chunks: ", chunks);
-                  setRawChunks(chunks);
                   chunks = chunks.map(refineChunk);
                   onTTSFinished();
-                  setChunk(chunks);
+                  setChunks(chunks);
                   setFirstChunkAnimation(true);
                   playSound(chunks[0], () => {
                     setSecondChunkAnimation(true);
@@ -213,7 +211,7 @@ const App = () => {
     });
   };
   const onReplay = () => {
-    const joinedChunks = chunk.join("");
+    const joinedChunks = chunks.join("");
     Tts.speak(joinedChunks);
   };
   useEffect(() => {
@@ -245,13 +243,13 @@ const App = () => {
         />
         <View style={styles.boundary}>
           <View style={styles.divider}>
-            {firstChunkAnimation && <Chunk chunk={chunk[0]} />}
+            {firstChunkAnimation && <Chunk chunk={chunks[0]} />}
           </View>
           <View style={styles.divider}>
-            {secondChunkAnimation && <Chunk chunk={chunk[1]} />}
+            {secondChunkAnimation && <Chunk chunk={chunks[1]} />}
           </View>
           <View style={styles.placeholderDivider}>
-            {thirdChunkAnimation && <Chunk chunk={chunk[2]} />}
+            {thirdChunkAnimation && <Chunk chunk={chunks[2]} />}
           </View>
         </View>
       </MaskedView>
@@ -297,7 +295,7 @@ const App = () => {
                 fontSize: 16,
                 fontWeight: "bold"
               }}>
-              {rawChunks.join(" ")}
+              {chunks.join(" ")}
             </Text>
           </View>
           <Image
