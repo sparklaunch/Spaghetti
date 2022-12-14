@@ -30,6 +30,7 @@ const TOP_OFFSET = 0.12;
 
 const App = () => {
   const camera = useRef(null);
+  const [paths, setPaths] = useState([]);
   const [croppedImage, setCroppedImage] = useState("");
   const [cameraPermission, setCameraPermission] = useState();
   const [microphonePermission, setMicrophonePermission] = useState();
@@ -39,7 +40,6 @@ const App = () => {
   const [thirdChunkAnimation, setThirdChunkAnimation] = useState(false);
   const [isCameraVisible, setIsCameraVisible] = useState(true);
   const [isMegaphoneVisible, setIsMegaphoneVisible] = useState(false);
-  const [rawText, setRawText] = useState("");
   const [chunk, setChunk] = useState([]);
   const devices = useCameraDevices();
   const device = devices.back;
@@ -100,6 +100,7 @@ const App = () => {
         secondCroppedPath,
         thirdCroppedPath
       ].map(croppedPath => croppedPath.replace("file://", ""));
+      setPaths(croppedPaths);
       return croppedPaths;
     } catch (error) {
       errorHandler("CROP_IMAGE_ERROR", error);
@@ -162,7 +163,11 @@ const App = () => {
       const firstResult = await TextRecognition.recognize(paths[0]);
       const secondResult = await TextRecognition.recognize(paths[1]);
       const thirdResult = await TextRecognition.recognize(paths[2]);
-      return [firstResult[0], secondResult[0], thirdResult[0]];
+      return [
+        firstResult.join(""),
+        secondResult.join(""),
+        thirdResult.join("")
+      ];
     } catch (error) {
       errorHandler("RECOGNIZE_CHUNKS_ERROR", error);
     }
@@ -291,21 +296,39 @@ const App = () => {
           <Image source={require("./assets/images/megaphone.png")} />
         </TouchableOpacity>
       </View>
-      {croppedImage.length > 0 && (
+      {paths.length > 0 && (
         <View
           style={{
             position: "absolute",
             top: 0,
             left: 0,
-            width: 300,
-            height: 300,
+            width: 50,
+            height: 150,
             zIndex: 100,
             flex: 1
           }}>
           <Image
             resizeMode={"contain"}
             source={{
-              uri: "file://" + croppedImage
+              uri: "file://" + paths[0]
+            }}
+            style={{
+              flex: 1
+            }}
+          />
+          <Image
+            resizeMode={"contain"}
+            source={{
+              uri: "file://" + paths[1]
+            }}
+            style={{
+              flex: 1
+            }}
+          />
+          <Image
+            resizeMode={"contain"}
+            source={{
+              uri: "file://" + paths[2]
             }}
             style={{
               flex: 1
