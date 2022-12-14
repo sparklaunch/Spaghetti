@@ -5485,6 +5485,11 @@ react-native-sound@^0.11.2:
   resolved "https://registry.yarnpkg.com/react-native-sound/-/react-native-sound-0.11.2.tgz#e542dc5b9e16ab4b3ac7e6eaddb1fc8d98da9038"
   integrity sha512-LmGc8lgOK3qecYMVQpyHvww/C+wgT6sWeMpVbOe4NCRGC2yKd4fo4U0KBUo9PO7AqKESO3I/2GZg1/C0+bwiiA==
 
+react-native-tesseract-ocr@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-tesseract-ocr/-/react-native-tesseract-ocr-2.0.3.tgz#a8145344922e0d74ef9d9645ddc715481cd6e1cc"
+  integrity sha512-GD1pKVD+BwfAs/o6FvdKIecOJHamMx/WIdxZxdGB2/tRiIy1uFukptvii7XS5HC7gAiFvMTKFu05DX/LTdWwWw==
+
 react-native-text-recognition@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-text-recognition/-/react-native-text-recognition-1.1.0.tgz#d33fca98668df956defd57134978d02e25a1aa2c"

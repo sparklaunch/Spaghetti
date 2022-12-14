@@ -368,6 +368,8 @@ PODS:
   - react-native-photo-manipulator (1.2.7):
     - React
     - WCPhotoManipulator (~> 2.0.4)
+  - react-native-tesseract-ocr (2.0.3):
+    - React
   - react-native-text-recognition (1.1.0):
     - GoogleMLKit/TextRecognition
     - React-Core
@@ -507,6 +509,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - "react-native-image-resizer (from `../node_modules/@bam.tech/react-native-image-resizer`)"
   - react-native-photo-manipulator (from `../node_modules/react-native-photo-manipulator`)
+  - react-native-tesseract-ocr (from `../node_modules/react-native-tesseract-ocr`)
   - react-native-text-recognition (from `../node_modules/react-native-text-recognition`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -607,6 +610,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@bam.tech/react-native-image-resizer"
   react-native-photo-manipulator:
     :path: "../node_modules/react-native-photo-manipulator"
+  react-native-tesseract-ocr:
+    :path: "../node_modules/react-native-tesseract-ocr"
   react-native-text-recognition:
     :path: "../node_modules/react-native-text-recognition"
   React-perflogger:
@@ -697,6 +702,7 @@ SPEC CHECKSUMS:
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-image-resizer: 794abf75ec13ed1f0dbb1f134e27504ea65e9e66
   react-native-photo-manipulator: dce015c4d602abb529931a40d9d34c277ee478b8
+  react-native-tesseract-ocr: 006c624b53e5af49fcb56d305b832532e9159aaf
   react-native-text-recognition: 08fea2d072f0b08fee3bfcd958e9bd7ce094625b
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466
