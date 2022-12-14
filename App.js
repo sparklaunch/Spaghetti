@@ -183,6 +183,7 @@ const App = () => {
                 .then(chunks => {
                   console.log("Raw Chunks: ", chunks);
                   chunks = chunks.map(refineChunk);
+                  console.log("Refined Chunks: ", chunks);
                   onTTSFinished();
                   setChunks(chunks);
                   setFirstChunkAnimation(true);
