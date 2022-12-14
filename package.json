@@ -17,7 +17,10 @@
     "react-native": "0.70.6",
     "react-native-fs": "^2.20.0",
     "react-native-photo-manipulator": "^1.2.7",
+    "react-native-pod": "^1.12.1",
     "react-native-sound": "^0.11.2",
+    "react-native-swift": "^1.2.3",
+    "react-native-tesseract": "rhdeck/react-native-tesseract",
     "react-native-text-recognition": "^1.1.0",
     "react-native-tts": "^4.1.0",
     "react-native-vision-camera": "^2.15.2"
