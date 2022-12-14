@@ -5473,11 +5473,6 @@ react-native-gradle-plugin@^0.70.3:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz#cbcf0619cbfbddaa9128701aa2d7b4145f9c4fc8"
   integrity sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A==
 
-react-native-image-modifier@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/react-native-image-modifier/-/react-native-image-modifier-0.1.9.tgz#6f7b21d632cf02d1b7e29278389704ed856877a8"
-  integrity sha512-AQm/wg8Rwtl/4af2nTaS7GzlDTXNIybV/w7P1dR2bWPSiDzjEP3Yb9TCaOLRpbYI6sE4RqpE3jYzvqkXmoGXeg==
-
 react-native-photo-manipulator@^1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/react-native-photo-manipulator/-/react-native-photo-manipulator-1.2.7.tgz#063432db4794a9a25a851dbc05acc39b2dca5d13"

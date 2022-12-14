@@ -4,6 +4,7 @@ import {
   Image,
   Platform,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View
 } from "react-native";
@@ -31,6 +32,7 @@ const TOP_OFFSET = 0.12;
 const App = () => {
   const camera = useRef(null);
   const [paths, setPaths] = useState([]);
+  const [rawChunks, setRawChunks] = useState([]);
   const [croppedImage, setCroppedImage] = useState("");
   const [cameraPermission, setCameraPermission] = useState();
   const [microphonePermission, setMicrophonePermission] = useState();
@@ -203,6 +205,7 @@ const App = () => {
               recognizeChunks(croppedPaths)
                 .then(chunks => {
                   console.log("Raw Chunks: ", chunks);
+                  setRawChunks(chunks);
                   chunks = chunks.map(refineChunk);
                   onTTSFinished();
                   setChunk(chunks);
@@ -302,11 +305,23 @@ const App = () => {
             position: "absolute",
             top: 0,
             left: 0,
-            width: 50,
-            height: 150,
-            zIndex: 100,
+            width: 100,
+            height: 300,
+            zIndex: 1,
             flex: 1
           }}>
+          <View
+            style={{
+              backgroundColor: "white"
+            }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold"
+              }}>
+              {rawChunks.join(" ")}
+            </Text>
+          </View>
           <Image
             resizeMode={"contain"}
             source={{
