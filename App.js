@@ -17,7 +17,6 @@ import Sound from "react-native-sound";
 import Tts from "react-native-tts";
 import logError from "./utils/logError";
 import Chunk from "./components/Chunk";
-import ImageResizer from "@bam.tech/react-native-image-resizer";
 import RNPhotoManipulator from "react-native-photo-manipulator";
 import refineChunk from "./utils/refineChunk";
 
@@ -33,7 +32,6 @@ const App = () => {
   const camera = useRef(null);
   const [paths, setPaths] = useState([]);
   const [rawChunks, setRawChunks] = useState([]);
-  const [croppedImage, setCroppedImage] = useState("");
   const [cameraPermission, setCameraPermission] = useState();
   const [microphonePermission, setMicrophonePermission] = useState();
   const [isTakingPhotoAvailable, setIsTakingPhotoAvailable] = useState(true);
@@ -106,26 +104,6 @@ const App = () => {
       return croppedPaths;
     } catch (error) {
       errorHandler("CROP_IMAGE_ERROR", error);
-    }
-  };
-  const resizeImage = async path => {
-    if (Platform.OS === "ios") {
-      path = "file://" + path;
-    }
-    try {
-      const response = await ImageResizer.createResizedImage(
-        path,
-        384,
-        216,
-        "JPEG",
-        100,
-        0,
-        null,
-        false
-      );
-      return response.path;
-    } catch (error) {
-      errorHandler("RESIZE_IMAGE_ERROR", error);
     }
   };
   const playSound = (chunk, callback) => {
