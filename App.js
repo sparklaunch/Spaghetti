@@ -22,6 +22,9 @@ import refineChunk from "./utils/refineChunk";
 import DevicePermissionContext, {
   DevicePermissionContextProvider
 } from "./contexts/devicePermissionContext";
+import ChunkAnimationContext, {
+  ChunkAnimationContextProvider
+} from "./contexts/chunkAnimationContext";
 
 Sound.setCategory("Playback");
 
@@ -40,10 +43,16 @@ const App = () => {
     microphonePermission,
     setMicrophonePermission
   } = useContext(DevicePermissionContext);
+  const {
+    firstChunkAnimation,
+    secondChunkAnimation,
+    thirdChunkAnimation,
+    setFirstChunkAnimation,
+    setSecondChunkAnimation,
+    setThirdChunkAnimation
+  } = useContext(ChunkAnimationContext);
   const [isTakingPhotoAvailable, setIsTakingPhotoAvailable] = useState(true);
-  const [firstChunkAnimation, setFirstChunkAnimation] = useState(false);
-  const [secondChunkAnimation, setSecondChunkAnimation] = useState(false);
-  const [thirdChunkAnimation, setThirdChunkAnimation] = useState(false);
+
   const [isCameraVisible, setIsCameraVisible] = useState(true);
   const [isMegaphoneVisible, setIsMegaphoneVisible] = useState(false);
   const [chunks, setChunks] = useState([]);
@@ -235,108 +244,110 @@ const App = () => {
   }
   return (
     <DevicePermissionContextProvider>
-      <View style={styles.block}>
-        <MaskedView
-          style={styles.maskedView}
-          maskElement={
-            <View style={styles.maskElement}>
-              <View style={styles.rectangle} />
+      <ChunkAnimationContextProvider>
+        <View style={styles.block}>
+          <MaskedView
+            style={styles.maskedView}
+            maskElement={
+              <View style={styles.maskElement}>
+                <View style={styles.rectangle} />
+              </View>
+            }>
+            <Camera
+              ref={camera}
+              style={styles.camera}
+              device={device}
+              isActive={true}
+              photo={true}
+            />
+            <View style={styles.boundary}>
+              <View style={styles.divider}>
+                {firstChunkAnimation && <Chunk chunk={chunks[0]} />}
+              </View>
+              <View style={styles.divider}>
+                {secondChunkAnimation && <Chunk chunk={chunks[1]} />}
+              </View>
+              <View style={styles.placeholderDivider}>
+                {thirdChunkAnimation && <Chunk chunk={chunks[2]} />}
+              </View>
             </View>
-          }>
-          <Camera
-            ref={camera}
-            style={styles.camera}
-            device={device}
-            isActive={true}
-            photo={true}
-          />
-          <View style={styles.boundary}>
-            <View style={styles.divider}>
-              {firstChunkAnimation && <Chunk chunk={chunks[0]} />}
-            </View>
-            <View style={styles.divider}>
-              {secondChunkAnimation && <Chunk chunk={chunks[1]} />}
-            </View>
-            <View style={styles.placeholderDivider}>
-              {thirdChunkAnimation && <Chunk chunk={chunks[2]} />}
-            </View>
-          </View>
-        </MaskedView>
-        <View
-          style={[
-            styles.tapButton,
-            isCameraVisible || {
-              display: "none"
-            }
-          ]}>
-          <TouchableOpacity activeOpacity={0.5} onPress={onTap}>
-            <Image source={require("./assets/images/camera.png")} />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={[
-            styles.playButton,
-            isMegaphoneVisible || {
-              display: "none"
-            }
-          ]}>
-          <TouchableOpacity activeOpacity={0.5} onPress={onReplay}>
-            <Image source={require("./assets/images/megaphone.png")} />
-          </TouchableOpacity>
-        </View>
-        {paths.length > 0 && (
+          </MaskedView>
           <View
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: 100,
-              height: 300,
-              zIndex: 1,
-              flex: 1
-            }}>
+            style={[
+              styles.tapButton,
+              isCameraVisible || {
+                display: "none"
+              }
+            ]}>
+            <TouchableOpacity activeOpacity={0.5} onPress={onTap}>
+              <Image source={require("./assets/images/camera.png")} />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={[
+              styles.playButton,
+              isMegaphoneVisible || {
+                display: "none"
+              }
+            ]}>
+            <TouchableOpacity activeOpacity={0.5} onPress={onReplay}>
+              <Image source={require("./assets/images/megaphone.png")} />
+            </TouchableOpacity>
+          </View>
+          {paths.length > 0 && (
             <View
               style={{
-                backgroundColor: "white"
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: 100,
+                height: 300,
+                zIndex: 1,
+                flex: 1
               }}>
-              <Text
+              <View
                 style={{
-                  fontSize: 16,
-                  fontWeight: "bold"
+                  backgroundColor: "white"
                 }}>
-                {chunks.join(" ")}
-              </Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "bold"
+                  }}>
+                  {chunks.join(" ")}
+                </Text>
+              </View>
+              <Image
+                resizeMode={"contain"}
+                source={{
+                  uri: "file://" + paths[0]
+                }}
+                style={{
+                  flex: 1
+                }}
+              />
+              <Image
+                resizeMode={"contain"}
+                source={{
+                  uri: "file://" + paths[1]
+                }}
+                style={{
+                  flex: 1
+                }}
+              />
+              <Image
+                resizeMode={"contain"}
+                source={{
+                  uri: "file://" + paths[2]
+                }}
+                style={{
+                  flex: 1
+                }}
+              />
             </View>
-            <Image
-              resizeMode={"contain"}
-              source={{
-                uri: "file://" + paths[0]
-              }}
-              style={{
-                flex: 1
-              }}
-            />
-            <Image
-              resizeMode={"contain"}
-              source={{
-                uri: "file://" + paths[1]
-              }}
-              style={{
-                flex: 1
-              }}
-            />
-            <Image
-              resizeMode={"contain"}
-              source={{
-                uri: "file://" + paths[2]
-              }}
-              style={{
-                flex: 1
-              }}
-            />
-          </View>
-        )}
-      </View>
+          )}
+        </View>
+      </ChunkAnimationContextProvider>
     </DevicePermissionContextProvider>
   );
 };
