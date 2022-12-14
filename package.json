@@ -16,6 +16,7 @@
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-fs": "^2.20.0",
+    "react-native-photo-manipulator": "^1.2.7",
     "react-native-rectangle-scanner": "^1.0.10",
     "react-native-sound": "^0.11.2",
     "react-native-svg": "^13.6.0",
