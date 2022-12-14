@@ -54,9 +54,12 @@ const App = () => {
     setSecondChunkAnimation,
     setThirdChunkAnimation
   } = useContext(ChunkAnimationContext);
-  const {isCameraVisible, setIsCameraVisible} = useContext(
-    DeviceVisibilityContext
-  );
+  const {
+    isCameraVisible,
+    setIsCameraVisible,
+    isMegaphoneVisible,
+    setIsMegaphoneVisible
+  } = useContext(DeviceVisibilityContext);
   const [isTakingPhotoAvailable, setIsTakingPhotoAvailable] = useState(true);
 
   const [chunks, setChunks] = useState([]);
