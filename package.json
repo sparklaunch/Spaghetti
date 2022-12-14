@@ -16,6 +16,7 @@
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-fs": "^2.20.0",
+    "react-native-image-modifier": "^0.1.9",
     "react-native-photo-manipulator": "^1.2.7",
     "react-native-sound": "^0.11.2",
     "react-native-text-recognition": "^1.1.0",
