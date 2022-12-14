@@ -1,6 +1,6 @@
 import {createContext, useState} from "react";
 
-const DeviceVisibilityContext = createContext();
+const DeviceVisibilityContext = createContext({});
 
 export const DeviceVisibilityContextProvider = ({children}) => {
   const [isCameraVisible, setIsCameraVisible] = useState(true);

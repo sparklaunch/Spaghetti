@@ -1,6 +1,6 @@
 import {createContext, useState} from "react";
 
-const DevicePermissionContext = createContext();
+const DevicePermissionContext = createContext({});
 
 export const DevicePermissionContextProvider = ({children}) => {
   const [cameraPermission, setCameraPermission] = useState();

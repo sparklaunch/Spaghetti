@@ -1,6 +1,6 @@
 import {createContext, useState} from "react";
 
-const ChunksContext = createContext();
+const ChunksContext = createContext({});
 
 export const ChunksContextProvider = ({children}) => {
   const [chunks, setChunks] = useState([]);

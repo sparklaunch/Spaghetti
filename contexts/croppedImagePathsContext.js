@@ -1,11 +1,12 @@
 import {createContext, useState} from "react";
 
-const CroppedImagePathsContext = createContext();
+const CroppedImagePathsContext = createContext({});
 
 export const CroppedImagePathsContextProvider = ({children}) => {
-  const [paths, setPaths] = useState([]);
+  const [croppedImagePaths, setCroppedImagePaths] = useState([]);
   return (
-    <CroppedImagePathsContext.Provider value={{paths, setPaths}}>
+    <CroppedImagePathsContext.Provider
+      value={{croppedImagePaths, setCroppedImagePaths}}>
       {children}
     </CroppedImagePathsContext.Provider>
   );

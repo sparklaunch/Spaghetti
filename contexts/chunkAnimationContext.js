@@ -1,6 +1,6 @@
 import {createContext, useState} from "react";
 
-const ChunkAnimationContext = createContext();
+const ChunkAnimationContext = createContext({});
 
 export const ChunkAnimationContextProvider = ({children}) => {
   const [firstChunkAnimation, setFirstChunkAnimation] = useState(false);
