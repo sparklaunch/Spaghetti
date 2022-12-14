@@ -9,7 +9,11 @@ const prefixes = {
   ON_TAP_CROP_PHOTO_ERROR: "[onTap: cropPhoto] error: ",
   ON_TAP_TAKE_PHOTO_ERROR: "[onTap: takePhoto] error: ",
   RESIZE_IMAGE_ERROR: "[resizeImage] error: ",
-  ON_TAP_RESIZE_ERROR: "[onTap: resizeImage] error: "
+  ON_TAP_RESIZE_ERROR: "[onTap: resizeImage] error: ",
+  CROP_IMAGE_ERROR: "[cropImage] error: ",
+  ON_TAP_CROP_IMAGE_ERROR: "[onTap: cropImage] error: ",
+  RECOGNIZE_CHUNKS_ERROR: "[recognizeChunks] error: ",
+  ON_TAP_RECOGNIZE_CHUNKS_ERROR: "[onTap: recognizeChunks] error: "
 };
 
 const logError = (type, error = "") => {

@@ -1,9 +1,9 @@
 import {
   ActivityIndicator,
+  Dimensions,
   Image,
   Platform,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View
 } from "react-native";
@@ -12,12 +12,13 @@ import {Camera} from "react-native-vision-camera";
 import {useEffect, useRef, useState} from "react";
 import MaskedView from "@react-native-masked-view/masked-view";
 import TextRecognition from "react-native-text-recognition";
-import refineText from "./utils/refineText";
 import Sound from "react-native-sound";
 import Tts from "react-native-tts";
 import logError from "./utils/logError";
 import Chunk from "./components/Chunk";
 import ImageResizer from "@bam.tech/react-native-image-resizer";
+import RNPhotoManipulator from "react-native-photo-manipulator";
+import refineChunk from "./utils/refineChunk";
 
 Sound.setCategory("Playback");
 
@@ -29,6 +30,7 @@ const TOP_OFFSET = 0.12;
 
 const App = () => {
   const camera = useRef(null);
+  const [croppedImage, setCroppedImage] = useState("");
   const [cameraPermission, setCameraPermission] = useState();
   const [microphonePermission, setMicrophonePermission] = useState();
   const [isTakingPhotoAvailable, setIsTakingPhotoAvailable] = useState(true);
@@ -56,6 +58,52 @@ const App = () => {
     setIsTakingPhotoAvailable(true);
     setIsCameraVisible(true);
     setIsMegaphoneVisible(true);
+  };
+  const cropImage = async path => {
+    const {width} = Dimensions.get("window");
+    const sharedWidth = width * 0.7;
+    const sharedHeight = width * 0.7;
+    const sharedYoffset = width * 0.55;
+    const firstRect = {
+      x: width * 0.5,
+      y: sharedYoffset,
+      width: sharedWidth,
+      height: sharedHeight
+    };
+    const secondRect = {
+      x: width * 1.4,
+      y: sharedYoffset,
+      width: sharedWidth,
+      height: sharedHeight
+    };
+    const thirdRect = {
+      x: width * 2.3,
+      y: sharedYoffset,
+      width: sharedWidth,
+      height: sharedHeight
+    };
+    try {
+      const firstCroppedPath = await RNPhotoManipulator.crop(
+        "file://" + path,
+        firstRect
+      );
+      const secondCroppedPath = await RNPhotoManipulator.crop(
+        "file://" + path,
+        secondRect
+      );
+      const thirdCroppedPath = await RNPhotoManipulator.crop(
+        "file://" + path,
+        thirdRect
+      );
+      const croppedPaths = [
+        firstCroppedPath,
+        secondCroppedPath,
+        thirdCroppedPath
+      ].map(croppedPath => croppedPath.replace("file://", ""));
+      return croppedPaths;
+    } catch (error) {
+      errorHandler("CROP_IMAGE_ERROR", error);
+    }
   };
   const resizeImage = async path => {
     if (Platform.OS === "ios") {
@@ -109,12 +157,14 @@ const App = () => {
       }
     });
   };
-  const recognizeText = async path => {
+  const recognizeChunks = async paths => {
     try {
-      const result = await TextRecognition.recognize(path);
-      return result;
+      const firstResult = await TextRecognition.recognize(paths[0]);
+      const secondResult = await TextRecognition.recognize(paths[1]);
+      const thirdResult = await TextRecognition.recognize(paths[2]);
+      return [firstResult[0], secondResult[0], thirdResult[0]];
     } catch (error) {
-      errorHandler("RECOGNIZE_TEXT_ERROR", error);
+      errorHandler("RECOGNIZE_CHUNKS_ERROR", error);
     }
   };
   const takePhoto = async () => {
@@ -142,34 +192,33 @@ const App = () => {
     setIsMegaphoneVisible(false);
     playClickSound(() => {
       takePhoto()
-        .then(response => {
-          const {path} = response;
-          resizeImage(path)
-            .then(resizedPath => {
-              recognizeText(resizedPath)
-                .then(response => {
-                  setRawText(response.join(""));
-                  const refinedText = refineText(response);
+        .then(({path}) => {
+          cropImage(path)
+            .then(croppedPaths => {
+              recognizeChunks(croppedPaths)
+                .then(chunks => {
+                  console.log("Raw Chunks: ", chunks);
+                  chunks = chunks.map(refineChunk);
                   onTTSFinished();
-                  setChunk(refinedText);
+                  setChunk(chunks);
                   setFirstChunkAnimation(true);
-                  playSound(refinedText[0], () => {
+                  playSound(chunks[0], () => {
                     setSecondChunkAnimation(true);
-                    playSound(refinedText[1], () => {
+                    playSound(chunks[1], () => {
                       setThirdChunkAnimation(true);
-                      playSound(refinedText[2], () => {
-                        Tts.speak(refinedText.join(""));
+                      playSound(chunks[2], () => {
+                        Tts.speak(chunks.join(""));
                         onTTSFinished();
                       });
                     });
                   });
                 })
                 .catch(error => {
-                  errorHandler("ON_TAP_RECOGNIZE_TEXT_ERROR", error);
+                  errorHandler("ON_TAP_RECOGNIZE_CHUNKS_ERROR", error);
                 });
             })
             .catch(error => {
-              errorHandler("ON_TAP_RESIZE_ERROR", error);
+              errorHandler("ON_TAP_CROP_IMAGE_ERROR", error);
             });
         })
         .catch(error => {
@@ -194,9 +243,6 @@ const App = () => {
   }
   return (
     <View style={styles.block}>
-      <View style={styles.rawTextContainer}>
-        <Text style={styles.rawText}>Raw Text: {rawText}</Text>
-      </View>
       <MaskedView
         style={styles.maskedView}
         maskElement={
@@ -245,6 +291,28 @@ const App = () => {
           <Image source={require("./assets/images/megaphone.png")} />
         </TouchableOpacity>
       </View>
+      {croppedImage.length > 0 && (
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: 300,
+            height: 300,
+            zIndex: 100,
+            flex: 1
+          }}>
+          <Image
+            resizeMode={"contain"}
+            source={{
+              uri: "file://" + croppedImage
+            }}
+            style={{
+              flex: 1
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 };
