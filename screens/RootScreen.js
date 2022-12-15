@@ -1,4 +1,4 @@
-import {ActivityIndicator, Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import {Camera} from "react-native-vision-camera";
 import {useContext, useEffect, useRef} from "react";
@@ -22,6 +22,7 @@ import MaskElement from "../components/MaskElement";
 import Boundary from "../components/Boundary";
 import CameraButton from "../components/CameraButton";
 import MegaphoneButton from "../components/MegaphoneButton";
+import LoadingScreen from "./LoadingScreen";
 
 const RootScreen = () => {
   const recognizeChunks = useRecognizeChunks();
@@ -114,7 +115,7 @@ const RootScreen = () => {
     cameraPermission !== "authorized" ||
     microphonePermission !== "authorized"
   ) {
-    return <ActivityIndicator />;
+    return <LoadingScreen />;
   }
   return (
     <View style={styles.block}>
