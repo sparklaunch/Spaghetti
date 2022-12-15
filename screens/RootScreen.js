@@ -27,12 +27,10 @@ import usePlaySound from "../hooks/usePlaySound";
 import useTakePhoto from "../hooks/useTakePhoto";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
 import MaskElement from "../components/MaskElement";
+import Constants from "../shared/Constants";
 
 Tts.setDefaultLanguage("en-US");
 Tts.setDefaultRate(0.3);
-
-const LEFT_OFFSET = 0.1;
-const TOP_OFFSET = 0.12;
 
 const RootScreen = () => {
   const recognizeChunks = useRecognizeChunks();
@@ -253,10 +251,10 @@ const styles = StyleSheet.create({
 
   boundary: {
     position: "absolute",
-    left: `${LEFT_OFFSET * 100}%`,
-    top: `${TOP_OFFSET * 100}%`,
-    right: `${LEFT_OFFSET * 100}%`,
-    bottom: `${TOP_OFFSET * 100}%`,
+    left: `${Constants.LEFT_OFFSET * 100}%`,
+    top: `${Constants.TOP_OFFSET * 100}%`,
+    right: `${Constants.LEFT_OFFSET * 100}%`,
+    bottom: `${Constants.TOP_OFFSET * 100}%`,
     borderWidth: 8,
     borderColor: "rgb(246, 213, 91)",
     flexDirection: "row"
@@ -271,7 +269,7 @@ const styles = StyleSheet.create({
   },
   tapButton: {
     position: "absolute",
-    right: `${LEFT_OFFSET * 100}%`,
+    right: `${Constants.LEFT_OFFSET * 100}%`,
     top: "50%",
     transform: [
       {
@@ -284,7 +282,7 @@ const styles = StyleSheet.create({
   },
   playButton: {
     position: "absolute",
-    bottom: `${TOP_OFFSET * 100}%`,
+    bottom: `${Constants.TOP_OFFSET * 100}%`,
     left: "50%",
     transform: [
       {
