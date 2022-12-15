@@ -59,16 +59,19 @@ const RootScreen = () => {
   );
   const devices = useCameraDevices();
   const device = devices.back;
-  const playSession = async () => {
-    if (!isTakingPhotoAvailable) {
-      return;
-    }
+  const willPlaySession = () => {
     setFirstChunkAnimation(false);
     setSecondChunkAnimation(false);
     setThirdChunkAnimation(false);
     setIsCameraVisible(false);
     setIsTakingPhotoAvailable(false);
     setIsMegaphoneVisible(false);
+  };
+  const playSession = async () => {
+    if (!isTakingPhotoAvailable) {
+      return;
+    }
+    willPlaySession();
     playSound("shutter", async () => {
       try {
         const {path} = await takePhoto(camera);
