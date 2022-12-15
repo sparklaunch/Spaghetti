@@ -1,7 +1,7 @@
 import {Dimensions} from "react-native";
 import RNPhotoManipulator from "react-native-photo-manipulator";
 import {useContext} from "react";
-import CroppedImagePathsContext from "../contexts/croppedImagePathsContext";
+import CroppedImagePathsContext from "../contexts/CroppedImagePathsContext";
 import useErrorHandler from "./useErrorHandler";
 
 const useCropImage = () => {

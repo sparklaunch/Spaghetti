@@ -10,12 +10,12 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import {Camera} from "react-native-vision-camera";
 import Chunk from "../components/Chunk";
 import {useContext, useEffect, useRef} from "react";
-import ChunksContext from "../contexts/chunksContext";
-import CroppedImagePathsContext from "../contexts/croppedImagePathsContext";
-import DevicePermissionContext from "../contexts/devicePermissionContext";
-import ChunkAnimationContext from "../contexts/chunkAnimationContext";
-import DeviceVisibilityContext from "../contexts/deviceVisibilityContext";
-import TakingPhotoAvailabilityContext from "../contexts/takingPhotoAvailabilityContext";
+import ChunksContext from "../contexts/ChunksContext";
+import CroppedImagePathsContext from "../contexts/CroppedImagePathsContext";
+import DevicePermissionContext from "../contexts/DevicePermissionContext";
+import ChunkAnimationContext from "../contexts/ChunkAnimationContext";
+import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
+import TakingPhotoAvailabilityContext from "../contexts/TakingPhotoAvailabilityContext";
 import {useCameraDevices} from "react-native-vision-camera/src";
 import refineChunk from "../utils/refineChunk";
 import Tts from "react-native-tts";
@@ -28,7 +28,7 @@ import useTakePhoto from "../hooks/useTakePhoto";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
 
 Tts.setDefaultLanguage("en-US");
-Tts.setDefaultRate(0.5);
+Tts.setDefaultRate(0.3);
 
 const LEFT_OFFSET = 0.1;
 const TOP_OFFSET = 0.12;

@@ -1,6 +1,6 @@
 import {useContext} from "react";
-import TakingPhotoAvailabilityContext from "../contexts/takingPhotoAvailabilityContext";
-import DeviceVisibilityContext from "../contexts/deviceVisibilityContext";
+import TakingPhotoAvailabilityContext from "../contexts/TakingPhotoAvailabilityContext";
+import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
 
 const useOnTTSFinished = () => {
   const {setIsTakingPhotoAvailable} = useContext(

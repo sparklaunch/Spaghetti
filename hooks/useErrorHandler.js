@@ -1,6 +1,6 @@
 import {useContext} from "react";
-import DeviceVisibilityContext from "../contexts/deviceVisibilityContext";
-import TakingPhotoAvailabilityContext from "../contexts/takingPhotoAvailabilityContext";
+import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
+import TakingPhotoAvailabilityContext from "../contexts/TakingPhotoAvailabilityContext";
 
 const prefixes = {
   PLAY_SOUND_ERROR: "[playSound] error: ",

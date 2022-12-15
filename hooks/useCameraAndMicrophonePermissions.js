@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import DevicePermissionContext from "../contexts/devicePermissionContext";
+import DevicePermissionContext from "../contexts/DevicePermissionContext";
 import {Camera} from "react-native-vision-camera";
 
 const useCameraAndMicrophonePermissions = () => {
