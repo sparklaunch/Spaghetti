@@ -28,6 +28,7 @@ import useRecognizeChunks from "../hooks/useRecognizeChunks";
 import MaskElement from "../components/MaskElement";
 import Constants from "../shared/Constants";
 import Boundary from "../components/Boundary";
+import CameraButton from "../components/CameraButton";
 
 Tts.setDefaultLanguage("en-US");
 Tts.setDefaultRate(0.3);
@@ -139,17 +140,7 @@ const RootScreen = () => {
         />
         <Boundary />
       </MaskedView>
-      <View
-        style={[
-          styles.tapButton,
-          isCameraVisible || {
-            display: "none"
-          }
-        ]}>
-        <TouchableOpacity activeOpacity={0.5} onPress={onTap}>
-          <Image source={require("../assets/images/camera.png")} />
-        </TouchableOpacity>
-      </View>
+      <CameraButton onTap={onTap} />
       <View
         style={[
           styles.playButton,
@@ -237,19 +228,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     height: "100%"
-  },
-  tapButton: {
-    position: "absolute",
-    right: `${Constants.LEFT_OFFSET * 100}%`,
-    top: "50%",
-    transform: [
-      {
-        translateY: -50
-      },
-      {
-        translateX: 50
-      }
-    ]
   },
   playButton: {
     position: "absolute",
