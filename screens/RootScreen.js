@@ -18,7 +18,6 @@ import ChunkAnimationContext from "../contexts/chunkAnimationContext";
 import DeviceVisibilityContext from "../contexts/deviceVisibilityContext";
 import TakingPhotoAvailabilityContext from "../contexts/takingPhotoAvailabilityContext";
 import {useCameraDevices} from "react-native-vision-camera/src";
-import Sound from "react-native-sound";
 import TextRecognition from "react-native-text-recognition";
 import refineChunk from "../utils/refineChunk";
 import Tts from "react-native-tts";
@@ -40,12 +39,12 @@ const RootScreen = () => {
   const errorHandler = useErrorHandler();
   const onTTSFinished = useOnTTSFinished();
   const getCameraAndMicrophonePermissions = useCameraAndMicrophonePermissions();
-  const camera = useRef(null);
   const {chunks, setChunks} = useContext(ChunksContext);
   const {croppedImagePaths} = useContext(CroppedImagePathsContext);
   const {cameraPermission, microphonePermission} = useContext(
     DevicePermissionContext
   );
+  const camera = useRef(null);
   const {
     firstChunkAnimation,
     secondChunkAnimation,
@@ -65,22 +64,6 @@ const RootScreen = () => {
   );
   const devices = useCameraDevices();
   const device = devices.back;
-  const playClickSound = callback => {
-    const clickSound = new Sound("shutter.mp3", Sound.MAIN_BUNDLE, error => {
-      if (error) {
-        errorHandler("PLAY_CLICK_SOUND_ERROR", error);
-      } else {
-        clickSound.play(success => {
-          if (success) {
-            clickSound.release();
-            callback();
-          } else {
-            errorHandler("AUDIO_DECODING_ERROR");
-          }
-        });
-      }
-    });
-  };
   const recognizeChunks = async paths => {
     try {
       const firstResult = await TextRecognition.recognize(paths[0]);
@@ -118,7 +101,7 @@ const RootScreen = () => {
     setIsCameraVisible(false);
     setIsTakingPhotoAvailable(false);
     setIsMegaphoneVisible(false);
-    playClickSound(() => {
+    playSound("shutter", () => {
       takePhoto()
         .then(({path}) => {
           cropImage(path)
