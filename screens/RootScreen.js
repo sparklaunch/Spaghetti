@@ -1,11 +1,4 @@
-import {
-  ActivityIndicator,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
+import {ActivityIndicator, Image, StyleSheet, Text, View} from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import {Camera} from "react-native-vision-camera";
 import {useContext, useEffect, useRef} from "react";
@@ -26,9 +19,9 @@ import usePlaySound from "../hooks/usePlaySound";
 import useTakePhoto from "../hooks/useTakePhoto";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
 import MaskElement from "../components/MaskElement";
-import Constants from "../shared/Constants";
 import Boundary from "../components/Boundary";
 import CameraButton from "../components/CameraButton";
+import MegaphoneButton from "../components/MegaphoneButton";
 
 Tts.setDefaultLanguage("en-US");
 Tts.setDefaultRate(0.3);
@@ -141,17 +134,7 @@ const RootScreen = () => {
         <Boundary />
       </MaskedView>
       <CameraButton onTap={onTap} />
-      <View
-        style={[
-          styles.playButton,
-          isMegaphoneVisible || {
-            display: "none"
-          }
-        ]}>
-        <TouchableOpacity activeOpacity={0.5} onPress={onReplay}>
-          <Image source={require("../assets/images/megaphone.png")} />
-        </TouchableOpacity>
-      </View>
+      <MegaphoneButton onReplay={onReplay} />
       {croppedImagePaths.length > 0 && (
         <View
           style={{
@@ -228,19 +211,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     height: "100%"
-  },
-  playButton: {
-    position: "absolute",
-    bottom: `${Constants.TOP_OFFSET * 100}%`,
-    left: "50%",
-    transform: [
-      {
-        translateY: 50
-      },
-      {
-        translateX: -50
-      }
-    ]
   }
 });
 
