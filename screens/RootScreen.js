@@ -125,6 +125,8 @@ const RootScreen = () => {
       </MaskedView>
       <CameraButton onTap={onTap} />
       <MegaphoneButton onReplay={onReplay} />
+
+      {/* BELOW IS THE DEBUGGING PART */}
       {croppedImagePaths.length > 0 && (
         <View
           style={{
