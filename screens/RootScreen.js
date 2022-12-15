@@ -17,7 +17,6 @@ import ChunkAnimationContext from "../contexts/chunkAnimationContext";
 import DeviceVisibilityContext from "../contexts/deviceVisibilityContext";
 import TakingPhotoAvailabilityContext from "../contexts/takingPhotoAvailabilityContext";
 import {useCameraDevices} from "react-native-vision-camera/src";
-import TextRecognition from "react-native-text-recognition";
 import refineChunk from "../utils/refineChunk";
 import Tts from "react-native-tts";
 import useCameraAndMicrophonePermissions from "../hooks/useCameraAndMicrophonePermissions";
@@ -26,6 +25,7 @@ import useOnTTSFinished from "../hooks/useOnTTSFinished";
 import useCropImage from "../hooks/useCropImage";
 import usePlaySound from "../hooks/usePlaySound";
 import useTakePhoto from "../hooks/useTakePhoto";
+import useRecognizeChunks from "../hooks/useRecognizeChunks";
 
 Tts.setDefaultLanguage("en-US");
 Tts.setDefaultRate(0.5);
@@ -34,6 +34,7 @@ const LEFT_OFFSET = 0.1;
 const TOP_OFFSET = 0.12;
 
 const RootScreen = () => {
+  const recognizeChunks = useRecognizeChunks();
   const takePhoto = useTakePhoto();
   const playSound = usePlaySound();
   const cropImage = useCropImage();
@@ -65,20 +66,6 @@ const RootScreen = () => {
   );
   const devices = useCameraDevices();
   const device = devices.back;
-  const recognizeChunks = async paths => {
-    try {
-      const firstResult = await TextRecognition.recognize(paths[0]);
-      const secondResult = await TextRecognition.recognize(paths[1]);
-      const thirdResult = await TextRecognition.recognize(paths[2]);
-      return [
-        firstResult.join(""),
-        secondResult.join(""),
-        thirdResult.join("")
-      ];
-    } catch (error) {
-      errorHandler("RECOGNIZE_CHUNKS_ERROR", error);
-    }
-  };
   const onTap = () => {
     if (!isTakingPhotoAvailable) {
       return;
