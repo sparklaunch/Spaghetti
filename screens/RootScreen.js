@@ -23,10 +23,12 @@ import MegaphoneButton from "../components/MegaphoneButton";
 import LoadingScreen from "./LoadingScreen";
 import useInitializeTTS from "../hooks/useInitializeTTS";
 import Tflite from "tflite-react-native";
+import useLoadModel from "../hooks/useLoadModel";
 
 const RootScreen = () => {
   // const recognizeChunks = useRecognizeChunks();
   const tflite = new Tflite();
+  const loadModel = useLoadModel();
   const takePhoto = useTakePhoto();
   const playSound = usePlaySound();
   const cropImage = useCropImage();
@@ -51,21 +53,6 @@ const RootScreen = () => {
   const {isTakingPhotoAvailable, setIsTakingPhotoAvailable} = useContext(
     TakingPhotoAvailabilityContext
   );
-  const loadModel = () => {
-    tflite.loadModel(
-      {
-        model: "model_unquant.tflite",
-        labels: "labels.txt"
-      },
-      (error, response) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(response);
-        }
-      }
-    );
-  };
   const logConfidence = candidates => {
     const confidences = candidates.map(candidate => {
       return `[Confidence: ${candidate.confidence.toFixed(2)}]: ${
@@ -189,7 +176,7 @@ const RootScreen = () => {
     Tts.speak(joinedChunks);
   };
   useEffect(() => {
-    loadModel();
+    loadModel(tflite);
     getCameraAndMicrophonePermissions();
     initializeTTS();
     return () => {
