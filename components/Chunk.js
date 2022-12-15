@@ -1,11 +1,12 @@
 import {Animated, Easing, Pressable, StyleSheet, Text} from "react-native";
-import {useEffect, useRef} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import Sound from "react-native-sound";
 import Constants from "../shared/Constants";
 
 Sound.setCategory("Playback");
 
 const Chunk = ({chunk}) => {
+  const [visibleChunk, setVisibleChunk] = useState(chunk);
   const springAnimation = useRef(new Animated.Value(0)).current;
   const showSpringAnimation = Animated.spring(springAnimation, {
     toValue: 1,
@@ -33,7 +34,25 @@ const Chunk = ({chunk}) => {
   };
   const onTapChunk = () => {
     bounce();
-    const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
+    let chunkName;
+    switch (chunk) {
+      case "oo(uu)":
+        chunkName = "oo_tense_u";
+        break;
+      case "oo(u)":
+        chunkName = "oo_lax_u";
+        break;
+      case "ow(au)":
+        chunkName = "ow_au";
+        break;
+      case "ow(ou)":
+        chunkName = "ow_ou";
+        break;
+      default:
+        chunkName = chunk;
+        break;
+    }
+    const sound = new Sound(`${chunkName}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
         console.log("PLAY_SOUND_ERROR: ", error);
       } else {
@@ -49,6 +68,25 @@ const Chunk = ({chunk}) => {
   };
   useEffect(() => {
     showSpring();
+  }, []);
+  useLayoutEffect(() => {
+    switch (chunk) {
+      case "oo(uu)":
+        setVisibleChunk("oo");
+        break;
+      case "oo(u)":
+        setVisibleChunk("oo");
+        break;
+      case "ow(au)":
+        setVisibleChunk("ow");
+        break;
+      case "ow(ou)":
+        setVisibleChunk("ow");
+        break;
+      default:
+        setVisibleChunk(chunk);
+        break;
+    }
   }, []);
   return (
     <Animated.View
@@ -70,7 +108,7 @@ const Chunk = ({chunk}) => {
               fontSize: 96
             }
           ]}>
-          {chunk}
+          {visibleChunk}
         </Text>
       </Pressable>
     </Animated.View>
