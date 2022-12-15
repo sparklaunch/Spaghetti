@@ -25,6 +25,7 @@ import Sound from "react-native-sound";
 import TextRecognition from "react-native-text-recognition";
 import refineChunk from "../utils/refineChunk";
 import Tts from "react-native-tts";
+import useCameraAndMicrophonePermissions from "../hooks/useCameraAndMicrophonePermissions";
 
 Sound.setCategory("Playback");
 
@@ -35,17 +36,15 @@ const LEFT_OFFSET = 0.1;
 const TOP_OFFSET = 0.12;
 
 const RootScreen = () => {
+  const getCameraAndMicrophonePermissions = useCameraAndMicrophonePermissions();
   const camera = useRef(null);
   const {chunks, setChunks} = useContext(ChunksContext);
   const {croppedImagePaths, setCroppedImagePaths} = useContext(
     CroppedImagePathsContext
   );
-  const {
-    cameraPermission,
-    setCameraPermission,
-    microphonePermission,
-    setMicrophonePermission
-  } = useContext(DevicePermissionContext);
+  const {cameraPermission, microphonePermission} = useContext(
+    DevicePermissionContext
+  );
   const {
     firstChunkAnimation,
     secondChunkAnimation,
@@ -65,12 +64,7 @@ const RootScreen = () => {
   );
   const devices = useCameraDevices();
   const device = devices.back;
-  const getCameraAndMicrophonePermission = async () => {
-    const newCameraPermission = await Camera.requestCameraPermission();
-    const newMicrophonePermission = await Camera.requestMicrophonePermission();
-    setCameraPermission(newCameraPermission);
-    setMicrophonePermission(newMicrophonePermission);
-  };
+
   const errorHandler = (type, error) => {
     logError(type, error);
     setIsCameraVisible(true);
@@ -239,7 +233,7 @@ const RootScreen = () => {
     Tts.speak(joinedChunks);
   };
   useEffect(() => {
-    getCameraAndMicrophonePermission();
+    getCameraAndMicrophonePermissions();
   }, []);
   if (
     device === null ||
