@@ -26,6 +26,7 @@ import useCropImage from "../hooks/useCropImage";
 import usePlaySound from "../hooks/usePlaySound";
 import useTakePhoto from "../hooks/useTakePhoto";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
+import MaskElement from "../components/MaskElement";
 
 Tts.setDefaultLanguage("en-US");
 Tts.setDefaultRate(0.3);
@@ -130,13 +131,7 @@ const RootScreen = () => {
   }
   return (
     <View style={styles.block}>
-      <MaskedView
-        style={styles.maskedView}
-        maskElement={
-          <View style={styles.maskElement}>
-            <View style={styles.rectangle} />
-          </View>
-        }>
+      <MaskedView style={styles.maskedView} maskElement={<MaskElement />}>
         <Camera
           ref={camera}
           style={styles.camera}
@@ -255,18 +250,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: "100%"
   },
-  maskElement: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  rectangle: {
-    width: `${(1 - LEFT_OFFSET * 2) * 100}%`,
-    height: `${(1 - TOP_OFFSET * 2) * 100}%`,
-    overflow: "hidden",
-    backgroundColor: "black"
-  },
+
   boundary: {
     position: "absolute",
     left: `${LEFT_OFFSET * 100}%`,
