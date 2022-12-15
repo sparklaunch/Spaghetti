@@ -153,7 +153,25 @@ const RootScreen = () => {
             playSound(chunks[1], () => {
               setThirdChunkAnimation(true);
               playSound(chunks[2], () => {
-                Tts.speak(chunks.join(""));
+                let vowel;
+                switch (chunks[1]) {
+                  case "oo(uu)":
+                    vowel = "oo";
+                    break;
+                  case "oo(u)":
+                    vowel = "oo";
+                    break;
+                  case "ow(au)":
+                    vowel = "ow";
+                    break;
+                  case "ow(ou)":
+                    vowel = "ow";
+                    break;
+                  default:
+                    vowel = chunks[1];
+                    break;
+                }
+                Tts.speak([chunks[0], vowel, chunks[2]].join(""));
                 onTTSFinished();
               });
             });
