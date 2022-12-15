@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import {Camera} from "react-native-vision-camera";
-import Chunk from "../components/Chunk";
 import {useContext, useEffect, useRef} from "react";
 import ChunksContext from "../contexts/ChunksContext";
 import CroppedImagePathsContext from "../contexts/CroppedImagePathsContext";
@@ -28,6 +27,7 @@ import useTakePhoto from "../hooks/useTakePhoto";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
 import MaskElement from "../components/MaskElement";
 import Constants from "../shared/Constants";
+import Boundary from "../components/Boundary";
 
 Tts.setDefaultLanguage("en-US");
 Tts.setDefaultRate(0.3);
@@ -137,17 +137,7 @@ const RootScreen = () => {
           isActive={true}
           photo={true}
         />
-        <View style={styles.boundary}>
-          <View style={styles.divider}>
-            {firstChunkAnimation && <Chunk chunk={chunks[0]} />}
-          </View>
-          <View style={styles.divider}>
-            {secondChunkAnimation && <Chunk chunk={chunks[1]} />}
-          </View>
-          <View style={styles.placeholderDivider}>
-            {thirdChunkAnimation && <Chunk chunk={chunks[2]} />}
-          </View>
-        </View>
+        <Boundary />
       </MaskedView>
       <View
         style={[
@@ -247,25 +237,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     height: "100%"
-  },
-
-  boundary: {
-    position: "absolute",
-    left: `${Constants.LEFT_OFFSET * 100}%`,
-    top: `${Constants.TOP_OFFSET * 100}%`,
-    right: `${Constants.LEFT_OFFSET * 100}%`,
-    bottom: `${Constants.TOP_OFFSET * 100}%`,
-    borderWidth: 8,
-    borderColor: Constants.PRIMARY_COLOR,
-    flexDirection: "row"
-  },
-  divider: {
-    flex: 1,
-    borderRightWidth: 3,
-    borderRightColor: Constants.PRIMARY_COLOR
-  },
-  placeholderDivider: {
-    flex: 1
   },
   tapButton: {
     position: "absolute",
