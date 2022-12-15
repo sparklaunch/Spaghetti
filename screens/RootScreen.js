@@ -26,6 +26,8 @@ import LoadingScreen from "./LoadingScreen";
 import useInitializeTTS from "../hooks/useInitializeTTS";
 import Tflite from "tflite-react-native";
 
+const tflite = new Tflite();
+
 const RootScreen = () => {
   const recognizeChunks = useRecognizeChunks();
   const takePhoto = useTakePhoto();
@@ -52,12 +54,25 @@ const RootScreen = () => {
   const {isTakingPhotoAvailable, setIsTakingPhotoAvailable} = useContext(
     TakingPhotoAvailabilityContext
   );
-  const tflite = new Tflite();
   const loadModel = () => {
     tflite.loadModel(
       {
         model: "model_unquant.tflite",
-        label: "labels.txt"
+        labels: "labels.txt"
+      },
+      (error, response) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(response);
+        }
+      }
+    );
+  };
+  const classifyChunk = path => {
+    tflite.runModelOnImage(
+      {
+        path
       },
       (error, response) => {
         if (error) {
@@ -87,6 +102,9 @@ const RootScreen = () => {
       try {
         const {path} = await takePhoto(camera);
         const croppedPaths = await cropImage(path);
+        classifyChunk(croppedPaths[0]);
+        classifyChunk(croppedPaths[1]);
+        classifyChunk(croppedPaths[2]);
         let chunks = await recognizeChunks(croppedPaths);
         console.log("Raw Chunks: ", chunks);
         chunks = chunks.map(refineChunk);
