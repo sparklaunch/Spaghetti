@@ -1,6 +1,5 @@
 import {
   ActivityIndicator,
-  Dimensions,
   Image,
   Platform,
   StyleSheet,
@@ -19,7 +18,6 @@ import ChunkAnimationContext from "../contexts/chunkAnimationContext";
 import DeviceVisibilityContext from "../contexts/deviceVisibilityContext";
 import TakingPhotoAvailabilityContext from "../contexts/takingPhotoAvailabilityContext";
 import {useCameraDevices} from "react-native-vision-camera/src";
-import RNPhotoManipulator from "react-native-photo-manipulator";
 import Sound from "react-native-sound";
 import TextRecognition from "react-native-text-recognition";
 import refineChunk from "../utils/refineChunk";
@@ -27,6 +25,7 @@ import Tts from "react-native-tts";
 import useCameraAndMicrophonePermissions from "../hooks/useCameraAndMicrophonePermissions";
 import useErrorHandler from "../hooks/useErrorHandler";
 import useOnTTSFinished from "../hooks/useOnTTSFinished";
+import useCropImage from "../hooks/useCropImage";
 
 Sound.setCategory("Playback");
 
@@ -37,6 +36,7 @@ const LEFT_OFFSET = 0.1;
 const TOP_OFFSET = 0.12;
 
 const RootScreen = () => {
+  const cropImage = useCropImage();
   const errorHandler = useErrorHandler();
   const onTTSFinished = useOnTTSFinished();
   const getCameraAndMicrophonePermissions = useCameraAndMicrophonePermissions();
@@ -67,54 +67,6 @@ const RootScreen = () => {
   );
   const devices = useCameraDevices();
   const device = devices.back;
-
-  const cropImage = async path => {
-    const {width} = Dimensions.get("window");
-    const sharedWidth = width * 0.7;
-    const sharedHeight = width * 0.7;
-    const sharedYoffset = width * 0.55;
-    const firstRect = {
-      x: width * 0.5,
-      y: sharedYoffset,
-      width: sharedWidth,
-      height: sharedHeight
-    };
-    const secondRect = {
-      x: width * 1.4,
-      y: sharedYoffset,
-      width: sharedWidth,
-      height: sharedHeight
-    };
-    const thirdRect = {
-      x: width * 2.3,
-      y: sharedYoffset,
-      width: sharedWidth,
-      height: sharedHeight
-    };
-    try {
-      const firstCroppedPath = await RNPhotoManipulator.crop(
-        "file://" + path,
-        firstRect
-      );
-      const secondCroppedPath = await RNPhotoManipulator.crop(
-        "file://" + path,
-        secondRect
-      );
-      const thirdCroppedPath = await RNPhotoManipulator.crop(
-        "file://" + path,
-        thirdRect
-      );
-      const croppedPaths = [
-        firstCroppedPath,
-        secondCroppedPath,
-        thirdCroppedPath
-      ].map(croppedPath => croppedPath.replace("file://", ""));
-      setCroppedImagePaths(croppedPaths);
-      return croppedPaths;
-    } catch (error) {
-      errorHandler("CROP_IMAGE_ERROR", error);
-    }
-  };
   const playSound = (chunk, callback) => {
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
