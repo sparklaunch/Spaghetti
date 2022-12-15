@@ -11,6 +11,8 @@
 		0C80B921A6F3F58F76C31292 /* libPods-Spaghetti.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-Spaghetti.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3D2CBD21294AFEDC00B109D0 /* labels.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D2CBD1F294AFEDC00B109D0 /* labels.txt */; };
+		3D2CBD22294AFEDC00B109D0 /* model_unquant.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 3D2CBD20294AFEDC00B109D0 /* model_unquant.tflite */; };
 		3D5751812946A642008ED0B5 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57516F2946A641008ED0B5 /* Poppins-BoldItalic.ttf */; };
 		3D5751822946A642008ED0B5 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751702946A641008ED0B5 /* Poppins-ExtraBold.ttf */; };
 		3D5751832946A642008ED0B5 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5751712946A641008ED0B5 /* Poppins-MediumItalic.ttf */; };
@@ -121,6 +123,8 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Spaghetti/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-Spaghetti-SpaghettiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Spaghetti-SpaghettiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-Spaghetti.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spaghetti.debug.xcconfig"; path = "Target Support Files/Pods-Spaghetti/Pods-Spaghetti.debug.xcconfig"; sourceTree = "<group>"; };
+		3D2CBD1F294AFEDC00B109D0 /* labels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = labels.txt; sourceTree = "<group>"; };
+		3D2CBD20294AFEDC00B109D0 /* model_unquant.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model_unquant.tflite; sourceTree = "<group>"; };
 		3D57516F2946A641008ED0B5 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-BoldItalic.ttf"; path = "Fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
 		3D5751702946A641008ED0B5 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraBold.ttf"; path = "Fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
 		3D5751712946A641008ED0B5 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-MediumItalic.ttf"; path = "Fonts/Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
@@ -284,6 +288,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3D2CBD1F294AFEDC00B109D0 /* labels.txt */,
+				3D2CBD20294AFEDC00B109D0 /* model_unquant.tflite */,
 				3D57521B294729F9008ED0B5 /* shutter.mp3 */,
 				3D5751B02946D780008ED0B5 /* a.mp3 */,
 				3D5751D72946D781008ED0B5 /* ai.mp3 */,
@@ -502,6 +508,7 @@
 				3D5751F02946D781008ED0B5 /* sn.mp3 in Resources */,
 				3D5752042946D781008ED0B5 /* v.mp3 in Resources */,
 				3D5751DE2946D781008ED0B5 /* d.mp3 in Resources */,
+				3D2CBD22294AFEDC00B109D0 /* model_unquant.tflite in Resources */,
 				3D5751E52946D781008ED0B5 /* l.mp3 in Resources */,
 				3D5751F32946D781008ED0B5 /* p.mp3 in Resources */,
 				3D5751FD2946D781008ED0B5 /* or.mp3 in Resources */,
@@ -526,6 +533,7 @@
 				3D5751DD2946D781008ED0B5 /* u.mp3 in Resources */,
 				3D5751DF2946D781008ED0B5 /* y.mp3 in Resources */,
 				3D5751DB2946D781008ED0B5 /* k.mp3 in Resources */,
+				3D2CBD21294AFEDC00B109D0 /* labels.txt in Resources */,
 				3D5751F52946D781008ED0B5 /* bl.mp3 in Resources */,
 				3D5751962946D665008ED0B5 /* click.wav in Resources */,
 				3D5751E42946D781008ED0B5 /* st.mp3 in Resources */,

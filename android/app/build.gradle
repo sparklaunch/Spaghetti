@@ -130,6 +130,10 @@ def reactNativeArchitectures() {
 }
 
 android {
+    aaptOptions {
+        noCompress "tflite"
+    }
+
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
