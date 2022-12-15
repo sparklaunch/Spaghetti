@@ -24,6 +24,7 @@ import CameraButton from "../components/CameraButton";
 import MegaphoneButton from "../components/MegaphoneButton";
 import LoadingScreen from "./LoadingScreen";
 import useInitializeTTS from "../hooks/useInitializeTTS";
+import Tflite from "tflite-react-native";
 
 const RootScreen = () => {
   const recognizeChunks = useRecognizeChunks();
@@ -51,6 +52,22 @@ const RootScreen = () => {
   const {isTakingPhotoAvailable, setIsTakingPhotoAvailable} = useContext(
     TakingPhotoAvailabilityContext
   );
+  const tflite = new Tflite();
+  const loadModel = () => {
+    tflite.loadModel(
+      {
+        model: "model_unquant.tflite",
+        label: "labels.txt"
+      },
+      (error, response) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(response);
+        }
+      }
+    );
+  };
   const devices = useCameraDevices();
   const device = devices.back;
   const willPlaySession = () => {
@@ -100,6 +117,7 @@ const RootScreen = () => {
     Tts.speak(joinedChunks);
   };
   useEffect(() => {
+    loadModel();
     getCameraAndMicrophonePermissions();
     initializeTTS();
   }, []);
