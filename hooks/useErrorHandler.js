@@ -1,3 +1,7 @@
+import {useContext} from "react";
+import DeviceVisibilityContext from "../contexts/deviceVisibilityContext";
+import TakingPhotoAvailabilityContext from "../contexts/takingPhotoAvailabilityContext";
+
 const prefixes = {
   PLAY_SOUND_ERROR: "[playSound] error: ",
   AUDIO_DECODING_ERROR: "Audio decoding error.",
@@ -16,8 +20,16 @@ const prefixes = {
   ON_TAP_RECOGNIZE_CHUNKS_ERROR: "[onTap: recognizeChunks] error: "
 };
 
-const logError = (type, error = "") => {
-  console.log(`${prefixes[type]}${error.message}`);
+const useErrorHandler = () => {
+  const {setIsCameraVisible} = useContext(DeviceVisibilityContext);
+  const {setIsTakingPhotoAvailable} = useContext(
+    TakingPhotoAvailabilityContext
+  );
+  return (type, error = "") => {
+    console.log(`${prefixes[type]}${error.message}`);
+    setIsCameraVisible(true);
+    setIsTakingPhotoAvailable(true);
+  };
 };
 
-export default logError;
+export default useErrorHandler;

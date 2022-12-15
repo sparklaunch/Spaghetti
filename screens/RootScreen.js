@@ -19,13 +19,13 @@ import ChunkAnimationContext from "../contexts/chunkAnimationContext";
 import DeviceVisibilityContext from "../contexts/deviceVisibilityContext";
 import TakingPhotoAvailabilityContext from "../contexts/takingPhotoAvailabilityContext";
 import {useCameraDevices} from "react-native-vision-camera/src";
-import logError from "../utils/logError";
 import RNPhotoManipulator from "react-native-photo-manipulator";
 import Sound from "react-native-sound";
 import TextRecognition from "react-native-text-recognition";
 import refineChunk from "../utils/refineChunk";
 import Tts from "react-native-tts";
 import useCameraAndMicrophonePermissions from "../hooks/useCameraAndMicrophonePermissions";
+import useErrorHandler from "../hooks/useErrorHandler";
 
 Sound.setCategory("Playback");
 
@@ -36,6 +36,7 @@ const LEFT_OFFSET = 0.1;
 const TOP_OFFSET = 0.12;
 
 const RootScreen = () => {
+  const errorHandler = useErrorHandler();
   const getCameraAndMicrophonePermissions = useCameraAndMicrophonePermissions();
   const camera = useRef(null);
   const {chunks, setChunks} = useContext(ChunksContext);
@@ -65,11 +66,6 @@ const RootScreen = () => {
   const devices = useCameraDevices();
   const device = devices.back;
 
-  const errorHandler = (type, error) => {
-    logError(type, error);
-    setIsCameraVisible(true);
-    setIsTakingPhotoAvailable(true);
-  };
   const onTTSFinished = () => {
     setIsTakingPhotoAvailable(true);
     setIsCameraVisible(true);

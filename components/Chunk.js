@@ -1,7 +1,6 @@
 import {Animated, Easing, Pressable, StyleSheet, Text} from "react-native";
 import {useEffect, useRef} from "react";
 import Sound from "react-native-sound";
-import logError from "../utils/logError";
 
 Sound.setCategory("Playback");
 
@@ -35,13 +34,13 @@ const Chunk = ({chunk}) => {
     bounce();
     const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
-        logError("PLAY_SOUND_ERROR", error);
+        console.log("PLAY_SOUND_ERROR: ", error);
       } else {
         sound.play(success => {
           if (success) {
             sound.release();
           } else {
-            logError("AUDIO_DECODING_ERROR");
+            console.log("PLAY_SOUND_ERROR");
           }
         });
       }
