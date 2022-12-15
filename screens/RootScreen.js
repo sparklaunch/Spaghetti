@@ -26,6 +26,7 @@ import refineChunk from "../utils/refineChunk";
 import Tts from "react-native-tts";
 import useCameraAndMicrophonePermissions from "../hooks/useCameraAndMicrophonePermissions";
 import useErrorHandler from "../hooks/useErrorHandler";
+import useOnTTSFinished from "../hooks/useOnTTSFinished";
 
 Sound.setCategory("Playback");
 
@@ -37,6 +38,7 @@ const TOP_OFFSET = 0.12;
 
 const RootScreen = () => {
   const errorHandler = useErrorHandler();
+  const onTTSFinished = useOnTTSFinished();
   const getCameraAndMicrophonePermissions = useCameraAndMicrophonePermissions();
   const camera = useRef(null);
   const {chunks, setChunks} = useContext(ChunksContext);
@@ -66,11 +68,6 @@ const RootScreen = () => {
   const devices = useCameraDevices();
   const device = devices.back;
 
-  const onTTSFinished = () => {
-    setIsTakingPhotoAvailable(true);
-    setIsCameraVisible(true);
-    setIsMegaphoneVisible(true);
-  };
   const cropImage = async path => {
     const {width} = Dimensions.get("window");
     const sharedWidth = width * 0.7;
