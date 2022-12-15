@@ -9,7 +9,6 @@ import ChunkAnimationContext from "../contexts/ChunkAnimationContext";
 import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
 import TakingPhotoAvailabilityContext from "../contexts/TakingPhotoAvailabilityContext";
 import {useCameraDevices} from "react-native-vision-camera/src";
-import refineChunk from "../utils/refineChunk";
 import Tts from "react-native-tts";
 import useCameraAndMicrophonePermissions from "../hooks/useCameraAndMicrophonePermissions";
 import useErrorHandler from "../hooks/useErrorHandler";
@@ -69,16 +68,53 @@ const RootScreen = () => {
       }
     );
   };
-  const classifyChunk = path => {
+  const logConfidence = candidates => {
+    const confidences = candidates.map(candidate => {
+      return `[Confidence: ${candidate.confidence.toFixed(2)}]: ${
+        candidate.label
+      }`;
+    });
+    console.log(confidences.join(", "));
+  };
+  const classifyChunks = (paths, callback) => {
+    const results = [];
     tflite.runModelOnImage(
       {
-        path
+        path: paths[0]
       },
-      (error, response) => {
+      (error, candidates) => {
         if (error) {
-          console.log(error);
+          errorHandler("CLASSIFY_CHUNKS_ERROR", error);
         } else {
-          console.log(response);
+          logConfidence(candidates);
+          results.push(candidates[0].label);
+          tflite.runModelOnImage(
+            {
+              path: paths[1]
+            },
+            (error, candidates) => {
+              if (error) {
+                errorHandler("CLASSIFY_CHUNKS_ERROR", error);
+              } else {
+                logConfidence(candidates);
+                results.push(candidates[0].label);
+                tflite.runModelOnImage(
+                  {
+                    path: paths[2]
+                  },
+                  (error, candidates) => {
+                    if (error) {
+                      errorHandler("CLASSIFY_CHUNKS_ERROR", error);
+                    } else {
+                      logConfidence(candidates);
+                      results.push(candidates[0].label);
+                      callback(results);
+                    }
+                  }
+                );
+              }
+            }
+          );
         }
       }
     );
@@ -102,23 +138,22 @@ const RootScreen = () => {
       try {
         const {path} = await takePhoto(camera);
         const croppedPaths = await cropImage(path);
-        classifyChunk(croppedPaths[0]);
-        classifyChunk(croppedPaths[1]);
-        classifyChunk(croppedPaths[2]);
-        let chunks = await recognizeChunks(croppedPaths);
-        console.log("Raw Chunks: ", chunks);
-        chunks = chunks.map(refineChunk);
-        console.log("Refined Chunks: ", chunks);
-        onTTSFinished();
-        setChunks(chunks);
-        setFirstChunkAnimation(true);
-        playSound(chunks[0], () => {
-          setSecondChunkAnimation(true);
-          playSound(chunks[1], () => {
-            setThirdChunkAnimation(true);
-            playSound(chunks[2], () => {
-              Tts.speak(chunks.join(""));
-              onTTSFinished();
+        // let chunks = await recognizeChunks(croppedPaths);
+        // console.log("Raw Chunks: ", chunks);
+        // console.log("Refined Chunks: ", chunks);
+        // chunks = chunks.map(refineChunk);
+        classifyChunks(croppedPaths, chunks => {
+          onTTSFinished();
+          setChunks(chunks);
+          setFirstChunkAnimation(true);
+          playSound(chunks[0], () => {
+            setSecondChunkAnimation(true);
+            playSound(chunks[1], () => {
+              setThirdChunkAnimation(true);
+              playSound(chunks[2], () => {
+                Tts.speak(chunks.join(""));
+                onTTSFinished();
+              });
             });
           });
         });
