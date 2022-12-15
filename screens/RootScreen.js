@@ -1,7 +1,6 @@
 import {
   ActivityIndicator,
   Image,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -26,6 +25,7 @@ import useErrorHandler from "../hooks/useErrorHandler";
 import useOnTTSFinished from "../hooks/useOnTTSFinished";
 import useCropImage from "../hooks/useCropImage";
 import usePlaySound from "../hooks/usePlaySound";
+import useTakePhoto from "../hooks/useTakePhoto";
 
 Tts.setDefaultLanguage("en-US");
 Tts.setDefaultRate(0.5);
@@ -34,6 +34,7 @@ const LEFT_OFFSET = 0.1;
 const TOP_OFFSET = 0.12;
 
 const RootScreen = () => {
+  const takePhoto = useTakePhoto();
   const playSound = usePlaySound();
   const cropImage = useCropImage();
   const errorHandler = useErrorHandler();
@@ -78,19 +79,6 @@ const RootScreen = () => {
       errorHandler("RECOGNIZE_CHUNKS_ERROR", error);
     }
   };
-  const takePhoto = async () => {
-    try {
-      let photo;
-      if (Platform.OS === "ios") {
-        photo = await camera.current.takePhoto();
-      } else {
-        photo = await camera.current.takeSnapshot();
-      }
-      return photo;
-    } catch (error) {
-      errorHandler("TAKE_PHOTO_ERROR", error);
-    }
-  };
   const onTap = () => {
     if (!isTakingPhotoAvailable) {
       return;
@@ -102,7 +90,7 @@ const RootScreen = () => {
     setIsTakingPhotoAvailable(false);
     setIsMegaphoneVisible(false);
     playSound("shutter", () => {
-      takePhoto()
+      takePhoto(camera)
         .then(({path}) => {
           cropImage(path)
             .then(croppedPaths => {
