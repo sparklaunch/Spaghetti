@@ -256,13 +256,13 @@ const styles = StyleSheet.create({
     right: `${Constants.LEFT_OFFSET * 100}%`,
     bottom: `${Constants.TOP_OFFSET * 100}%`,
     borderWidth: 8,
-    borderColor: "rgb(246, 213, 91)",
+    borderColor: Constants.PRIMARY_COLOR,
     flexDirection: "row"
   },
   divider: {
     flex: 1,
     borderRightWidth: 3,
-    borderRightColor: "rgb(246, 213, 91)"
+    borderRightColor: Constants.PRIMARY_COLOR
   },
   placeholderDivider: {
     flex: 1

@@ -1,6 +1,7 @@
 import {Animated, Easing, Pressable, StyleSheet, Text} from "react-native";
 import {useEffect, useRef} from "react";
 import Sound from "react-native-sound";
+import Constants from "../shared/Constants";
 
 Sound.setCategory("Playback");
 
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins-Bold",
     fontSize: 128,
-    color: "rgb(246, 213, 91)"
+    color: Constants.PRIMARY_COLOR
   }
 });
 
