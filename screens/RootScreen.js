@@ -59,7 +59,7 @@ const RootScreen = () => {
   );
   const devices = useCameraDevices();
   const device = devices.back;
-  const onTap = () => {
+  const playSession = async () => {
     if (!isTakingPhotoAvailable) {
       return;
     }
@@ -69,42 +69,34 @@ const RootScreen = () => {
     setIsCameraVisible(false);
     setIsTakingPhotoAvailable(false);
     setIsMegaphoneVisible(false);
-    playSound("shutter", () => {
-      takePhoto(camera)
-        .then(({path}) => {
-          cropImage(path)
-            .then(croppedPaths => {
-              recognizeChunks(croppedPaths)
-                .then(chunks => {
-                  console.log("Raw Chunks: ", chunks);
-                  chunks = chunks.map(refineChunk);
-                  console.log("Refined Chunks: ", chunks);
-                  onTTSFinished();
-                  setChunks(chunks);
-                  setFirstChunkAnimation(true);
-                  playSound(chunks[0], () => {
-                    setSecondChunkAnimation(true);
-                    playSound(chunks[1], () => {
-                      setThirdChunkAnimation(true);
-                      playSound(chunks[2], () => {
-                        Tts.speak(chunks.join(""));
-                        onTTSFinished();
-                      });
-                    });
-                  });
-                })
-                .catch(error => {
-                  errorHandler("ON_TAP_RECOGNIZE_CHUNKS_ERROR", error);
-                });
-            })
-            .catch(error => {
-              errorHandler("ON_TAP_CROP_IMAGE_ERROR", error);
+    playSound("shutter", async () => {
+      try {
+        const {path} = await takePhoto(camera);
+        const croppedPaths = await cropImage(path);
+        let chunks = await recognizeChunks(croppedPaths);
+        console.log("Raw Chunks: ", chunks);
+        chunks = chunks.map(refineChunk);
+        console.log("Refined Chunks: ", chunks);
+        onTTSFinished();
+        setChunks(chunks);
+        setFirstChunkAnimation(true);
+        playSound(chunks[0], () => {
+          setSecondChunkAnimation(true);
+          playSound(chunks[1], () => {
+            setThirdChunkAnimation(true);
+            playSound(chunks[2], () => {
+              Tts.speak(chunks.join(""));
+              onTTSFinished();
             });
-        })
-        .catch(error => {
-          errorHandler("ON_TAP_TAKE_PHOTO_ERROR", error);
+          });
         });
+      } catch (error) {
+        errorHandler(error);
+      }
     });
+  };
+  const onTap = () => {
+    playSession();
   };
   const onReplay = () => {
     const joinedChunks = chunks.join("");
