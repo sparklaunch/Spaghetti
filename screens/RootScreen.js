@@ -26,8 +26,7 @@ import useCameraAndMicrophonePermissions from "../hooks/useCameraAndMicrophonePe
 import useErrorHandler from "../hooks/useErrorHandler";
 import useOnTTSFinished from "../hooks/useOnTTSFinished";
 import useCropImage from "../hooks/useCropImage";
-
-Sound.setCategory("Playback");
+import usePlaySound from "../hooks/usePlaySound";
 
 Tts.setDefaultLanguage("en-US");
 Tts.setDefaultRate(0.5);
@@ -36,15 +35,14 @@ const LEFT_OFFSET = 0.1;
 const TOP_OFFSET = 0.12;
 
 const RootScreen = () => {
+  const playSound = usePlaySound();
   const cropImage = useCropImage();
   const errorHandler = useErrorHandler();
   const onTTSFinished = useOnTTSFinished();
   const getCameraAndMicrophonePermissions = useCameraAndMicrophonePermissions();
   const camera = useRef(null);
   const {chunks, setChunks} = useContext(ChunksContext);
-  const {croppedImagePaths, setCroppedImagePaths} = useContext(
-    CroppedImagePathsContext
-  );
+  const {croppedImagePaths} = useContext(CroppedImagePathsContext);
   const {cameraPermission, microphonePermission} = useContext(
     DevicePermissionContext
   );
@@ -67,22 +65,6 @@ const RootScreen = () => {
   );
   const devices = useCameraDevices();
   const device = devices.back;
-  const playSound = (chunk, callback) => {
-    const sound = new Sound(`${chunk}.mp3`, Sound.MAIN_BUNDLE, error => {
-      if (error) {
-        errorHandler("PLAY_SOUND_ERROR", error);
-      } else {
-        sound.play(success => {
-          if (success) {
-            sound.release();
-            callback();
-          } else {
-            errorHandler("AUDIO_DECODING_ERROR");
-          }
-        });
-      }
-    });
-  };
   const playClickSound = callback => {
     const clickSound = new Sound("shutter.mp3", Sound.MAIN_BUNDLE, error => {
       if (error) {
