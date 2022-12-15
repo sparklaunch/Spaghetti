@@ -23,6 +23,7 @@ import Boundary from "../components/Boundary";
 import CameraButton from "../components/CameraButton";
 import MegaphoneButton from "../components/MegaphoneButton";
 import LoadingScreen from "./LoadingScreen";
+import useInitializeTTS from "../hooks/useInitializeTTS";
 
 const RootScreen = () => {
   const recognizeChunks = useRecognizeChunks();
@@ -31,6 +32,7 @@ const RootScreen = () => {
   const cropImage = useCropImage();
   const errorHandler = useErrorHandler();
   const onTTSFinished = useOnTTSFinished();
+  const initializeTTS = useInitializeTTS();
   const getCameraAndMicrophonePermissions = useCameraAndMicrophonePermissions();
   const {chunks, setChunks} = useContext(ChunksContext);
   const {croppedImagePaths} = useContext(CroppedImagePathsContext);
@@ -51,14 +53,6 @@ const RootScreen = () => {
   );
   const devices = useCameraDevices();
   const device = devices.back;
-  const initializeTTS = async () => {
-    try {
-      await Tts.setDefaultLanguage("en-US");
-      await Tts.setDefaultRate(0.3);
-    } catch (error) {
-      errorHandler("TTS_ENGINE_ERROR", error);
-    }
-  };
   const willPlaySession = () => {
     setFirstChunkAnimation(false);
     setSecondChunkAnimation(false);
@@ -67,7 +61,7 @@ const RootScreen = () => {
     setIsTakingPhotoAvailable(false);
     setIsMegaphoneVisible(false);
   };
-  const playSession = async () => {
+  const playSession = () => {
     if (!isTakingPhotoAvailable) {
       return;
     }
