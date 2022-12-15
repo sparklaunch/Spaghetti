@@ -9,8 +9,8 @@ const useCropImage = () => {
   const errorHandler = useErrorHandler();
   const {width} = Dimensions.get("window");
   const sharedWidth = width * 0.7;
-  const sharedHeight = width * 0.7;
-  const sharedYoffset = width * 0.55;
+  const sharedHeight = width * 0.75;
+  const sharedYoffset = width * 0.5;
   const firstRect = {
     x: width * 0.5,
     y: sharedYoffset,

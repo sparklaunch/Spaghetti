@@ -24,10 +24,9 @@ import LoadingScreen from "./LoadingScreen";
 import useInitializeTTS from "../hooks/useInitializeTTS";
 import Tflite from "tflite-react-native";
 
-const tflite = new Tflite();
-
 const RootScreen = () => {
   // const recognizeChunks = useRecognizeChunks();
+  const tflite = new Tflite();
   const takePhoto = useTakePhoto();
   const playSound = usePlaySound();
   const cropImage = useCropImage();
@@ -193,6 +192,9 @@ const RootScreen = () => {
     loadModel();
     getCameraAndMicrophonePermissions();
     initializeTTS();
+    return () => {
+      tflite.close();
+    };
   }, []);
   if (
     device === null ||
