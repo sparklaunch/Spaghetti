@@ -16,7 +16,6 @@ import useOnTTSFinished from "../hooks/useOnTTSFinished";
 import useCropImage from "../hooks/useCropImage";
 import usePlaySound from "../hooks/usePlaySound";
 import useTakePhoto from "../hooks/useTakePhoto";
-import useRecognizeChunks from "../hooks/useRecognizeChunks";
 import MaskElement from "../components/MaskElement";
 import Boundary from "../components/Boundary";
 import CameraButton from "../components/CameraButton";
@@ -28,7 +27,7 @@ import Tflite from "tflite-react-native";
 const tflite = new Tflite();
 
 const RootScreen = () => {
-  const recognizeChunks = useRecognizeChunks();
+  // const recognizeChunks = useRecognizeChunks();
   const takePhoto = useTakePhoto();
   const playSound = usePlaySound();
   const cropImage = useCropImage();
@@ -77,6 +76,9 @@ const RootScreen = () => {
     console.log(confidences.join(", "));
   };
   const classifyChunks = (paths, callback) => {
+    console.log(
+      "#------------------------------------------------------------#"
+    );
     const results = [];
     tflite.runModelOnImage(
       {
