@@ -17,7 +17,8 @@ const prefixes = {
   CROP_IMAGE_ERROR: "[cropImage] error: ",
   ON_TAP_CROP_IMAGE_ERROR: "[onTap: cropImage] error: ",
   RECOGNIZE_CHUNKS_ERROR: "[recognizeChunks] error: ",
-  ON_TAP_RECOGNIZE_CHUNKS_ERROR: "[onTap: recognizeChunks] error: "
+  ON_TAP_RECOGNIZE_CHUNKS_ERROR: "[onTap: recognizeChunks] error: ",
+  TTS_ENGINE_ERROR: "TTS Engine error: "
 };
 
 const useErrorHandler = () => {
