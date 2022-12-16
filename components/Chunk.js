@@ -18,6 +18,26 @@ const Chunk = ({chunk}) => {
   const springAnimation = useRef(new Animated.Value(0)).current;
   const fadeAnimation = useRef(new Animated.Value(0)).current;
   const biggerAnimation = useRef(new Animated.Value(1)).current;
+  const chunkFadeAnimation = useRef(new Animated.Value(0)).current;
+  const chunkMoveAnimation = useRef(new Animated.Value(0)).current;
+  const chunkMovementAnimation = Animated.spring(chunkMoveAnimation, {
+    toValue: 100,
+    useNativeDriver: true,
+    friction: 100,
+    tension: 100
+  });
+  const chunkFadeInAnimation = Animated.timing(chunkFadeAnimation, {
+    toValue: 1,
+    easing: Easing.inOut(Easing.ease),
+    useNativeDriver: true,
+    duration: 300
+  });
+  const chunkFadeOutAnimation = Animated.timing(chunkFadeAnimation, {
+    toValue: 0,
+    easing: Easing.inOut(Easing.ease),
+    useNativeDriver: true,
+    duration: 300
+  });
   const showSpringAnimation = Animated.spring(springAnimation, {
     toValue: 1,
     bounciness: 10,
@@ -63,6 +83,12 @@ const Chunk = ({chunk}) => {
   const showGettingBigger = () => {
     gettingBiggerAnimation.start();
   };
+  const showChunkFadeInOut = () => {
+    Animated.sequence([chunkFadeInAnimation, chunkFadeOutAnimation]).start();
+  };
+  const showChunkMovement = () => {
+    chunkMovementAnimation.start();
+  };
   const bounce = () => {
     Animated.sequence([bounceAnimation, debounceAnimation]).start();
   };
@@ -104,6 +130,8 @@ const Chunk = ({chunk}) => {
     showSpring();
     showFadeInAndOut();
     showGettingBigger();
+    showChunkFadeInOut();
+    showChunkMovement();
   }, []);
   useLayoutEffect(() => {
     switch (chunk) {
@@ -155,6 +183,24 @@ const Chunk = ({chunk}) => {
         ]}>
         <Image source={require("../assets/images/notes.png")} />
       </Animated.View>
+      <Animated.View
+        style={[
+          styles.chunk,
+          {
+            opacity: chunkFadeAnimation,
+            transform: [
+              {
+                rotateZ: "-15deg"
+              },
+              {
+                translateX: chunkMoveAnimation
+              }
+            ]
+          }
+        ]}>
+        <Text style={styles.outerChunk}>{visibleChunk}</Text>
+        <Text style={styles.innerChunk}>{visibleChunk}</Text>
+      </Animated.View>
     </View>
   );
 };
@@ -176,6 +222,33 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     zIndex: 1
+  },
+  chunk: {
+    position: "absolute",
+    top: 0,
+    right: 200,
+    zIndex: 2,
+    elevation: 10
+  },
+  outerChunk: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    color: "white",
+    fontSize: 96,
+    fontFamily: "Poppins-Black",
+    letterSpacing: -5,
+    zIndex: 3
+  },
+  innerChunk: {
+    position: "absolute",
+    zIndex: 4,
+    top: 14,
+    left: 3,
+    color: "#2962FF",
+    fontSize: 84,
+    fontFamily: "Poppins-Bold",
+    letterSpacing: -5
   }
 });
 
