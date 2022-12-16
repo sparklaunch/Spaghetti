@@ -8,8 +8,8 @@ const useCropImage = () => {
   const {setCroppedImagePaths} = useContext(CroppedImagePathsContext);
   const errorHandler = useErrorHandler();
   const {width} = Dimensions.get("window");
-  const sharedWidth = width * 0.7;
-  const sharedHeight = width * 0.75;
+  const sharedWidth = width * 0.8;
+  const sharedHeight = width * 0.8;
   const sharedYoffset = width * 0.5;
   const firstRect = {
     x: width * 0.5,
@@ -18,7 +18,7 @@ const useCropImage = () => {
     height: sharedHeight
   };
   const secondRect = {
-    x: width * 1.4,
+    x: width * 1.35,
     y: sharedYoffset,
     width: sharedWidth,
     height: sharedHeight
