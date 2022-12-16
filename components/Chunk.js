@@ -94,6 +94,8 @@ const Chunk = ({chunk}) => {
   };
   const onTapChunk = () => {
     bounce();
+    showChunkFadeInOut();
+    showFadeInAndOut();
     let chunkName;
     switch (chunk) {
       case "oo(uu)":
