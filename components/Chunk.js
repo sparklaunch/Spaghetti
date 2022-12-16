@@ -1,4 +1,12 @@
-import {Animated, Easing, Pressable, StyleSheet, Text} from "react-native";
+import {
+  Animated,
+  Easing,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import Sound from "react-native-sound";
 import Constants from "../shared/Constants";
@@ -8,6 +16,8 @@ Sound.setCategory("Playback");
 const Chunk = ({chunk}) => {
   const [visibleChunk, setVisibleChunk] = useState(chunk);
   const springAnimation = useRef(new Animated.Value(0)).current;
+  const fadeAnimation = useRef(new Animated.Value(0)).current;
+  const biggerAnimation = useRef(new Animated.Value(1)).current;
   const showSpringAnimation = Animated.spring(springAnimation, {
     toValue: 1,
     bounciness: 10,
@@ -26,8 +36,32 @@ const Chunk = ({chunk}) => {
     useNativeDriver: true,
     duration: 300
   });
+  const fadeInAnimation = Animated.timing(fadeAnimation, {
+    toValue: 1,
+    easing: Easing.inOut(Easing.ease),
+    useNativeDriver: true,
+    duration: 300
+  });
+  const fadeOutAnimation = Animated.timing(fadeAnimation, {
+    toValue: 0,
+    easing: Easing.inOut(Easing.ease),
+    useNativeDriver: true,
+    duration: 300
+  });
+  const gettingBiggerAnimation = Animated.timing(biggerAnimation, {
+    toValue: 2,
+    easing: Easing.inOut(Easing.ease),
+    useNativeDriver: true,
+    duration: 600
+  });
   const showSpring = () => {
     showSpringAnimation.start();
+  };
+  const showFadeInAndOut = () => {
+    Animated.sequence([fadeInAnimation, fadeOutAnimation]).start();
+  };
+  const showGettingBigger = () => {
+    gettingBiggerAnimation.start();
   };
   const bounce = () => {
     Animated.sequence([bounceAnimation, debounceAnimation]).start();
@@ -68,6 +102,8 @@ const Chunk = ({chunk}) => {
   };
   useEffect(() => {
     showSpring();
+    showFadeInAndOut();
+    showGettingBigger();
   }, []);
   useLayoutEffect(() => {
     switch (chunk) {
@@ -89,21 +125,37 @@ const Chunk = ({chunk}) => {
     }
   }, []);
   return (
-    <Animated.View
-      style={[
-        styles.block,
-        {
-          transform: [
-            {
-              scale: springAnimation
-            }
-          ]
-        }
-      ]}>
-      <Pressable onPress={onTapChunk}>
-        <Text style={styles.text}>{visibleChunk}</Text>
-      </Pressable>
-    </Animated.View>
+    <View style={styles.block}>
+      <Animated.View
+        style={[
+          styles.block,
+          {
+            transform: [
+              {
+                scale: springAnimation
+              }
+            ]
+          }
+        ]}>
+        <Pressable onPress={onTapChunk}>
+          <Text style={styles.text}>{visibleChunk}</Text>
+        </Pressable>
+      </Animated.View>
+      <Animated.View
+        style={[
+          styles.notes,
+          {
+            opacity: fadeAnimation,
+            transform: [
+              {
+                scale: biggerAnimation
+              }
+            ]
+          }
+        ]}>
+        <Image source={require("../assets/images/notes.png")} />
+      </Animated.View>
+    </View>
   );
 };
 
@@ -118,6 +170,12 @@ const styles = StyleSheet.create({
     fontSize: 128,
     color: Constants.PRIMARY_COLOR,
     letterSpacing: -5
+  },
+  notes: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 1
   }
 });
 
