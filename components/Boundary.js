@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     flex: 1,
-    borderRightWidth: 3,
+    borderRightWidth: 8,
     borderRightColor: Constants.PRIMARY_COLOR
   },
   placeholderDivider: {
