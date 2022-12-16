@@ -24,10 +24,12 @@ import LoadingScreen from "./LoadingScreen";
 import useInitializeTTS from "../hooks/useInitializeTTS";
 import Tflite from "tflite-react-native";
 import useLoadModel from "../hooks/useLoadModel";
+import useClassifyChunks from "../hooks/useClassifyChunks";
 
 const RootScreen = () => {
   // const recognizeChunks = useRecognizeChunks();
   const tflite = new Tflite();
+  const classifyChunks = useClassifyChunks();
   const loadModel = useLoadModel();
   const takePhoto = useTakePhoto();
   const playSound = usePlaySound();
@@ -53,60 +55,6 @@ const RootScreen = () => {
   const {isTakingPhotoAvailable, setIsTakingPhotoAvailable} = useContext(
     TakingPhotoAvailabilityContext
   );
-  const logConfidence = candidates => {
-    const confidences = candidates.map(candidate => {
-      return `[Confidence: ${candidate.confidence.toFixed(2)}]: ${
-        candidate.label
-      }`;
-    });
-    console.log(confidences.join(", "));
-  };
-  const classifyChunks = (paths, callback) => {
-    console.log(
-      "#------------------------------------------------------------#"
-    );
-    const results = [];
-    tflite.runModelOnImage(
-      {
-        path: paths[0]
-      },
-      (error, candidates) => {
-        if (error) {
-          errorHandler("CLASSIFY_CHUNKS_ERROR", error);
-        } else {
-          logConfidence(candidates);
-          results.push(candidates[0].label);
-          tflite.runModelOnImage(
-            {
-              path: paths[1]
-            },
-            (error, candidates) => {
-              if (error) {
-                errorHandler("CLASSIFY_CHUNKS_ERROR", error);
-              } else {
-                logConfidence(candidates);
-                results.push(candidates[0].label);
-                tflite.runModelOnImage(
-                  {
-                    path: paths[2]
-                  },
-                  (error, candidates) => {
-                    if (error) {
-                      errorHandler("CLASSIFY_CHUNKS_ERROR", error);
-                    } else {
-                      logConfidence(candidates);
-                      results.push(candidates[0].label);
-                      callback(results);
-                    }
-                  }
-                );
-              }
-            }
-          );
-        }
-      }
-    );
-  };
   const devices = useCameraDevices();
   const device = devices.back;
   const willPlaySession = () => {
@@ -130,7 +78,7 @@ const RootScreen = () => {
         // console.log("Raw Chunks: ", chunks);
         // console.log("Refined Chunks: ", chunks);
         // chunks = chunks.map(refineChunk);
-        classifyChunks(croppedPaths, chunks => {
+        classifyChunks(tflite, croppedPaths, chunks => {
           onTTSFinished();
           setChunks(chunks);
           setFirstChunkAnimation(true);
