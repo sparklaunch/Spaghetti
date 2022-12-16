@@ -101,15 +101,7 @@ const Chunk = ({chunk}) => {
         }
       ]}>
       <Pressable onPress={onTapChunk}>
-        <Text
-          style={[
-            styles.text,
-            chunk.length >= 2 && {
-              fontSize: 128
-            }
-          ]}>
-          {visibleChunk}
-        </Text>
+        <Text style={styles.text}>{visibleChunk}</Text>
       </Pressable>
     </Animated.View>
   );
@@ -124,7 +116,8 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Poppins-Bold",
     fontSize: 128,
-    color: Constants.PRIMARY_COLOR
+    color: Constants.PRIMARY_COLOR,
+    letterSpacing: -5
   }
 });
 
