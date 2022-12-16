@@ -41,6 +41,7 @@ const useClassifyChunks = () => {
                       results.push(candidates[0].label);
                       callback(results);
                     }
+                    tflite.close();
                   }
                 );
               }

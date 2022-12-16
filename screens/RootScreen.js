@@ -127,9 +127,6 @@ const RootScreen = () => {
     loadModel(tflite);
     getCameraAndMicrophonePermissions();
     initializeTTS();
-    return () => {
-      tflite.close();
-    };
   }, []);
   if (
     device === null ||
