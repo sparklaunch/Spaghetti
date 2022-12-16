@@ -105,7 +105,7 @@ const Chunk = ({chunk}) => {
           style={[
             styles.text,
             chunk.length >= 2 && {
-              fontSize: 96
+              fontSize: 128
             }
           ]}>
           {visibleChunk}
