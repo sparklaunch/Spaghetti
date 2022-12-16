@@ -124,9 +124,15 @@ const RootScreen = () => {
     Tts.speak(joinedChunks);
   };
   useEffect(() => {
-    loadModel(tflite);
-    getCameraAndMicrophonePermissions();
-    initializeTTS();
+    (async () => {
+      loadModel(tflite);
+      try {
+        await getCameraAndMicrophonePermissions();
+        await initializeTTS();
+      } catch (error) {
+        errorHandler("LOAD_ERROR", error);
+      }
+    })();
     return () => {
       tflite.close();
     };

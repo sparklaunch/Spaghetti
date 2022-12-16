@@ -19,7 +19,8 @@ const prefixes = {
   RECOGNIZE_CHUNKS_ERROR: "[recognizeChunks] error: ",
   ON_TAP_RECOGNIZE_CHUNKS_ERROR: "[onTap: recognizeChunks] error: ",
   TTS_ENGINE_ERROR: "TTS Engine error: ",
-  CLASSIFY_CHUNKS_ERROR: "[classifyChunks] error: "
+  CLASSIFY_CHUNKS_ERROR: "[classifyChunks] error: ",
+  LOAD_ERROR: "Loading error: "
 };
 
 const useErrorHandler = () => {
