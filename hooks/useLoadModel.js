@@ -5,7 +5,7 @@ const useLoadModel = () => {
   return tflite => {
     tflite.loadModel(
       {
-        model: "model_unquant.tflite",
+        model: "model64.tflite",
         labels: "labels.txt"
       },
       (error, _) => {
