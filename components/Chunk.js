@@ -1,119 +1,16 @@
-import {
-  Animated,
-  Easing,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View
-} from "react-native";
-import {useEffect, useLayoutEffect, useRef, useState} from "react";
+import {Pressable, StyleSheet, Text, View} from "react-native";
+import {useLayoutEffect, useState} from "react";
 import Sound from "react-native-sound";
 import Constants from "../shared/Constants";
+import phonemeToSignifierMapper from "../utils/phonemeToSignifierMapper";
+import phonemeToOrthographyMapper from "../utils/phonemeToOrthographyMapper";
 
 Sound.setCategory("Playback");
 
 const Chunk = ({chunk}) => {
   const [visibleChunk, setVisibleChunk] = useState(chunk);
-  const springAnimation = useRef(new Animated.Value(0)).current;
-  const fadeAnimation = useRef(new Animated.Value(0)).current;
-  const biggerAnimation = useRef(new Animated.Value(1)).current;
-  const chunkFadeAnimation = useRef(new Animated.Value(0)).current;
-  const chunkMoveAnimation = useRef(new Animated.Value(0)).current;
-  const chunkMovementAnimation = Animated.spring(chunkMoveAnimation, {
-    toValue: 100,
-    useNativeDriver: true,
-    friction: 100,
-    tension: 100
-  });
-  const chunkFadeInAnimation = Animated.timing(chunkFadeAnimation, {
-    toValue: 1,
-    easing: Easing.inOut(Easing.ease),
-    useNativeDriver: true,
-    duration: 300
-  });
-  const chunkFadeOutAnimation = Animated.timing(chunkFadeAnimation, {
-    toValue: 0,
-    easing: Easing.inOut(Easing.ease),
-    useNativeDriver: true,
-    duration: 300
-  });
-  const showSpringAnimation = Animated.spring(springAnimation, {
-    toValue: 1,
-    bounciness: 10,
-    speed: 1,
-    useNativeDriver: true
-  });
-  const bounceAnimation = Animated.timing(springAnimation, {
-    toValue: 1.5,
-    easing: Easing.inOut(Easing.ease),
-    useNativeDriver: true,
-    duration: 300
-  });
-  const debounceAnimation = Animated.timing(springAnimation, {
-    toValue: 1,
-    easing: Easing.inOut(Easing.ease),
-    useNativeDriver: true,
-    duration: 300
-  });
-  const fadeInAnimation = Animated.timing(fadeAnimation, {
-    toValue: 1,
-    easing: Easing.inOut(Easing.ease),
-    useNativeDriver: true,
-    duration: 300
-  });
-  const fadeOutAnimation = Animated.timing(fadeAnimation, {
-    toValue: 0,
-    easing: Easing.inOut(Easing.ease),
-    useNativeDriver: true,
-    duration: 300
-  });
-  const gettingBiggerAnimation = Animated.timing(biggerAnimation, {
-    toValue: 2,
-    easing: Easing.inOut(Easing.ease),
-    useNativeDriver: true,
-    duration: 600
-  });
-  const showSpring = () => {
-    showSpringAnimation.start();
-  };
-  const showFadeInAndOut = () => {
-    Animated.sequence([fadeInAnimation, fadeOutAnimation]).start();
-  };
-  const showGettingBigger = () => {
-    gettingBiggerAnimation.start();
-  };
-  const showChunkFadeInOut = () => {
-    Animated.sequence([chunkFadeInAnimation, chunkFadeOutAnimation]).start();
-  };
-  const showChunkMovement = () => {
-    chunkMovementAnimation.start();
-  };
-  const bounce = () => {
-    Animated.sequence([bounceAnimation, debounceAnimation]).start();
-  };
   const onTapChunk = () => {
-    bounce();
-    showChunkFadeInOut();
-    showFadeInAndOut();
-    let chunkName;
-    switch (chunk) {
-      case "oo(uu)":
-        chunkName = "oo_tense_u";
-        break;
-      case "oo(u)":
-        chunkName = "oo_lax_u";
-        break;
-      case "ow(au)":
-        chunkName = "ow_au";
-        break;
-      case "ow(ou)":
-        chunkName = "ow_ou";
-        break;
-      default:
-        chunkName = chunk;
-        break;
-    }
+    const chunkName = phonemeToSignifierMapper(chunk);
     const sound = new Sound(`${chunkName}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
         console.log("PLAY_SOUND_ERROR: ", error);
@@ -128,81 +25,17 @@ const Chunk = ({chunk}) => {
       }
     });
   };
-  useEffect(() => {
-    showSpring();
-    showFadeInAndOut();
-    showGettingBigger();
-    showChunkFadeInOut();
-    showChunkMovement();
-  }, []);
   useLayoutEffect(() => {
-    switch (chunk) {
-      case "oo(uu)":
-        setVisibleChunk("oo");
-        break;
-      case "oo(u)":
-        setVisibleChunk("oo");
-        break;
-      case "ow(au)":
-        setVisibleChunk("ow");
-        break;
-      case "ow(ou)":
-        setVisibleChunk("ow");
-        break;
-      default:
-        setVisibleChunk(chunk);
-        break;
-    }
+    const visibleChunk = phonemeToOrthographyMapper(chunk);
+    setVisibleChunk(visibleChunk);
   }, []);
   return (
     <View style={styles.block}>
-      <Animated.View
-        style={[
-          styles.block,
-          {
-            transform: [
-              {
-                scale: springAnimation
-              }
-            ]
-          }
-        ]}>
+      <View style={styles.block}>
         <Pressable onPress={onTapChunk}>
           <Text style={styles.text}>{visibleChunk}</Text>
         </Pressable>
-      </Animated.View>
-      <Animated.View
-        style={[
-          styles.notes,
-          {
-            opacity: fadeAnimation,
-            transform: [
-              {
-                scale: biggerAnimation
-              }
-            ]
-          }
-        ]}>
-        <Image source={require("../assets/images/notes.png")} />
-      </Animated.View>
-      <Animated.View
-        style={[
-          styles.chunk,
-          {
-            opacity: chunkFadeAnimation,
-            transform: [
-              {
-                rotateZ: "-15deg"
-              },
-              {
-                translateX: chunkMoveAnimation
-              }
-            ]
-          }
-        ]}>
-        <Text style={styles.outerChunk}>{visibleChunk}</Text>
-        <Text style={styles.innerChunk}>{visibleChunk}</Text>
-      </Animated.View>
+      </View>
     </View>
   );
 };
