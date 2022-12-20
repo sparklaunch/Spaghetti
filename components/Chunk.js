@@ -17,7 +17,7 @@ import {Gesture, GestureDetector} from "react-native-gesture-handler";
 
 Sound.setCategory("Playback");
 
-const Chunk = forwardRef(({chunk}) => {
+const Chunk = forwardRef(({chunk}, ref) => {
   const [visibleChunk, setVisibleChunk] = useState(chunk);
   const tapScale = useSharedValue(1);
   const bounceStyle = useAnimatedStyle(() => {
@@ -67,6 +67,7 @@ const Chunk = forwardRef(({chunk}) => {
         style={[styles.block, bounceStyle]}
         entering={BounceIn}
         exiting={BounceOut}
+        ref={ref}
         layout={Layout.duration(200)}>
         <View style={styles.block}>
           <Pressable onPress={onTapChunk}>
