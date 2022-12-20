@@ -26,6 +26,7 @@ import Tflite from "tflite-react-native";
 import useLoadModel from "../hooks/useLoadModel";
 import useClassifyChunks from "../hooks/useClassifyChunks";
 import phonemeToOrthographyMapper from "../utils/phonemeToOrthographyMapper";
+import ChunksRefsContext from "../contexts/ChunksRefsContext";
 
 const RootScreen = () => {
   // const recognizeChunks = useRecognizeChunks();
@@ -39,6 +40,7 @@ const RootScreen = () => {
   const onTTSFinished = useOnTTSFinished();
   const initializeTTS = useInitializeTTS();
   const getCameraAndMicrophonePermissions = useCameraAndMicrophonePermissions();
+  const {wave} = useContext(ChunksRefsContext);
   const {chunks, setChunks} = useContext(ChunksContext);
   const {croppedImagePaths} = useContext(CroppedImagePathsContext);
   const {cameraPermission, microphonePermission} = useContext(
@@ -91,6 +93,7 @@ const RootScreen = () => {
               setThirdChunkAnimation(true);
               playSound(chunks[2], () => {
                 const middleChunk = phonemeToOrthographyMapper(chunks[1]);
+                wave();
                 Tts.speak([chunks[0], middleChunk, chunks[2]].join(""));
                 onTTSFinished();
               });
