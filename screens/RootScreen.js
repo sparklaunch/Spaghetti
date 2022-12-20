@@ -25,6 +25,7 @@ import useInitializeTTS from "../hooks/useInitializeTTS";
 import Tflite from "tflite-react-native";
 import useLoadModel from "../hooks/useLoadModel";
 import useClassifyChunks from "../hooks/useClassifyChunks";
+import phonemeToOrthographyMapper from "../utils/phonemeToOrthographyMapper";
 
 const RootScreen = () => {
   // const recognizeChunks = useRecognizeChunks();
@@ -87,25 +88,8 @@ const RootScreen = () => {
             playSound(chunks[1], () => {
               setThirdChunkAnimation(true);
               playSound(chunks[2], () => {
-                let vowel;
-                switch (chunks[1]) {
-                  case "oo(uu)":
-                    vowel = "oo";
-                    break;
-                  case "oo(u)":
-                    vowel = "oo";
-                    break;
-                  case "ow(au)":
-                    vowel = "ow";
-                    break;
-                  case "ow(ou)":
-                    vowel = "ow";
-                    break;
-                  default:
-                    vowel = chunks[1];
-                    break;
-                }
-                Tts.speak([chunks[0], vowel, chunks[2]].join(""));
+                const middleChunk = phonemeToOrthographyMapper(chunks[1]);
+                Tts.speak([chunks[0], middleChunk, chunks[2]].join(""));
                 onTTSFinished();
               });
             });
