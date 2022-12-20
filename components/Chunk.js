@@ -4,7 +4,7 @@ import Sound from "react-native-sound";
 import Constants from "../shared/Constants";
 import phonemeToSignifierMapper from "../utils/phonemeToSignifierMapper";
 import phonemeToOrthographyMapper from "../utils/phonemeToOrthographyMapper";
-import Animated, {BounceIn, BounceOut} from "react-native-reanimated";
+import Animated, {BounceIn, BounceOut, Layout} from "react-native-reanimated";
 
 Sound.setCategory("Playback");
 
@@ -31,7 +31,11 @@ const Chunk = ({chunk}) => {
     setVisibleChunk(visibleChunk);
   }, []);
   return (
-    <Animated.View style={styles.block} entering={BounceIn} exiting={BounceOut}>
+    <Animated.View
+      style={styles.block}
+      entering={BounceIn}
+      exiting={BounceOut}
+      layout={Layout.duration(200)}>
       <View style={styles.block}>
         <Pressable onPress={onTapChunk}>
           <Text style={styles.text}>{visibleChunk}</Text>
