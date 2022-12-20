@@ -2,8 +2,17 @@ import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import Constants from "../shared/Constants";
 import {useContext, useState} from "react";
 import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
+import ChunksRefsContext from "../contexts/ChunksRefsContext";
 
 const MegaphoneButton = ({onReplay}) => {
+  const {firstChunkRef, secondChunkRef, thirdChunkRef} =
+    useContext(ChunksRefsContext);
+  const onPress = () => {
+    onReplay();
+    firstChunkRef.current.wave();
+    secondChunkRef.current.wave();
+    thirdChunkRef.current.wave();
+  };
   const {isMegaphoneVisible} = useContext(DeviceVisibilityContext);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -31,7 +40,7 @@ const MegaphoneButton = ({onReplay}) => {
           ]
         }
       ]}>
-      <TouchableOpacity activeOpacity={0.5} onPress={onReplay}>
+      <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
         <Image source={require("../assets/images/megaphone.png")} />
       </TouchableOpacity>
     </View>

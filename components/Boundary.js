@@ -1,14 +1,14 @@
 import {StyleSheet, View} from "react-native";
 import Chunk from "./Chunk";
-import {useContext, useRef} from "react";
+import {useContext} from "react";
 import ChunkAnimationContext from "../contexts/ChunkAnimationContext";
 import ChunksContext from "../contexts/ChunksContext";
 import Constants from "../shared/Constants";
+import ChunksRefsContext from "../contexts/ChunksRefsContext";
 
 const Boundary = () => {
-  const firstChunkRef = useRef();
-  const secondChunkRef = useRef();
-  const thirdChunkRef = useRef();
+  const {firstChunkRef, secondChunkRef, thirdChunkRef} =
+    useContext(ChunksRefsContext);
   const {firstChunkAnimation, secondChunkAnimation, thirdChunkAnimation} =
     useContext(ChunkAnimationContext);
   const {chunks} = useContext(ChunksContext);
@@ -19,12 +19,12 @@ const Boundary = () => {
       </View>
       <View style={styles.divider}>
         {secondChunkAnimation && (
-          <Chunk chunk={chunks[1]} ref={secondChunkRef} delay={300} />
+          <Chunk chunk={chunks[1]} ref={secondChunkRef} delay={100} />
         )}
       </View>
       <View style={styles.placeholderDivider}>
         {thirdChunkAnimation && (
-          <Chunk chunk={chunks[2]} ref={thirdChunkRef} delay={600} />
+          <Chunk chunk={chunks[2]} ref={thirdChunkRef} delay={200} />
         )}
       </View>
     </View>
