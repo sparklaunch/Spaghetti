@@ -29,11 +29,18 @@ const Chunk = ({chunk}) => {
       ]
     };
   });
-  const onTap = Gesture.Tap()
-    .maxDuration(250)
-    .onStart(() => {
-      tapScale.value = withRepeat(withTiming(2), 2, true);
-    });
+  const onTap = Gesture.Tap().onStart(() => {
+    tapScale.value = withRepeat(
+      withTiming(2, {
+        duration: 250
+      }),
+      2,
+      true,
+      () => {
+        tapScale.value = 1;
+      }
+    );
+  });
   const onTapChunk = () => {
     const chunkName = phonemeToSignifierMapper(chunk);
     const sound = new Sound(`${chunkName}.mp3`, Sound.MAIN_BUNDLE, error => {
