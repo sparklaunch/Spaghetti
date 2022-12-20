@@ -79,7 +79,9 @@ const RootScreen = () => {
         // console.log("Raw Chunks: ", chunks);
         // console.log("Refined Chunks: ", chunks);
         // chunks = chunks.map(refineChunk);
+        loadModel(tflite);
         classifyChunks(tflite, croppedPaths, chunks => {
+          tflite.close();
           onTTSFinished();
           setChunks(chunks);
           setFirstChunkAnimation(true);
@@ -109,7 +111,6 @@ const RootScreen = () => {
   };
   useEffect(() => {
     (async () => {
-      loadModel(tflite);
       try {
         await getCameraAndMicrophonePermissions();
         await initializeTTS();
@@ -117,9 +118,6 @@ const RootScreen = () => {
         errorHandler("LOAD_ERROR", error);
       }
     })();
-    return () => {
-      tflite.close();
-    };
   }, []);
   if (
     device === null ||
