@@ -1,5 +1,10 @@
 import {Pressable, StyleSheet, Text, View} from "react-native";
-import {forwardRef, useLayoutEffect, useState} from "react";
+import {
+  forwardRef,
+  useImperativeHandle,
+  useLayoutEffect,
+  useState
+} from "react";
 import Sound from "react-native-sound";
 import Constants from "../shared/Constants";
 import phonemeToSignifierMapper from "../utils/phonemeToSignifierMapper";
@@ -10,6 +15,7 @@ import Animated, {
   Layout,
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withRepeat,
   withTiming
 } from "react-native-reanimated";
@@ -17,9 +23,28 @@ import {Gesture, GestureDetector} from "react-native-gesture-handler";
 
 Sound.setCategory("Playback");
 
-const Chunk = forwardRef(({chunk}, ref) => {
+const Chunk = forwardRef(({chunk, delay = 0}, ref) => {
   const [visibleChunk, setVisibleChunk] = useState(chunk);
   const tapScale = useSharedValue(1);
+  useImperativeHandle(ref, () => {
+    return {
+      wave: () => {
+        tapScale.value = withDelay(
+          delay,
+          withRepeat(
+            withTiming(2, {
+              duration: 200
+            }),
+            2,
+            true,
+            () => {
+              tapScale.value = 1;
+            }
+          )
+        );
+      }
+    };
+  });
   const bounceStyle = useAnimatedStyle(() => {
     return {
       transform: [

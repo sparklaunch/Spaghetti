@@ -19,11 +19,13 @@ const Boundary = () => {
       </View>
       <View style={styles.divider}>
         {secondChunkAnimation && (
-          <Chunk chunk={chunks[1]} ref={secondChunkRef} />
+          <Chunk chunk={chunks[1]} ref={secondChunkRef} delay={300} />
         )}
       </View>
       <View style={styles.placeholderDivider}>
-        {thirdChunkAnimation && <Chunk chunk={chunks[2]} ref={thirdChunkRef} />}
+        {thirdChunkAnimation && (
+          <Chunk chunk={chunks[2]} ref={thirdChunkRef} delay={600} />
+        )}
       </View>
     </View>
   );
