@@ -4,12 +4,28 @@ import Sound from "react-native-sound";
 import Constants from "../shared/Constants";
 import phonemeToSignifierMapper from "../utils/phonemeToSignifierMapper";
 import phonemeToOrthographyMapper from "../utils/phonemeToOrthographyMapper";
-import Animated, {BounceIn, BounceOut, Layout} from "react-native-reanimated";
+import Animated, {
+  BounceIn,
+  BounceOut,
+  Layout,
+  useAnimatedStyle,
+  useSharedValue
+} from "react-native-reanimated";
 
 Sound.setCategory("Playback");
 
 const Chunk = ({chunk}) => {
   const [visibleChunk, setVisibleChunk] = useState(chunk);
+  const scale = useSharedValue(1);
+  const bounceStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: scale.value
+        }
+      ]
+    };
+  });
   const onTapChunk = () => {
     const chunkName = phonemeToSignifierMapper(chunk);
     const sound = new Sound(`${chunkName}.mp3`, Sound.MAIN_BUNDLE, error => {

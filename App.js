@@ -5,6 +5,8 @@ import {CroppedImagePathsContextProvider} from "./contexts/CroppedImagePathsCont
 import {ChunksContextProvider} from "./contexts/ChunksContext";
 import {TakingPhotoAvailabilityContextProvider} from "./contexts/TakingPhotoAvailabilityContext";
 import RootScreen from "./screens/RootScreen";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
+import {StyleSheet} from "react-native";
 
 const App = () => {
   return (
@@ -14,7 +16,9 @@ const App = () => {
           <CroppedImagePathsContextProvider>
             <ChunksContextProvider>
               <TakingPhotoAvailabilityContextProvider>
-                <RootScreen />
+                <GestureHandlerRootView style={styles.block}>
+                  <RootScreen />
+                </GestureHandlerRootView>
               </TakingPhotoAvailabilityContextProvider>
             </ChunksContextProvider>
           </CroppedImagePathsContextProvider>
@@ -23,5 +27,11 @@ const App = () => {
     </DevicePermissionContextProvider>
   );
 };
+
+const styles = StyleSheet.create({
+  block: {
+    flex: 1
+  }
+});
 
 export default App;
