@@ -1,5 +1,5 @@
 import {Pressable, StyleSheet, Text, View} from "react-native";
-import {useLayoutEffect, useState} from "react";
+import {forwardRef, useLayoutEffect, useState} from "react";
 import Sound from "react-native-sound";
 import Constants from "../shared/Constants";
 import phonemeToSignifierMapper from "../utils/phonemeToSignifierMapper";
@@ -17,7 +17,7 @@ import {Gesture, GestureDetector} from "react-native-gesture-handler";
 
 Sound.setCategory("Playback");
 
-const Chunk = ({chunk}) => {
+const Chunk = forwardRef(({chunk}) => {
   const [visibleChunk, setVisibleChunk] = useState(chunk);
   const tapScale = useSharedValue(1);
   const bounceStyle = useAnimatedStyle(() => {
@@ -76,7 +76,7 @@ const Chunk = ({chunk}) => {
       </Animated.View>
     </GestureDetector>
   );
-};
+});
 
 const styles = StyleSheet.create({
   block: {
