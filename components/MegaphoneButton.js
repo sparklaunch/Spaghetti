@@ -5,13 +5,10 @@ import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
 import ChunksRefsContext from "../contexts/ChunksRefsContext";
 
 const MegaphoneButton = ({onReplay}) => {
-  const {firstChunkRef, secondChunkRef, thirdChunkRef} =
-    useContext(ChunksRefsContext);
+  const {wave} = useContext(ChunksRefsContext);
   const onPress = () => {
     onReplay();
-    firstChunkRef.current.wave();
-    secondChunkRef.current.wave();
-    thirdChunkRef.current.wave();
+    wave();
   };
   const {isMegaphoneVisible} = useContext(DeviceVisibilityContext);
   const [width, setWidth] = useState(0);
