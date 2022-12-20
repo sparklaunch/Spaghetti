@@ -1,6 +1,6 @@
 import {StyleSheet, View} from "react-native";
 import Chunk from "./Chunk";
-import {useContext, useEffect, useRef} from "react";
+import {useContext, useRef} from "react";
 import ChunkAnimationContext from "../contexts/ChunkAnimationContext";
 import ChunksContext from "../contexts/ChunksContext";
 import Constants from "../shared/Constants";
@@ -12,9 +12,6 @@ const Boundary = () => {
   const {firstChunkAnimation, secondChunkAnimation, thirdChunkAnimation} =
     useContext(ChunkAnimationContext);
   const {chunks} = useContext(ChunksContext);
-  useEffect(() => {
-    firstChunkRef.current?.bounce();
-  }, [firstChunkRef.current]);
   return (
     <View style={styles.boundary}>
       <View style={styles.divider}>
