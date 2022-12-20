@@ -16,10 +16,11 @@
     "react-native": "0.70.6",
     "react-native-fs": "^2.20.0",
     "react-native-photo-manipulator": "^1.2.7",
+    "react-native-reanimated": "^2.13.0",
     "react-native-sound": "^0.11.2",
     "react-native-text-recognition": "^1.1.0",
     "react-native-tts": "^4.1.0",
-    "react-native-vision-camera": "^2.15.2",
+    "react-native-vision-camera": "github:mrousavy/react-native-vision-camera#b7bb8e4",
     "tflite-react-native": "^0.0.5"
   },
   "devDependencies": {
