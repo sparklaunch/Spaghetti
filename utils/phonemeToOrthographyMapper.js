@@ -13,7 +13,7 @@ const phonemeToOrthographyMapper = phoneme => {
       return "ow";
       break;
     default:
-      return;
+      return phoneme;
       break;
   }
 };
