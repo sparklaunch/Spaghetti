@@ -2,8 +2,10 @@ import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {useContext, useState} from "react";
 import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
 import SoundRecorder from "react-native-sound-recorder";
+import useErrorHandler from "../hooks/useErrorHandler";
 
 const MicrophoneButton = () => {
+  const errorHandler = useErrorHandler();
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
@@ -21,7 +23,7 @@ const MicrophoneButton = () => {
           setIsRecording(true);
         })
         .catch(error => {
-          console.log(error);
+          errorHandler("RECORDING_ERROR", error);
         });
     } else {
       SoundRecorder.stop()
@@ -30,7 +32,7 @@ const MicrophoneButton = () => {
           setIsRecording(false);
         })
         .catch(error => {
-          console.log(error);
+          errorHandler("RECORDING_ERROR", error);
         });
     }
   };

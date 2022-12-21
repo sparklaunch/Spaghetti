@@ -1,4 +1,4 @@
-import {StyleSheet, View} from "react-native";
+import {Dimensions, StyleSheet, View} from "react-native";
 import Chunk from "./Chunk";
 import {useContext} from "react";
 import ChunkAnimationContext from "../contexts/ChunkAnimationContext";
@@ -13,7 +13,13 @@ const Boundary = () => {
     useContext(ChunkAnimationContext);
   const {chunks} = useContext(ChunksContext);
   return (
-    <View style={styles.boundary}>
+    <View
+      style={[
+        styles.boundary,
+        {
+          height: Dimensions.get("window").width / 2.68
+        }
+      ]}>
       <View style={styles.divider}>
         {firstChunkAnimation && <Chunk chunk={chunks[0]} ref={firstChunkRef} />}
       </View>
@@ -37,7 +43,6 @@ const styles = StyleSheet.create({
     left: `${Constants.LEFT_OFFSET * 100}%`,
     top: `${Constants.TOP_OFFSET * 100}%`,
     right: `${Constants.LEFT_OFFSET * 100}%`,
-    bottom: `${Constants.TOP_OFFSET * 100}%`,
     borderWidth: 8,
     borderColor: Constants.PRIMARY_COLOR,
     flexDirection: "row"
