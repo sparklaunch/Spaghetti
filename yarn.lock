@@ -766,6 +766,11 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
+"@bam.tech/react-native-image-resizer@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@bam.tech/react-native-image-resizer/-/react-native-image-resizer-3.0.4.tgz#3e127818e88df89e5c51a07e2556bf6ef872df26"
+  integrity sha512-p2Ecs469bntk4Ke4CEYyEoVBKBT+8JyaXXPz4Fm55s9G+jEg99p1V9MHkza2k7OAq1iUF8oAtZ/wZ9zKn6b43Q==
+
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
