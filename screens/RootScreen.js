@@ -29,6 +29,7 @@ import phonemeToOrthographyMapper from "../utils/phonemeToOrthographyMapper";
 import ChunksRefsContext from "../contexts/ChunksRefsContext";
 import refineChunk from "../utils/refineChunk";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
+import MicrophoneButton from "../components/MicrophoneButton";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
@@ -159,6 +160,7 @@ const RootScreen = () => {
       </MaskedView>
       <CameraButton onTap={onTap} />
       <MegaphoneButton onReplay={onReplay} />
+      <MicrophoneButton />
 
       {/* BELOW IS THE DEBUGGING PART */}
       {croppedImagePaths.length > 0 && (
