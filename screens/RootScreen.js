@@ -83,7 +83,10 @@ const RootScreen = () => {
         const refinedChunks = chunks.map(refineChunk);
         console.log("Recognized Chunks: ", refinedChunks);
         const emptyChunkIndices = refinedChunks.reduce(
-          (acc, element, index) => (element === "" ? acc.concat(index) : acc),
+          (acc, element, index) =>
+            element === "" || element == "ow" || element == "oo"
+              ? acc.concat(index)
+              : acc,
           []
         );
         loadModel(tflite);
