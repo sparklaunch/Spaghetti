@@ -55,9 +55,8 @@ const RootScreen = () => {
     setSecondChunkAnimation,
     setThirdChunkAnimation
   } = useContext(ChunkAnimationContext);
-  const {setIsCameraVisible, setIsMegaphoneVisible} = useContext(
-    DeviceVisibilityContext
-  );
+  const {setIsCameraVisible, setIsMegaphoneVisible, setIsMicrophoneVisible} =
+    useContext(DeviceVisibilityContext);
   const {isTakingPhotoAvailable, setIsTakingPhotoAvailable} = useContext(
     TakingPhotoAvailabilityContext
   );
@@ -70,6 +69,7 @@ const RootScreen = () => {
     setIsCameraVisible(false);
     setIsTakingPhotoAvailable(false);
     setIsMegaphoneVisible(false);
+    setIsMicrophoneVisible(false);
   };
   const playSession = () => {
     if (!isTakingPhotoAvailable) {
