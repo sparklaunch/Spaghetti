@@ -24,14 +24,16 @@ import LoadingScreen from "./LoadingScreen";
 import useInitializeTTS from "../hooks/useInitializeTTS";
 import Tflite from "tflite-react-native";
 import useLoadModel from "../hooks/useLoadModel";
-import useClassifyChunks from "../hooks/useClassifyChunks";
+import useClassifyChunk from "../hooks/useClassifyChunk";
 import phonemeToOrthographyMapper from "../utils/phonemeToOrthographyMapper";
 import ChunksRefsContext from "../contexts/ChunksRefsContext";
+import refineChunk from "../utils/refineChunk";
+import useRecognizeChunks from "../hooks/useRecognizeChunks";
 
 const RootScreen = () => {
-  // const recognizeChunks = useRecognizeChunks();
   const tflite = new Tflite();
-  const classifyChunks = useClassifyChunks();
+  const recognizeChunks = useRecognizeChunks();
+  const classifyChunk = useClassifyChunk();
   const loadModel = useLoadModel();
   const takePhoto = useTakePhoto();
   const playSound = usePlaySound();
@@ -77,26 +79,35 @@ const RootScreen = () => {
       try {
         const {path} = await takePhoto(camera);
         const croppedPaths = await cropImage(path);
-        // let chunks = await recognizeChunks(croppedPaths);
-        // console.log("Raw Chunks: ", chunks);
-        // console.log("Refined Chunks: ", chunks);
-        // chunks = chunks.map(refineChunk);
-        loadModel(tflite);
-        classifyChunks(tflite, croppedPaths, chunks => {
+        const chunks = await recognizeChunks(croppedPaths);
+        const refinedChunks = chunks.map(refineChunk);
+        console.log("Recognized Chunks: ", refinedChunks);
+        const emptyChunkIndices = refinedChunks.reduce(
+          (acc, element, index) => (element === "" ? acc.concat(index) : acc),
+          []
+        );
+        for (const index of emptyChunkIndices) {
+          loadModel(tflite);
+          const modeledChunk = await classifyChunk(tflite, croppedPaths[index]);
           tflite.close();
-          onTTSFinished();
-          setChunks(chunks);
-          setFirstChunkAnimation(true);
-          playSound(chunks[0], () => {
-            setSecondChunkAnimation(true);
-            playSound(chunks[1], () => {
-              setThirdChunkAnimation(true);
-              playSound(chunks[2], () => {
-                const middleChunk = phonemeToOrthographyMapper(chunks[1]);
-                wave();
-                Tts.speak([chunks[0], middleChunk, chunks[2]].join(""));
-                onTTSFinished();
-              });
+          refinedChunks[index] = modeledChunk;
+        }
+        console.log("Processed Chunks: ", refinedChunks);
+        tflite.close();
+        onTTSFinished();
+        setChunks(refinedChunks);
+        setFirstChunkAnimation(true);
+        playSound(refinedChunks[0], () => {
+          setSecondChunkAnimation(true);
+          playSound(refinedChunks[1], () => {
+            setThirdChunkAnimation(true);
+            playSound(refinedChunks[2], () => {
+              const middleChunk = phonemeToOrthographyMapper(refinedChunks[1]);
+              wave();
+              Tts.speak(
+                [refinedChunks[0], middleChunk, refinedChunks[2]].join("")
+              );
+              onTTSFinished();
             });
           });
         });
