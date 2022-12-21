@@ -1,5 +1,4 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
-import Constants from "../shared/Constants";
 import {useContext, useState} from "react";
 import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
 
@@ -41,7 +40,7 @@ const CameraButton = ({onTap}) => {
 const styles = StyleSheet.create({
   tapButton: {
     position: "absolute",
-    right: `${Constants.LEFT_OFFSET * 100}%`,
+    right: "5%",
     top: "50%",
     transform: [
       {
