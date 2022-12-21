@@ -5,7 +5,7 @@ const useLoadModel = () => {
   return tensorflowLite => {
     tensorflowLite.loadModel(
       {
-        model: "model_partial.tflite",
+        model: "model.tflite",
         labels: "labels.txt"
       },
       (error, _) => {
