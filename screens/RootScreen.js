@@ -30,6 +30,7 @@ import ChunksRefsContext from "../contexts/ChunksRefsContext";
 import refineChunk from "../utils/refineChunk";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
 import MicrophoneButton from "../components/MicrophoneButton";
+import Backdrop from "../components/Backdrop";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
@@ -158,6 +159,7 @@ const RootScreen = () => {
         />
         <Boundary />
       </MaskedView>
+      <Backdrop />
       <CameraButton onTap={onTap} />
       <MegaphoneButton onReplay={onReplay} />
       <MicrophoneButton />
