@@ -82,7 +82,7 @@ const RootScreen = () => {
         const chunks = await recognizeChunks(croppedPaths);
         const refinedChunks = chunks.map(refineChunk);
         console.log("Recognized Chunks: ", refinedChunks);
-        const emptyChunkIndices = refinedChunks.reduce(
+        const targetChunkIndices = refinedChunks.reduce(
           (acc, element, index) =>
             element === "" || element === "ow" || element === "oo"
               ? acc.concat(index)
@@ -90,7 +90,7 @@ const RootScreen = () => {
           []
         );
         loadModel(tensorflowLite);
-        for (const index of emptyChunkIndices) {
+        for (const index of targetChunkIndices) {
           refinedChunks[index] = await classifyChunk(
             tensorflowLite,
             croppedPaths[index]
