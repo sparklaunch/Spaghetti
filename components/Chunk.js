@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Poppins-Bold",
-    fontSize: 128,
+    fontSize: 120,
     color: Constants.PRIMARY_COLOR,
     letterSpacing: -5
   },
