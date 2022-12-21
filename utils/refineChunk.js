@@ -18,6 +18,9 @@ const refineChunk = chunk => {
   if (chunk.includes("fil")) {
     chunk = chunk.replace(/fil/g, "fl");
   }
+  if (chunk.includes("f1")) {
+    chunk = chunk.replace(/f1/g, "f1");
+  }
   return chunk;
 };
 
