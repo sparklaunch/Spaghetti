@@ -1,5 +1,4 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
-import Constants from "../shared/Constants";
 import {useContext, useState} from "react";
 import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
 import ChunksRefsContext from "../contexts/ChunksRefsContext";
@@ -47,7 +46,7 @@ const MegaphoneButton = ({onReplay}) => {
 const styles = StyleSheet.create({
   playButton: {
     position: "absolute",
-    bottom: `${Constants.TOP_OFFSET * 100}%`,
+    bottom: "8%",
     left: "50%"
   }
 });
