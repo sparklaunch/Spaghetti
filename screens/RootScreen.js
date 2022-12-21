@@ -31,7 +31,7 @@ import refineChunk from "../utils/refineChunk";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
 
 const RootScreen = () => {
-  const tflite = new TensorflowLite();
+  const tensorflowLite = new TensorflowLite();
   const recognizeChunks = useRecognizeChunks();
   const classifyChunk = useClassifyChunk();
   const loadModel = useLoadModel();
@@ -89,14 +89,14 @@ const RootScreen = () => {
               : acc,
           []
         );
-        loadModel(tflite);
+        loadModel(tensorflowLite);
         for (const index of emptyChunkIndices) {
           refinedChunks[index] = await classifyChunk(
-            tflite,
+            tensorflowLite,
             croppedPaths[index]
           );
         }
-        tflite.close();
+        tensorflowLite.close();
         console.log("Processed Chunks: ", refinedChunks);
         onTTSFinished();
         setChunks(refinedChunks);
