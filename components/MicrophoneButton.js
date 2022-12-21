@@ -1,6 +1,5 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {useContext, useState} from "react";
-import Constants from "../shared/Constants";
 import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
 import SoundRecorder from "react-native-sound-recorder";
 
@@ -64,8 +63,8 @@ const MicrophoneButton = () => {
 const styles = StyleSheet.create({
   speakButton: {
     position: "absolute",
-    right: `${Constants.LEFT_OFFSET * 100}%`,
-    bottom: `${Constants.TOP_OFFSET * 100}%`
+    right: "5%",
+    bottom: "8%"
   }
 });
 
