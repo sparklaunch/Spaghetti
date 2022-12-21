@@ -3,6 +3,7 @@ import {useContext, useState} from "react";
 import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
 import SoundRecorder from "react-native-sound-recorder";
 import useErrorHandler from "../hooks/useErrorHandler";
+import RNFS from "react-native-fs";
 
 const MicrophoneButton = () => {
   const errorHandler = useErrorHandler();
@@ -17,7 +18,7 @@ const MicrophoneButton = () => {
   };
   const onPress = () => {
     if (!isRecording) {
-      SoundRecorder.start(SoundRecorder.PATH_CACHE + "/test.mp4")
+      SoundRecorder.start(SoundRecorder.PATH_CACHE + "/record.mp4")
         .then(() => {
           console.log("Started recording");
           setIsRecording(true);
@@ -28,7 +29,15 @@ const MicrophoneButton = () => {
     } else {
       SoundRecorder.stop()
         .then(result => {
-          console.log("Result saved in " + result.path);
+          const {path} = result;
+          console.log("Result saved in " + path);
+          RNFS.readFile(path, "base64")
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => {
+              errorHandler("READ_AUDIO_ERROR", error);
+            });
           setIsRecording(false);
         })
         .catch(error => {

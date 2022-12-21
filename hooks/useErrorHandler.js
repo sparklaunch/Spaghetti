@@ -21,7 +21,8 @@ const prefixes = {
   TTS_ENGINE_ERROR: "TTS Engine error: ",
   CLASSIFY_CHUNKS_ERROR: "[classifyChunks] error: ",
   LOAD_ERROR: "Loading error: ",
-  RECORDING_ERROR: "[record] error: "
+  RECORDING_ERROR: "[record] error: ",
+  READ_AUDIO_ERROR: "[readAudio] error: "
 };
 
 const useErrorHandler = () => {
