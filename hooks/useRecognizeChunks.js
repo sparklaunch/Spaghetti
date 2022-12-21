@@ -1,5 +1,6 @@
 import TextRecognition from "react-native-text-recognition";
 import useErrorHandler from "./useErrorHandler";
+import refineChunk from "../utils/refineChunk";
 
 const useRecognizeChunks = () => {
   const errorHandler = useErrorHandler();
@@ -9,9 +10,9 @@ const useRecognizeChunks = () => {
       const secondResult = await TextRecognition.recognize(imagePaths[1]);
       const thirdResult = await TextRecognition.recognize(imagePaths[2]);
       return [
-        firstResult.join(""),
-        secondResult.join(""),
-        thirdResult.join("")
+        firstResult.map(refineChunk).join(""),
+        secondResult.map(refineChunk).join(""),
+        thirdResult.map(refineChunk).join("")
       ];
     } catch (error) {
       errorHandler("RECOGNIZE_CHUNKS_ERROR", error);

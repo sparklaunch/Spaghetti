@@ -86,14 +86,13 @@ const RootScreen = () => {
           (acc, element, index) => (element === "" ? acc.concat(index) : acc),
           []
         );
+        loadModel(tflite);
         for (const index of emptyChunkIndices) {
-          loadModel(tflite);
           const modeledChunk = await classifyChunk(tflite, croppedPaths[index]);
-          tflite.close();
           refinedChunks[index] = modeledChunk;
         }
-        console.log("Processed Chunks: ", refinedChunks);
         tflite.close();
+        console.log("Processed Chunks: ", refinedChunks);
         onTTSFinished();
         setChunks(refinedChunks);
         setFirstChunkAnimation(true);
