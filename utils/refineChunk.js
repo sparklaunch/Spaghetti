@@ -12,6 +12,12 @@ const refineChunk = chunk => {
   if (chunk.includes("2")) {
     chunk = chunk.replace(/2/g, "z");
   }
+  if (chunk.includes("fi")) {
+    chunk = chunk.replace(/fi/g, "fl");
+  }
+  if (chunk.includes("fil")) {
+    chunk = chunk.replace(/fil/g, "fl");
+  }
   return chunk;
 };
 
