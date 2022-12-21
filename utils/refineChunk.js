@@ -9,6 +9,9 @@ const refineChunk = chunk => {
   if (chunk.includes("9")) {
     chunk = chunk.replace(/9/g, "g");
   }
+  if (chunk.includes("2")) {
+    chunk = chunk.replace(/2/g, "z");
+  }
   return chunk;
 };
 
