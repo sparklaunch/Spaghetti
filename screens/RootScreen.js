@@ -79,11 +79,10 @@ const RootScreen = () => {
     willPlaySession();
     playSound("shutter", async () => {
       try {
-        const {path} = await takePhoto(camera);
-        const croppedPaths = await cropImage(path);
+        const {path, width, height} = await takePhoto(camera);
+        const croppedPaths = await cropImage(path, width, height);
         const chunks = await recognizeChunks(croppedPaths);
         const refinedChunks = chunks.map(refineChunk);
-        console.log("Recognized Chunks: ", refinedChunks);
         const targetChunkIndices = refinedChunks.reduce(
           (acc, element, index) =>
             element === "" || element === "ow" || element === "oo"
@@ -99,7 +98,6 @@ const RootScreen = () => {
           );
         }
         tensorflowLite.close();
-        console.log("Processed Chunks: ", refinedChunks);
         onTTSFinished();
         setChunks(refinedChunks);
         setFirstChunkAnimation(true);

@@ -1,35 +1,33 @@
-import {Dimensions} from "react-native";
 import RNPhotoManipulator from "react-native-photo-manipulator";
 import {useContext} from "react";
 import CroppedImagePathsContext from "../contexts/CroppedImagePathsContext";
 import useErrorHandler from "./useErrorHandler";
 
 const useCropImage = () => {
-  const {setCroppedImagePaths} = useContext(CroppedImagePathsContext);
   const errorHandler = useErrorHandler();
-  const {width} = Dimensions.get("window");
-  const sharedWidth = width * 0.85;
-  const sharedHeight = width * 0.95;
-  const sharedYOffset = width * 0.45;
-  const firstRect = {
-    x: width * 0.45,
-    y: sharedYOffset,
-    width: sharedWidth,
-    height: sharedHeight
-  };
-  const secondRect = {
-    x: width * 1.35,
-    y: sharedYOffset,
-    width: sharedWidth,
-    height: sharedHeight
-  };
-  const thirdRect = {
-    x: width * 2.25,
-    y: sharedYOffset,
-    width: sharedWidth,
-    height: sharedHeight
-  };
-  return async path => {
+  const {setCroppedImagePaths} = useContext(CroppedImagePathsContext);
+  return async (path, width, height) => {
+    const sharedWidth = width * 0.23;
+    const sharedHeight = width * 0.3;
+    const sharedYOffset = height * 0.2;
+    const firstRect = {
+      x: width * 0.13,
+      y: sharedYOffset,
+      width: sharedWidth,
+      height: sharedHeight
+    };
+    const secondRect = {
+      x: width * 0.39,
+      y: sharedYOffset,
+      width: sharedWidth,
+      height: sharedHeight
+    };
+    const thirdRect = {
+      x: width * 0.65,
+      y: sharedYOffset,
+      width: sharedWidth,
+      height: sharedHeight
+    };
     try {
       const firstCroppedPath = await RNPhotoManipulator.crop(
         "file://" + path,
