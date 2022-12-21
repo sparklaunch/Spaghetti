@@ -2,12 +2,12 @@ import useLogConfidence from "./useLogConfidence";
 
 const useClassifyChunk = () => {
   const logConfidence = useLogConfidence();
-  return (tflite, path) => {
+  return (tensorflowLite, path) => {
     return new Promise((resolve, reject) => {
       console.log(
         "#-----------------------------------------------------------------#"
       );
-      tflite.runModelOnImage(
+      tensorflowLite.runModelOnImage(
         {
           path
         },

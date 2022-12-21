@@ -2,8 +2,8 @@ import useErrorHandler from "./useErrorHandler";
 
 const useLoadModel = () => {
   const errorHandler = useErrorHandler();
-  return tflite => {
-    tflite.loadModel(
+  return tensorflowLite => {
+    tensorflowLite.loadModel(
       {
         model: "model_partial.tflite",
         labels: "labels.txt"
@@ -14,7 +14,7 @@ const useLoadModel = () => {
         }
       }
     );
-    return tflite;
+    return tensorflowLite;
   };
 };
 

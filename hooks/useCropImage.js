@@ -10,22 +10,22 @@ const useCropImage = () => {
   const {width} = Dimensions.get("window");
   const sharedWidth = width * 0.85;
   const sharedHeight = width * 0.95;
-  const sharedYoffset = width * 0.45;
+  const sharedYOffset = width * 0.45;
   const firstRect = {
     x: width * 0.45,
-    y: sharedYoffset,
+    y: sharedYOffset,
     width: sharedWidth,
     height: sharedHeight
   };
   const secondRect = {
     x: width * 1.35,
-    y: sharedYoffset,
+    y: sharedYOffset,
     width: sharedWidth,
     height: sharedHeight
   };
   const thirdRect = {
     x: width * 2.25,
-    y: sharedYoffset,
+    y: sharedYOffset,
     width: sharedWidth,
     height: sharedHeight
   };

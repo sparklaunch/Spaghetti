@@ -22,7 +22,7 @@ import CameraButton from "../components/CameraButton";
 import MegaphoneButton from "../components/MegaphoneButton";
 import LoadingScreen from "./LoadingScreen";
 import useInitializeTTS from "../hooks/useInitializeTTS";
-import Tflite from "tflite-react-native";
+import TensorflowLite from "tflite-react-native";
 import useLoadModel from "../hooks/useLoadModel";
 import useClassifyChunk from "../hooks/useClassifyChunk";
 import phonemeToOrthographyMapper from "../utils/phonemeToOrthographyMapper";
@@ -31,7 +31,7 @@ import refineChunk from "../utils/refineChunk";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
 
 const RootScreen = () => {
-  const tflite = new Tflite();
+  const tflite = new TensorflowLite();
   const recognizeChunks = useRecognizeChunks();
   const classifyChunk = useClassifyChunk();
   const loadModel = useLoadModel();
@@ -84,15 +84,17 @@ const RootScreen = () => {
         console.log("Recognized Chunks: ", refinedChunks);
         const emptyChunkIndices = refinedChunks.reduce(
           (acc, element, index) =>
-            element === "" || element == "ow" || element == "oo"
+            element === "" || element === "ow" || element === "oo"
               ? acc.concat(index)
               : acc,
           []
         );
         loadModel(tflite);
         for (const index of emptyChunkIndices) {
-          const modeledChunk = await classifyChunk(tflite, croppedPaths[index]);
-          refinedChunks[index] = modeledChunk;
+          refinedChunks[index] = await classifyChunk(
+            tflite,
+            croppedPaths[index]
+          );
         }
         tflite.close();
         console.log("Processed Chunks: ", refinedChunks);
