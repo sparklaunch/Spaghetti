@@ -1,15 +1,27 @@
-import {StyleSheet, Image} from "react-native";
+import {Image, StyleSheet, TouchableOpacity} from "react-native";
 import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
-import Video from "react-native-video";
 import Constants from "../shared/Constants";
+import {useContext} from "react";
+import RecordingStatusContext from "../contexts/RecordingStatusContext";
+import useStopRecording from "../hooks/useStopRecording";
 
 const RecordingBackdrop = () => {
+  const stopRecording = useStopRecording();
+  const {setIsRecording} = useContext(RecordingStatusContext);
+  const onPress = () => {
+    stopRecording();
+  };
   return (
     <Animated.View style={styles.block} entering={FadeIn} exiting={FadeOut}>
-      <Image
-        source={require("../assets/images/microphone.png")}
-        style={styles.microphone}
-      />
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={onPress}
+        style={styles.touchableOpacity}>
+        <Image
+          source={require("../assets/images/microphone.png")}
+          style={styles.microphone}
+        />
+      </TouchableOpacity>
     </Animated.View>
   );
 };
@@ -22,6 +34,9 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: "rgba(255, 255, 255, 0.75)"
+  },
+  touchableOpacity: {
+    flex: 1
   },
   microphone: {
     position: "absolute",
