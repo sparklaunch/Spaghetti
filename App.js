@@ -8,26 +8,29 @@ import RootScreen from "./screens/RootScreen";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {StyleSheet} from "react-native";
 import {ChunksRefsContextProvider} from "./contexts/ChunksRefsContext";
+import {RecordingStatusContextProvider} from "./contexts/RecordingStatusContext";
 
 const App = () => {
   return (
-    <ChunksRefsContextProvider>
-      <DevicePermissionContextProvider>
-        <ChunkAnimationContextProvider>
-          <DeviceVisibilityContextProvider>
-            <CroppedImagePathsContextProvider>
-              <ChunksContextProvider>
-                <TakingPhotoAvailabilityContextProvider>
-                  <GestureHandlerRootView style={styles.block}>
-                    <RootScreen />
-                  </GestureHandlerRootView>
-                </TakingPhotoAvailabilityContextProvider>
-              </ChunksContextProvider>
-            </CroppedImagePathsContextProvider>
-          </DeviceVisibilityContextProvider>
-        </ChunkAnimationContextProvider>
-      </DevicePermissionContextProvider>
-    </ChunksRefsContextProvider>
+    <RecordingStatusContextProvider>
+      <ChunksRefsContextProvider>
+        <DevicePermissionContextProvider>
+          <ChunkAnimationContextProvider>
+            <DeviceVisibilityContextProvider>
+              <CroppedImagePathsContextProvider>
+                <ChunksContextProvider>
+                  <TakingPhotoAvailabilityContextProvider>
+                    <GestureHandlerRootView style={styles.block}>
+                      <RootScreen />
+                    </GestureHandlerRootView>
+                  </TakingPhotoAvailabilityContextProvider>
+                </ChunksContextProvider>
+              </CroppedImagePathsContextProvider>
+            </DeviceVisibilityContextProvider>
+          </ChunkAnimationContextProvider>
+        </DevicePermissionContextProvider>
+      </ChunksRefsContextProvider>
+    </RecordingStatusContextProvider>
   );
 };
 

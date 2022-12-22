@@ -8,12 +8,13 @@ import axios from "axios";
 import base64ToBlob from "../utils/base64ToBlob";
 import ChunksContext from "../contexts/ChunksContext";
 import Constants from "../shared/Constants";
+import RecordingStatusContext from "../contexts/RecordingStatusContext";
 
 const MicrophoneButton = () => {
   const errorHandler = useErrorHandler();
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-  const [isRecording, setIsRecording] = useState(false);
+  const {isRecording, setIsRecording} = useContext(RecordingStatusContext);
   const {isMicrophoneVisible} = useContext(DeviceVisibilityContext);
   const {chunks} = useContext(ChunksContext);
   const onLayout = event => {
