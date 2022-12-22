@@ -1,13 +1,10 @@
 import {Image, StyleSheet, TouchableOpacity} from "react-native";
 import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
 import Constants from "../shared/Constants";
-import {useContext} from "react";
-import RecordingStatusContext from "../contexts/RecordingStatusContext";
 import useStopRecording from "../hooks/useStopRecording";
 
 const RecordingBackdrop = () => {
   const stopRecording = useStopRecording();
-  const {setIsRecording} = useContext(RecordingStatusContext);
   const onPress = () => {
     stopRecording();
   };
