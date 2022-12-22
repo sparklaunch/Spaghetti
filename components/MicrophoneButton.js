@@ -7,6 +7,7 @@ import RNFS from "react-native-fs";
 import axios from "axios";
 import base64ToBlob from "../utils/base64ToBlob";
 import ChunksContext from "../contexts/ChunksContext";
+import Constants from "../shared/Constants";
 
 const MicrophoneButton = () => {
   const errorHandler = useErrorHandler();
@@ -43,14 +44,14 @@ const MicrophoneButton = () => {
               const audioFile = new File([blobAudio], "record.aac");
               axios
                 .post(
-                  "https://api.elasolution.com/pron_v2/phoneme",
+                  Constants.API_ENDPOINT,
                   {
                     audio: audioFile,
                     text: chunks.join("")
                   },
                   {
                     headers: {
-                      "X-API-KEY": "afef8c94d1094b58a3fc58e743eb9913",
+                      "X-API-KEY": Constants.API_KEY,
                       accept: "application/json",
                       "Content-Type": "multipart/form-data"
                     }
