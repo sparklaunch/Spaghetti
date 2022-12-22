@@ -378,6 +378,11 @@ PODS:
   - react-native-text-recognition (1.1.0):
     - GoogleMLKit/TextRecognition
     - React-Core
+  - react-native-video (5.2.1):
+    - React-Core
+    - react-native-video/Video (= 5.2.1)
+  - react-native-video/Video (5.2.1):
+    - React-Core
   - React-perflogger (0.70.6)
   - React-RCTActionSheet (0.70.6):
     - React-Core/RCTActionSheetHeaders (= 0.70.6)
@@ -548,6 +553,7 @@ DEPENDENCIES:
   - "react-native-image-resizer (from `../node_modules/@bam.tech/react-native-image-resizer`)"
   - react-native-photo-manipulator (from `../node_modules/react-native-photo-manipulator`)
   - react-native-text-recognition (from `../node_modules/react-native-text-recognition`)
+  - react-native-video (from `../node_modules/react-native-video`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -657,6 +663,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-photo-manipulator"
   react-native-text-recognition:
     :path: "../node_modules/react-native-text-recognition"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -754,6 +762,7 @@ SPEC CHECKSUMS:
   react-native-image-resizer: 794abf75ec13ed1f0dbb1f134e27504ea65e9e66
   react-native-photo-manipulator: dce015c4d602abb529931a40d9d34c277ee478b8
   react-native-text-recognition: 08fea2d072f0b08fee3bfcd958e9bd7ce094625b
+  react-native-video: c26780b224543c62d5e1b2a7244a5cd1b50e8253
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466
   React-RCTAnimation: 5341e288375451297057391227f691d9b2326c3d
