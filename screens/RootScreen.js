@@ -31,6 +31,8 @@ import refineChunk from "../utils/refineChunk";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
 import MicrophoneButton from "../components/MicrophoneButton";
 import Backdrop from "../components/Backdrop";
+import RecordingStatusContext from "../contexts/RecordingStatusContext";
+import RecordingBackdrop from "../components/RecordingBackdrop";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
@@ -61,6 +63,7 @@ const RootScreen = () => {
   const {isTakingPhotoAvailable, setIsTakingPhotoAvailable} = useContext(
     TakingPhotoAvailabilityContext
   );
+  const {isRecording} = useContext(RecordingStatusContext);
   const devices = useCameraDevices();
   const device = devices.back;
   const willPlaySession = () => {
@@ -161,6 +164,7 @@ const RootScreen = () => {
       <CameraButton onTap={onTap} />
       <MegaphoneButton onReplay={onReplay} />
       <MicrophoneButton />
+      {isRecording && <RecordingBackdrop />}
 
       {/* BELOW IS THE DEBUGGING PART */}
       {croppedImagePaths.length > 0 && (
