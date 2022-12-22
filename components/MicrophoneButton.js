@@ -22,57 +22,47 @@ const MicrophoneButton = () => {
     setWidth(width);
     setHeight(height);
   };
+  const startRecording = async () => {
+    try {
+      await SoundRecorder.start(SoundRecorder.PATH_CACHE + "/record.aac", {
+        encoder: SoundRecorder.ENCODER_AAC
+      });
+      setIsRecording(true);
+    } catch (error) {
+      errorHandler("RECORDING_ERROR", error);
+    }
+  };
+  const stopRecording = async () => {
+    try {
+      const {path} = await SoundRecorder.stop();
+      console.log("Result saved in " + path);
+      const audio = await RNFS.readFile(path, "base64");
+      const blobAudio = base64ToBlob(audio);
+      const audioFile = new File([blobAudio], "record.aac");
+      const response = await axios.post(
+        Constants.API_ENDPOINT,
+        {
+          audio: audioFile,
+          text: chunks.join("")
+        },
+        {
+          headers: {
+            "X-API-KEY": Constants.API_KEY,
+            accept: "application/json",
+            "Content-Type": "multipart/form-data"
+          }
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      errorHandler("RECORDING_ERROR", error);
+    }
+  };
   const onPress = () => {
     if (!isRecording) {
-      SoundRecorder.start(SoundRecorder.PATH_CACHE + "/record.aac", {
-        encoder: SoundRecorder.ENCODER_AAC
-      })
-        .then(() => {
-          console.log("Started recording");
-          setIsRecording(true);
-        })
-        .catch(error => {
-          errorHandler("RECORDING_ERROR", error);
-        });
+      startRecording();
     } else {
-      SoundRecorder.stop()
-        .then(result => {
-          const {path} = result;
-          console.log("Result saved in " + path);
-          RNFS.readFile(path, "base64")
-            .then(audio => {
-              const blobAudio = base64ToBlob(audio);
-              const audioFile = new File([blobAudio], "record.aac");
-              axios
-                .post(
-                  Constants.API_ENDPOINT,
-                  {
-                    audio: audioFile,
-                    text: chunks.join("")
-                  },
-                  {
-                    headers: {
-                      "X-API-KEY": Constants.API_KEY,
-                      accept: "application/json",
-                      "Content-Type": "multipart/form-data"
-                    }
-                  }
-                )
-                .then(response => {
-                  console.log(response);
-                })
-                .catch(error => {
-                  errorHandler("AXIOS_ERROR", error);
-                });
-            })
-            .catch(error => {
-              errorHandler("READ_AUDIO_ERROR", error);
-            });
-          setIsRecording(false);
-        })
-        .catch(error => {
-          errorHandler("RECORDING_ERROR", error);
-        });
+      stopRecording();
     }
   };
   return (
