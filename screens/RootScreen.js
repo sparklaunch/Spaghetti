@@ -101,7 +101,6 @@ const RootScreen = () => {
           );
         }
         tensorflowLite.close();
-        onTTSFinished();
         setChunks(refinedChunks);
         setFirstChunkAnimation(true);
         playSound(refinedChunks[0], () => {
