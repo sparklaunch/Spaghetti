@@ -22,7 +22,8 @@ const prefixes = {
   CLASSIFY_CHUNKS_ERROR: "[classifyChunks] error: ",
   LOAD_ERROR: "Loading error: ",
   RECORDING_ERROR: "[record] error: ",
-  READ_AUDIO_ERROR: "[readAudio] error: "
+  READ_AUDIO_ERROR: "[readAudio] error: ",
+  AXIOS_ERROR: "[Axios] error: "
 };
 
 const useErrorHandler = () => {

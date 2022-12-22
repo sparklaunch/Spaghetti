@@ -61,7 +61,7 @@ const MicrophoneButton = () => {
                   console.log(response);
                 })
                 .catch(error => {
-                  console.log(error);
+                  errorHandler("AXIOS_ERROR", error);
                 });
             })
             .catch(error => {
