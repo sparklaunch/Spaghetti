@@ -5,6 +5,8 @@ import SoundRecorder from "react-native-sound-recorder";
 import useErrorHandler from "../hooks/useErrorHandler";
 import RNFS from "react-native-fs";
 import axios from "axios";
+import {FFmpegKit} from "ffmpeg-kit-react-native";
+import base64ToBlob from "../utils/base64ToBlob";
 
 const MicrophoneButton = () => {
   const errorHandler = useErrorHandler();
@@ -19,7 +21,9 @@ const MicrophoneButton = () => {
   };
   const onPress = () => {
     if (!isRecording) {
-      SoundRecorder.start(SoundRecorder.PATH_CACHE + "/record.mp4")
+      SoundRecorder.start(SoundRecorder.PATH_CACHE + "/record.aac", {
+        encoder: SoundRecorder.ENCODER_AAC
+      })
         .then(() => {
           console.log("Started recording");
           setIsRecording(true);
@@ -34,16 +38,18 @@ const MicrophoneButton = () => {
           console.log("Result saved in " + path);
           RNFS.readFile(path, "base64")
             .then(audio => {
+              const blobAudio = base64ToBlob(audio);
+              const audioFile = new File([blobAudio], "record");
               axios
                 .post(
                   "https://api.elasolution.com/pron_v2/phoneme",
                   {
-                    audio,
+                    audio: audioFile,
                     text: "mug"
                   },
                   {
                     headers: {
-                      "X-API-KEY": "feafc8ee6fa249d496369ac40b256b95"
+                      "X-API-KEY": "afef8c94d1094b58a3fc58e743eb9913"
                     }
                   }
                 )
