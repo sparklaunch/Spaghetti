@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
   },
   starContainer: {
     width: 100,
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   container: {
     width: 150,
