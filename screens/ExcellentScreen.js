@@ -25,6 +25,8 @@ const ExcellentScreen = () => {
       />
       <View style={styles.chunkBoxContainer}>
         <ChunkBox chunk={"sk"} grade={"good"} />
+        <ChunkBox chunk={"ir"} grade={"mediocre"} />
+        <ChunkBox chunk={"t"} grade={"bad"} />
       </View>
     </Animated.View>
   );
@@ -37,8 +39,14 @@ const styles = StyleSheet.create({
   },
   chunkBoxContainer: {
     flex: 1,
+    flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    transform: [
+      {
+        translateY: -50
+      }
+    ]
   },
   block: {
     flex: 1

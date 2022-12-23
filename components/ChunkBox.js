@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   container: {
     width: 150,
     height: 150,
+    marginHorizontal: 10,
     backgroundColor: "white",
     borderRadius: 10,
     elevation: 10,
