@@ -8,6 +8,10 @@ const ExcellentScreen = () => {
         source={require("../assets/images/crocodile.png")}
         style={styles.crocodile}
       />
+      <Image
+        source={require("../assets/images/elephant.png")}
+        style={styles.elephant}
+      />
     </Animated.View>
   );
 };
@@ -21,6 +25,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 50,
     left: 30
+  },
+  elephant: {
+    position: "absolute",
+    bottom: 30,
+    right: 30
   }
 });
 
