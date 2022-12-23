@@ -8,8 +8,8 @@ const GoodBackground = () => {
         style={styles.seaElephant}
       />
       <Image
-        source={require("../../../assets/images/elephant.png")}
-        style={styles.elephant}
+        source={require("../../../assets/images/fox_train.png")}
+        style={styles.foxTrain}
       />
       <Image
         source={require("../../../assets/images/frog.png")}
@@ -32,10 +32,10 @@ const styles = StyleSheet.create({
     bottom: 50,
     left: 30
   },
-  elephant: {
+  foxTrain: {
     position: "absolute",
-    bottom: 30,
-    right: 30
+    bottom: 10,
+    right: 10
   },
   frog: {
     position: "absolute",
