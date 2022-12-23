@@ -3,7 +3,8 @@ import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
 import ChunkBox from "../components/ChunkBox";
 
 const ExcellentScreen = () => {
-  const onPress = () => {};
+  const goBack = () => {};
+  const retry = () => {};
   return (
     <Animated.View style={styles.container} entering={FadeIn} exiting={FadeOut}>
       <View style={styles.imageContainer}>
@@ -27,8 +28,14 @@ const ExcellentScreen = () => {
       <TouchableOpacity
         activeOpacity={0.5}
         style={styles.backButton}
-        onPress={onPress}>
+        onPress={goBack}>
         <Image source={require("../assets/images/back.png")} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.5}
+        style={styles.retryButton}
+        onPress={retry}>
+        <Image source={require("../assets/images/retry.png")} />
       </TouchableOpacity>
       <View style={styles.chunkBoxContainer}>
         <ChunkBox chunk={"sk"} grade={"good"} />
@@ -86,6 +93,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 15,
     left: 15
+  },
+  retryButton: {
+    position: "absolute",
+    bottom: 0,
+    left: "46%"
   }
 });
 
