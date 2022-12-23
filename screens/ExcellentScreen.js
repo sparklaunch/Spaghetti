@@ -1,12 +1,14 @@
-import {StyleSheet} from "react-native";
+import {Image, StyleSheet} from "react-native";
 import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
 
 const ExcellentScreen = () => {
   return (
-    <Animated.View
-      style={styles.container}
-      entering={FadeIn}
-      exiting={FadeOut}></Animated.View>
+    <Animated.View style={styles.container} entering={FadeIn} exiting={FadeOut}>
+      <Image
+        source={require("../assets/images/crocodile.png")}
+        style={styles.crocodile}
+      />
+    </Animated.View>
   );
 };
 
@@ -14,6 +16,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#64C137"
+  },
+  crocodile: {
+    position: "absolute",
+    bottom: 50,
+    left: 30
   }
 });
 
