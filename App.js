@@ -12,7 +12,7 @@ import {useEffect} from "react";
 import RNBootSplash from "react-native-bootsplash";
 import useErrorHandler from "./hooks/useErrorHandler";
 import {ResultsContextProvider} from "./contexts/ResultsContext";
-import ExcellentScreen from "./screens/results/ExcellentScreen";
+import GoodScreen from "./screens/results/GoodScreen";
 
 const App = () => {
   const errorHandler = useErrorHandler();
@@ -40,7 +40,7 @@ const App = () => {
                   <ChunksContextProvider>
                     <TakingPhotoAvailabilityContextProvider>
                       <GestureHandlerRootView style={styles.block}>
-                        <ExcellentScreen />
+                        <GoodScreen />
                         {/*<RootScreen />*/}
                       </GestureHandlerRootView>
                     </TakingPhotoAvailabilityContextProvider>
