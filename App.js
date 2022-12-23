@@ -12,6 +12,7 @@ import {RecordingStatusContextProvider} from "./contexts/RecordingStatusContext"
 import {useEffect} from "react";
 import RNBootSplash from "react-native-bootsplash";
 import useErrorHandler from "./hooks/useErrorHandler";
+import {ResultsContextProvider} from "./contexts/ResultsContext";
 
 const App = () => {
   const errorHandler = useErrorHandler();
@@ -29,25 +30,27 @@ const App = () => {
     hideSplashScreen();
   }, []);
   return (
-    <RecordingStatusContextProvider>
-      <ChunksRefsContextProvider>
-        <DevicePermissionContextProvider>
-          <ChunkAnimationContextProvider>
-            <DeviceVisibilityContextProvider>
-              <CroppedImagePathsContextProvider>
-                <ChunksContextProvider>
-                  <TakingPhotoAvailabilityContextProvider>
-                    <GestureHandlerRootView style={styles.block}>
-                      <RootScreen />
-                    </GestureHandlerRootView>
-                  </TakingPhotoAvailabilityContextProvider>
-                </ChunksContextProvider>
-              </CroppedImagePathsContextProvider>
-            </DeviceVisibilityContextProvider>
-          </ChunkAnimationContextProvider>
-        </DevicePermissionContextProvider>
-      </ChunksRefsContextProvider>
-    </RecordingStatusContextProvider>
+    <ResultsContextProvider>
+      <RecordingStatusContextProvider>
+        <ChunksRefsContextProvider>
+          <DevicePermissionContextProvider>
+            <ChunkAnimationContextProvider>
+              <DeviceVisibilityContextProvider>
+                <CroppedImagePathsContextProvider>
+                  <ChunksContextProvider>
+                    <TakingPhotoAvailabilityContextProvider>
+                      <GestureHandlerRootView style={styles.block}>
+                        <RootScreen />
+                      </GestureHandlerRootView>
+                    </TakingPhotoAvailabilityContextProvider>
+                  </ChunksContextProvider>
+                </CroppedImagePathsContextProvider>
+              </DeviceVisibilityContextProvider>
+            </ChunkAnimationContextProvider>
+          </DevicePermissionContextProvider>
+        </ChunksRefsContextProvider>
+      </RecordingStatusContextProvider>
+    </ResultsContextProvider>
   );
 };
 

@@ -5,9 +5,11 @@ import {useContext} from "react";
 import ChunksContext from "../contexts/ChunksContext";
 import useErrorHandler from "./useErrorHandler";
 import RecordingStatusContext from "../contexts/RecordingStatusContext";
+import ResultsContext from "../contexts/ResultsContext";
 
 const useStopRecording = () => {
   const {chunks} = useContext(ChunksContext);
+  const {setResults} = useContext(ResultsContext);
   const {setIsRecording} = useContext(RecordingStatusContext);
   const errorHandler = useErrorHandler();
   return async () => {
@@ -29,6 +31,7 @@ const useStopRecording = () => {
         }
       });
       const {data} = response;
+      setResults(data);
     } catch (error) {
       errorHandler("RECORDING_ERROR", error);
     }
