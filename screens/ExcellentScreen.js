@@ -1,5 +1,6 @@
 import {Image, StyleSheet, View} from "react-native";
 import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
+import ChunkBox from "../components/ChunkBox";
 
 const ExcellentScreen = () => {
   return (
@@ -22,6 +23,9 @@ const ExcellentScreen = () => {
         source={require("../assets/images/excellent.png")}
         style={styles.excellent}
       />
+      <View style={styles.chunkBoxContainer}>
+        <ChunkBox chunk={"sk"} />
+      </View>
     </Animated.View>
   );
 };
@@ -30,6 +34,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#64C137"
+  },
+  chunkBoxContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   },
   block: {
     flex: 1
