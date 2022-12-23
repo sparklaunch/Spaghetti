@@ -8,6 +8,8 @@ const phonemeToSignifierMapper = phoneme => {
       return "ow_au";
     case "ow(ou)":
       return "ow_ou";
+    case "ck":
+      return "k";
     default:
       return phoneme;
   }
