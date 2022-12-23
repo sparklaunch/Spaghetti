@@ -4,8 +4,8 @@ const NiceTryBackground = () => {
   return (
     <View style={styles.imageContainer}>
       <Image
-        source={require("../../../assets/images/sea_elephant.png")}
-        style={styles.seaElephant}
+        source={require("../../../assets/images/alligator.png")}
+        style={styles.alligator}
       />
       <Image
         source={require("../../../assets/images/fox_train.png")}
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0
   },
-  seaElephant: {
+  alligator: {
     position: "absolute",
     bottom: 50,
     left: 30
