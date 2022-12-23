@@ -3,15 +3,16 @@ import {StyleSheet, View} from "react-native";
 import {useContext} from "react";
 import ResultsContext from "../../contexts/ResultsContext";
 import ChunksContext from "../../contexts/ChunksContext";
+import Constants from "../../shared/Constants";
 
 const ChunkBoxContainer = () => {
   const {results} = useContext(ResultsContext);
   const {chunks} = useContext(ChunksContext);
   const {phonemes} = results.words[0];
   const grades = phonemes.map(phoneme => {
-    if (phoneme.score >= 80) {
+    if (phoneme.score >= Constants.GOOD_THRESHOLD) {
       return "good";
-    } else if (phoneme.score >= 60) {
+    } else if (phoneme.score >= Constants.MEDIOCRE_THRESHOLD) {
       return "mediocre";
     } else {
       return "bad";
