@@ -19,9 +19,11 @@ const GoBackButton = () => {
 
 const styles = StyleSheet.create({
   backButton: {
-    position: "absolute",
-    top: 15,
-    left: 15
+    position: "relative",
+    top: 10,
+    left: 120,
+    width: 43,
+    height: 46
   }
 });
 
