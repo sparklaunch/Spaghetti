@@ -12,6 +12,10 @@ const ExcellentScreen = () => {
         source={require("../assets/images/elephant.png")}
         style={styles.elephant}
       />
+      <Image
+        source={require("../assets/images/frog.png")}
+        style={styles.frog}
+      />
     </Animated.View>
   );
 };
@@ -30,6 +34,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 30,
     right: 30
+  },
+  frog: {
+    position: "absolute",
+    right: 40,
+    top: 30
   }
 });
 
