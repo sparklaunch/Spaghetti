@@ -1,15 +1,15 @@
 import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
-import GoodBackground from "../../components/results/good/GoodBackground";
 import GoodText from "../../components/results/good/GoodText";
 import GoBackButton from "../../components/results/GoBackButton";
 import RetryButton from "../../components/results/RetryButton";
 import ChunkBoxContainer from "../../components/results/ChunkBoxContainer";
 import {StyleSheet} from "react-native";
+import NiceTryBackground from "../../components/results/nicetry/NiceTryBackground";
 
 const NiceTryScreen = () => {
   return (
     <Animated.View style={styles.container} entering={FadeIn} exiting={FadeOut}>
-      <GoodBackground />
+      <NiceTryBackground />
       <GoodText />
       <GoBackButton />
       <RetryButton />
@@ -21,7 +21,7 @@ const NiceTryScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#80CDEF"
+    backgroundColor: "#FFD6AC"
   }
 });
 
