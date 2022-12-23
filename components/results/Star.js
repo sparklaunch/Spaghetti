@@ -5,12 +5,12 @@ const Star = ({isFilled}) => {
     <View style={styles.container}>
       {isFilled ? (
         <Image
-          source={require("../assets/images/star_filled.png")}
+          source={require("../../assets/images/star_filled.png")}
           style={styles.star}
         />
       ) : (
         <Image
-          source={require("../assets/images/star_empty.png")}
+          source={require("../../assets/images/star_empty.png")}
           style={styles.star}
         />
       )}

@@ -4,15 +4,15 @@ const ExcellentBackground = () => {
   return (
     <View style={styles.imageContainer}>
       <Image
-        source={require("../assets/images/crocodile.png")}
+        source={require("../../assets/images/crocodile.png")}
         style={styles.crocodile}
       />
       <Image
-        source={require("../assets/images/elephant.png")}
+        source={require("../../assets/images/elephant.png")}
         style={styles.elephant}
       />
       <Image
-        source={require("../assets/images/frog.png")}
+        source={require("../../assets/images/frog.png")}
         style={styles.frog}
       />
     </View>

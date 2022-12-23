@@ -12,7 +12,7 @@ import {useEffect} from "react";
 import RNBootSplash from "react-native-bootsplash";
 import useErrorHandler from "./hooks/useErrorHandler";
 import {ResultsContextProvider} from "./contexts/ResultsContext";
-import ExcellentScreen from "./screens/ExcellentScreen";
+import ExcellentScreen from "./screens/results/ExcellentScreen";
 
 const App = () => {
   const errorHandler = useErrorHandler();
