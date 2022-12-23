@@ -11,10 +11,6 @@ const GoodBackground = () => {
         source={require("../../../assets/images/fox_train.png")}
         style={styles.foxTrain}
       />
-      <Image
-        source={require("../../../assets/images/frog.png")}
-        style={styles.frog}
-      />
     </View>
   );
 };
@@ -36,11 +32,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 10,
     right: 10
-  },
-  frog: {
-    position: "absolute",
-    right: 40,
-    top: 30
   }
 });
 
