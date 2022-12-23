@@ -1,4 +1,4 @@
-import {Image, StyleSheet, View} from "react-native";
+import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
 import ChunkBox from "../components/ChunkBox";
 
@@ -23,6 +23,9 @@ const ExcellentScreen = () => {
         source={require("../assets/images/excellent.png")}
         style={styles.excellent}
       />
+      <TouchableOpacity activeOpacity={0.5} style={styles.backButton}>
+        <Image source={require("../assets/images/back.png")} />
+      </TouchableOpacity>
       <View style={styles.chunkBoxContainer}>
         <ChunkBox chunk={"sk"} grade={"good"} />
         <ChunkBox chunk={"ir"} grade={"mediocre"} />
@@ -74,6 +77,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 30,
     left: "28%"
+  },
+  backButton: {
+    position: "absolute",
+    top: 15,
+    left: 15
   }
 });
 
