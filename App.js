@@ -8,13 +8,15 @@ import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {StyleSheet} from "react-native";
 import {ChunksRefsContextProvider} from "./contexts/ChunksRefsContext";
 import {RecordingStatusContextProvider} from "./contexts/RecordingStatusContext";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import RNBootSplash from "react-native-bootsplash";
 import useErrorHandler from "./hooks/useErrorHandler";
 import {ResultsContextProvider} from "./contexts/ResultsContext";
-import NiceTryScreen from "./screens/results/NiceTryScreen";
+import {ResultsStatusContextProvider} from "./contexts/ResultsStatusContext";
+import RootScreen from "./screens/RootScreen";
 
 const App = () => {
+  const [screenShown, setScreenShown] = useState(false);
   const errorHandler = useErrorHandler();
   const hideSplashScreen = async () => {
     try {
@@ -27,32 +29,41 @@ const App = () => {
     }
   };
   useEffect(() => {
-    hideSplashScreen();
+    hideSplashScreen()
+      .then(() => {
+        setScreenShown(true);
+      })
+      .catch(error => {
+        errorHandler("SPLASH_SCREEN_ERROR", error);
+      });
   }, []);
-  return (
-    <ResultsContextProvider>
-      <RecordingStatusContextProvider>
-        <ChunksRefsContextProvider>
-          <DevicePermissionContextProvider>
-            <ChunkAnimationContextProvider>
-              <DeviceVisibilityContextProvider>
-                <CroppedImagePathsContextProvider>
-                  <ChunksContextProvider>
-                    <TakingPhotoAvailabilityContextProvider>
-                      <GestureHandlerRootView style={styles.block}>
-                        <NiceTryScreen />
-                        {/*<RootScreen />*/}
-                      </GestureHandlerRootView>
-                    </TakingPhotoAvailabilityContextProvider>
-                  </ChunksContextProvider>
-                </CroppedImagePathsContextProvider>
-              </DeviceVisibilityContextProvider>
-            </ChunkAnimationContextProvider>
-          </DevicePermissionContextProvider>
-        </ChunksRefsContextProvider>
-      </RecordingStatusContextProvider>
-    </ResultsContextProvider>
-  );
+  if (screenShown) {
+    return (
+      <ResultsStatusContextProvider>
+        <ResultsContextProvider>
+          <RecordingStatusContextProvider>
+            <ChunksRefsContextProvider>
+              <DevicePermissionContextProvider>
+                <ChunkAnimationContextProvider>
+                  <DeviceVisibilityContextProvider>
+                    <CroppedImagePathsContextProvider>
+                      <ChunksContextProvider>
+                        <TakingPhotoAvailabilityContextProvider>
+                          <GestureHandlerRootView style={styles.block}>
+                            <RootScreen />
+                          </GestureHandlerRootView>
+                        </TakingPhotoAvailabilityContextProvider>
+                      </ChunksContextProvider>
+                    </CroppedImagePathsContextProvider>
+                  </DeviceVisibilityContextProvider>
+                </ChunkAnimationContextProvider>
+              </DevicePermissionContextProvider>
+            </ChunksRefsContextProvider>
+          </RecordingStatusContextProvider>
+        </ResultsContextProvider>
+      </ResultsStatusContextProvider>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
