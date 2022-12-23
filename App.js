@@ -4,7 +4,6 @@ import {DeviceVisibilityContextProvider} from "./contexts/DeviceVisibilityContex
 import {CroppedImagePathsContextProvider} from "./contexts/CroppedImagePathsContext";
 import {ChunksContextProvider} from "./contexts/ChunksContext";
 import {TakingPhotoAvailabilityContextProvider} from "./contexts/TakingPhotoAvailabilityContext";
-import RootScreen from "./screens/RootScreen";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {StyleSheet} from "react-native";
 import {ChunksRefsContextProvider} from "./contexts/ChunksRefsContext";
@@ -13,6 +12,7 @@ import {useEffect} from "react";
 import RNBootSplash from "react-native-bootsplash";
 import useErrorHandler from "./hooks/useErrorHandler";
 import {ResultsContextProvider} from "./contexts/ResultsContext";
+import ExcellentScreen from "./screens/ExcellentScreen";
 
 const App = () => {
   const errorHandler = useErrorHandler();
@@ -40,7 +40,8 @@ const App = () => {
                   <ChunksContextProvider>
                     <TakingPhotoAvailabilityContextProvider>
                       <GestureHandlerRootView style={styles.block}>
-                        <RootScreen />
+                        <ExcellentScreen />
+                        {/*<RootScreen />*/}
                       </GestureHandlerRootView>
                     </TakingPhotoAvailabilityContextProvider>
                   </ChunksContextProvider>
