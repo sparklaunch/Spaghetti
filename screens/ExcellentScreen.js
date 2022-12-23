@@ -5,7 +5,7 @@ import ChunkBox from "../components/ChunkBox";
 const ExcellentScreen = () => {
   return (
     <Animated.View style={styles.container} entering={FadeIn} exiting={FadeOut}>
-      <View style={styles.block}>
+      <View style={styles.imageContainer}>
         <Image
           source={require("../assets/images/crocodile.png")}
           style={styles.crocodile}
@@ -44,12 +44,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     transform: [
       {
-        translateY: -50
+        translateY: 30
       }
     ]
   },
-  block: {
-    flex: 1
+  imageContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
   },
   crocodile: {
     position: "absolute",
