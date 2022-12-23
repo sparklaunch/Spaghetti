@@ -6,11 +6,13 @@ import ChunksContext from "../contexts/ChunksContext";
 import useErrorHandler from "./useErrorHandler";
 import RecordingStatusContext from "../contexts/RecordingStatusContext";
 import ResultsContext from "../contexts/ResultsContext";
+import ResultsStatusContext from "../contexts/ResultsStatusContext";
 
 const useStopRecording = () => {
   const {chunks} = useContext(ChunksContext);
   const {setResults} = useContext(ResultsContext);
   const {setIsRecording} = useContext(RecordingStatusContext);
+  const {setResultsScreenShown} = useContext(ResultsStatusContext);
   const errorHandler = useErrorHandler();
   return async () => {
     try {
@@ -32,6 +34,7 @@ const useStopRecording = () => {
       });
       const {data} = response;
       setResults(data);
+      setResultsScreenShown(true);
     } catch (error) {
       errorHandler("RECORDING_ERROR", error);
     }

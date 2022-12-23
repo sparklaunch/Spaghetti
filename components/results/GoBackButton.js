@@ -1,7 +1,12 @@
 import {Image, StyleSheet, TouchableOpacity} from "react-native";
+import {useContext} from "react";
+import ResultsStatusContext from "../../contexts/ResultsStatusContext";
 
 const GoBackButton = () => {
-  const goBack = () => {};
+  const {setResultsScreenShown} = useContext(ResultsStatusContext);
+  const goBack = () => {
+    setResultsScreenShown(false);
+  };
   return (
     <TouchableOpacity
       activeOpacity={0.5}

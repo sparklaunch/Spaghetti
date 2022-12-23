@@ -33,6 +33,8 @@ import MicrophoneButton from "../components/MicrophoneButton";
 import Backdrop from "../components/Backdrop";
 import RecordingStatusContext from "../contexts/RecordingStatusContext";
 import RecordingBackdrop from "../components/RecordingBackdrop";
+import ResultsStatusContext from "../contexts/ResultsStatusContext";
+import ResultsScreen from "./ResultsScreen";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
@@ -46,6 +48,7 @@ const RootScreen = () => {
   const onTTSFinished = useOnTTSFinished();
   const initializeTTS = useInitializeTTS();
   const getCameraAndMicrophonePermissions = useCameraAndMicrophonePermissions();
+  const {resultsScreenShown} = useContext(ResultsStatusContext);
   const {wave} = useContext(ChunksRefsContext);
   const {chunks, setChunks} = useContext(ChunksContext);
   const {croppedImagePaths} = useContext(CroppedImagePathsContext);
@@ -164,6 +167,7 @@ const RootScreen = () => {
       <MegaphoneButton onReplay={onReplay} />
       <MicrophoneButton />
       {isRecording && <RecordingBackdrop />}
+      {resultsScreenShown && <ResultsScreen />}
 
       {/* BELOW IS THE DEBUGGING PART */}
       {croppedImagePaths.length > 0 && (
