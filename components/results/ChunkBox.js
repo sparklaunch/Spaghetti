@@ -1,20 +1,21 @@
 import {StyleSheet, Text, View} from "react-native";
 import Star from "./Star";
+import Constants from "../../shared/Constants";
 
 const ChunkBox = ({chunk, grade}) => {
   let borderColor;
   let score;
   switch (grade) {
     case "good":
-      borderColor = "#00FF00";
+      borderColor = Constants.GOOD_BORDER_COLOR;
       score = 2;
       break;
     case "mediocre":
-      borderColor = "#FFA06B";
+      borderColor = Constants.MEDIOCRE_BORDER_COLOR;
       score = 1;
       break;
     case "bad":
-      borderColor = "#F23645";
+      borderColor = Constants.BAD_BORDER_COLOR;
       score = 0;
       break;
     default:
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Bold",
     color: "black",
     letterSpacing: -3,
-    fontSize: 96
+    fontSize: 84
   }
 });
 
