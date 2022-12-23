@@ -24,7 +24,7 @@ const ExcellentScreen = () => {
         style={styles.excellent}
       />
       <View style={styles.chunkBoxContainer}>
-        <ChunkBox chunk={"sk"} />
+        <ChunkBox chunk={"sk"} grade={"good"} />
       </View>
     </Animated.View>
   );
