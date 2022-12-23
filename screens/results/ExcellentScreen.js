@@ -1,7 +1,8 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
 import ChunkBox from "../../components/results/ChunkBox";
-import ExcellentBackground from "../../components/results/ExcellentBackground";
+import ExcellentBackground from "../../components/results/excellent/ExcellentBackground";
+import ExcellentText from "../../components/results/excellent/ExcellentText";
 
 const ExcellentScreen = () => {
   const goBack = () => {};
@@ -9,10 +10,7 @@ const ExcellentScreen = () => {
   return (
     <Animated.View style={styles.container} entering={FadeIn} exiting={FadeOut}>
       <ExcellentBackground />
-      <Image
-        source={require("../../assets/images/excellent.png")}
-        style={styles.excellent}
-      />
+      <ExcellentText />
       <TouchableOpacity
         activeOpacity={0.5}
         style={styles.backButton}
@@ -49,11 +47,6 @@ const styles = StyleSheet.create({
         translateY: 30
       }
     ]
-  },
-  excellent: {
-    position: "absolute",
-    top: 30,
-    left: "28%"
   },
   backButton: {
     position: "absolute",
