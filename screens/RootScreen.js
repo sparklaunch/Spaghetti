@@ -167,10 +167,9 @@ const RootScreen = () => {
       <MegaphoneButton onReplay={onReplay} />
       <MicrophoneButton />
       {isRecording && <RecordingBackdrop />}
-      {resultsScreenShown && <ResultsScreen />}
 
       {/* BELOW IS THE DEBUGGING PART */}
-      {croppedImagePaths.length > 0 && (
+      {croppedImagePaths.length > 0 && !resultsScreenShown && (
         <View
           style={{
             position: "absolute",
@@ -222,6 +221,7 @@ const RootScreen = () => {
           />
         </View>
       )}
+      {resultsScreenShown && <ResultsScreen />}
     </View>
   );
 };
