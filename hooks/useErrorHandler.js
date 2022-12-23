@@ -23,7 +23,8 @@ const prefixes = {
   LOAD_ERROR: "Loading error: ",
   RECORDING_ERROR: "[record] error: ",
   READ_AUDIO_ERROR: "[readAudio] error: ",
-  AXIOS_ERROR: "[Axios] error: "
+  AXIOS_ERROR: "[Axios] error: ",
+  SPLASH_SCREEN_ERROR: "[hideSplashScreen] error: "
 };
 
 const useErrorHandler = () => {

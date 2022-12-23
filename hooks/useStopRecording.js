@@ -1,6 +1,4 @@
 import SoundRecorder from "react-native-sound-recorder";
-import RNFS from "react-native-fs";
-import base64ToBlob from "../utils/base64ToBlob";
 import axios from "axios";
 import Constants from "../shared/Constants";
 import {useContext} from "react";
@@ -16,24 +14,21 @@ const useStopRecording = () => {
     try {
       const {path} = await SoundRecorder.stop();
       console.log("Result saved in " + path);
-      const audio = await RNFS.readFile(path, "base64");
-      const blobAudio = base64ToBlob(audio);
-      const audioFile = new File([blobAudio], "record.aac");
-      const response = await axios.post(
-        Constants.API_ENDPOINT,
-        {
-          audio: audioFile,
-          text: chunks.join("")
-        },
-        {
-          headers: {
-            "X-API-KEY": Constants.API_KEY,
-            accept: "application/json",
-            "Content-Type": "multipart/form-data"
-          }
+      const formData = new FormData();
+      formData.append("audio", {
+        uri: "file://" + path,
+        type: "audio/aac",
+        name: "record.aac"
+      });
+      formData.append("text", chunks.join(""));
+      const response = await axios.post(Constants.API_ENDPOINT, formData, {
+        headers: {
+          "X-API-KEY": Constants.API_KEY,
+          accept: "application/json",
+          "Content-Type": "multipart/form-data"
         }
-      );
-      console.log(response);
+      });
+      const {data} = response;
     } catch (error) {
       errorHandler("RECORDING_ERROR", error);
     }
