@@ -35,12 +35,14 @@ import RecordingStatusContext from "../contexts/RecordingStatusContext";
 import RecordingBackdrop from "../components/RecordingBackdrop";
 import ResultsStatusContext from "../contexts/ResultsStatusContext";
 import ResultsScreen from "./ResultsScreen";
+import useDeleteCache from "../hooks/useDeleteCache";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
   const recognizeChunks = useRecognizeChunks();
   const classifyChunk = useClassifyChunk();
   const loadModel = useLoadModel();
+  const deleteCache = useDeleteCache();
   const takePhoto = useTakePhoto();
   const playSound = usePlaySound();
   const cropImage = useCropImage();
@@ -87,6 +89,7 @@ const RootScreen = () => {
       try {
         const {path, width, height} = await takePhoto(camera);
         const croppedPaths = await cropImage(path, width, height);
+        await deleteCache(path);
         const chunks = await recognizeChunks(croppedPaths);
         const refinedChunks = chunks.map(refineChunk);
         const targetChunkIndices = refinedChunks.reduce(
