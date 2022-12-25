@@ -36,6 +36,7 @@ import RecordingBackdrop from "../components/RecordingBackdrop";
 import ResultsStatusContext from "../contexts/ResultsStatusContext";
 import ResultsScreen from "./ResultsScreen";
 import useDeleteCache from "../hooks/useDeleteCache";
+import useClearCache from "../hooks/useClearCache";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
@@ -43,6 +44,7 @@ const RootScreen = () => {
   const classifyChunk = useClassifyChunk();
   const loadModel = useLoadModel();
   const deleteCache = useDeleteCache();
+  const clearCache = useClearCache();
   const takePhoto = useTakePhoto();
   const playSound = usePlaySound();
   const cropImage = useCropImage();
@@ -106,6 +108,7 @@ const RootScreen = () => {
             croppedPaths[index]
           );
         }
+        await clearCache(croppedPaths);
         tensorflowLite.close();
         setChunks(refinedChunks);
         setFirstChunkAnimation(true);

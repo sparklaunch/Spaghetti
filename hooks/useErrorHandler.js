@@ -25,7 +25,8 @@ const prefixes = {
   READ_AUDIO_ERROR: "Un erreur durant lire l'audio.",
   AXIOS_ERROR: "Un erreur durant demander l'API.",
   SPLASH_SCREEN_ERROR: "Un erreur durant montre l'écran initiel.",
-  CACHE_DELETION_ERROR: "Un erreur durant rémouver la cache."
+  CACHE_DELETION_ERROR: "Un erreur durant rémouver la cache.",
+  CACHE_CLEAR_ERROR: "Un erreur durant claire les caches."
 };
 
 const useErrorHandler = () => {
