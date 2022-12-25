@@ -14,6 +14,7 @@ import useErrorHandler from "./hooks/useErrorHandler";
 import {ResultsContextProvider} from "./contexts/ResultsContext";
 import {ResultsStatusContextProvider} from "./contexts/ResultsStatusContext";
 import RootScreen from "./screens/RootScreen";
+import {SafeAreaProvider} from "react-native-safe-area-context";
 
 const App = () => {
   const errorHandler = useErrorHandler();
@@ -31,29 +32,31 @@ const App = () => {
     hideSplashScreen();
   }, []);
   return (
-    <ResultsStatusContextProvider>
-      <ResultsContextProvider>
-        <RecordingStatusContextProvider>
-          <ChunksRefsContextProvider>
-            <DevicePermissionContextProvider>
-              <ChunkAnimationContextProvider>
-                <DeviceVisibilityContextProvider>
-                  <CroppedImagePathsContextProvider>
-                    <ChunksContextProvider>
-                      <TakingPhotoAvailabilityContextProvider>
-                        <GestureHandlerRootView style={styles.block}>
-                          <RootScreen />
-                        </GestureHandlerRootView>
-                      </TakingPhotoAvailabilityContextProvider>
-                    </ChunksContextProvider>
-                  </CroppedImagePathsContextProvider>
-                </DeviceVisibilityContextProvider>
-              </ChunkAnimationContextProvider>
-            </DevicePermissionContextProvider>
-          </ChunksRefsContextProvider>
-        </RecordingStatusContextProvider>
-      </ResultsContextProvider>
-    </ResultsStatusContextProvider>
+    <SafeAreaProvider>
+      <ResultsStatusContextProvider>
+        <ResultsContextProvider>
+          <RecordingStatusContextProvider>
+            <ChunksRefsContextProvider>
+              <DevicePermissionContextProvider>
+                <ChunkAnimationContextProvider>
+                  <DeviceVisibilityContextProvider>
+                    <CroppedImagePathsContextProvider>
+                      <ChunksContextProvider>
+                        <TakingPhotoAvailabilityContextProvider>
+                          <GestureHandlerRootView style={styles.block}>
+                            <RootScreen />
+                          </GestureHandlerRootView>
+                        </TakingPhotoAvailabilityContextProvider>
+                      </ChunksContextProvider>
+                    </CroppedImagePathsContextProvider>
+                  </DeviceVisibilityContextProvider>
+                </ChunkAnimationContextProvider>
+              </DevicePermissionContextProvider>
+            </ChunksRefsContextProvider>
+          </RecordingStatusContextProvider>
+        </ResultsContextProvider>
+      </ResultsStatusContextProvider>
+    </SafeAreaProvider>
   );
 };
 
