@@ -12,6 +12,9 @@ const refineChunk = chunk => {
   if (chunk.includes("2")) {
     chunk = chunk.replace(/2/g, "z");
   }
+  if (chunk.includes("+")) {
+    chunk = chunk.replace(/\+/g, "t");
+  }
   if (chunk.includes("fi")) {
     chunk = chunk.replace(/fi/g, "fl");
   }
