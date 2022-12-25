@@ -37,6 +37,7 @@ import ResultsStatusContext from "../contexts/ResultsStatusContext";
 import ResultsScreen from "./ResultsScreen";
 import useDeleteCache from "../hooks/useDeleteCache";
 import useClearCache from "../hooks/useClearCache";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
@@ -157,7 +158,7 @@ const RootScreen = () => {
     return <LoadingScreen />;
   }
   return (
-    <View style={styles.block}>
+    <SafeAreaView style={styles.block}>
       <MaskedView style={styles.maskedView} maskElement={<MaskElement />}>
         <Camera
           ref={camera}
@@ -228,7 +229,7 @@ const RootScreen = () => {
         </View>
       )}
       {resultsScreenShown && <ResultsScreen />}
-    </View>
+    </SafeAreaView>
   );
 };
 
