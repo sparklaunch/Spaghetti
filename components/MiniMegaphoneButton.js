@@ -7,14 +7,10 @@ import Animated, {BounceIn, BounceOut} from "react-native-reanimated";
 const MiniMegaphoneButton = ({order}) => {
   const {chunks} = useContext(ChunksContext);
   const onPress = () => {
-    if (chunks.length !== 0) {
-      if (order === "first") {
-        Tts.speak(chunks[0] + chunks[1]);
-      } else {
-        Tts.speak(chunks[1] + chunks[2]);
-      }
+    if (order === "first") {
+      Tts.speak(chunks[0] + chunks[1]);
     } else {
-      console.log("Chunks are not initialized yet.");
+      Tts.speak(chunks[1] + chunks[2]);
     }
   };
   return (
