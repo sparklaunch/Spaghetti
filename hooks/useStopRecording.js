@@ -41,6 +41,7 @@ const useStopRecording = () => {
       setResultsScreenShown(true);
     } catch (error) {
       errorHandler("RECORDING_ERROR", error);
+      setIsLoading(false);
     }
     setIsRecording(false);
   };
