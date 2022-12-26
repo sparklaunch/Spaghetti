@@ -2,13 +2,17 @@ import {Image, StyleSheet, TouchableOpacity} from "react-native";
 import {useContext} from "react";
 import ResultsStatusContext from "../../contexts/ResultsStatusContext";
 import useStartRecording from "../../hooks/useStartRecording";
+import usePlaySound from "../../hooks/usePlaySound";
 
 const RetryButton = () => {
   const {setResultsScreenShown} = useContext(ResultsStatusContext);
   const startRecording = useStartRecording();
+  const playSound = usePlaySound();
   const retry = () => {
-    setResultsScreenShown(false);
-    startRecording();
+    playSound("click", () => {
+      setResultsScreenShown(false);
+      startRecording();
+    });
   };
   return (
     <TouchableOpacity

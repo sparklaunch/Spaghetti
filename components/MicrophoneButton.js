@@ -4,12 +4,14 @@ import DeviceVisibilityContext from "../contexts/DeviceVisibilityContext";
 import RecordingStatusContext from "../contexts/RecordingStatusContext";
 import useStartRecording from "../hooks/useStartRecording";
 import useStopRecording from "../hooks/useStopRecording";
+import usePlaySound from "../hooks/usePlaySound";
 
 const MicrophoneButton = () => {
   const startRecording = useStartRecording();
   const stopRecording = useStopRecording();
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
+  const playSound = usePlaySound();
   const {isRecording} = useContext(RecordingStatusContext);
   const {isMicrophoneVisible} = useContext(DeviceVisibilityContext);
   const onLayout = event => {
@@ -18,11 +20,13 @@ const MicrophoneButton = () => {
     setHeight(height);
   };
   const onPress = () => {
-    if (!isRecording) {
-      startRecording();
-    } else {
-      stopRecording();
-    }
+    playSound("click", () => {
+      if (!isRecording) {
+        startRecording();
+      } else {
+        stopRecording();
+      }
+    });
   };
   return (
     <View

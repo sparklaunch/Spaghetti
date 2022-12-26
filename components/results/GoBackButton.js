@@ -1,11 +1,15 @@
 import {Image, StyleSheet, TouchableOpacity} from "react-native";
 import {useContext} from "react";
 import ResultsStatusContext from "../../contexts/ResultsStatusContext";
+import usePlaySound from "../../hooks/usePlaySound";
 
 const GoBackButton = () => {
   const {setResultsScreenShown} = useContext(ResultsStatusContext);
+  const playSound = usePlaySound();
   const goBack = () => {
-    setResultsScreenShown(false);
+    playSound("click", () => {
+      setResultsScreenShown(false);
+    });
   };
   return (
     <TouchableOpacity
