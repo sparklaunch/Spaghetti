@@ -3,16 +3,43 @@ import Animated, {
   BounceIn,
   BounceOut,
   FadeIn,
-  FadeOut
+  FadeOut,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming
 } from "react-native-reanimated";
 import Constants from "../shared/Constants";
 import useStopRecording from "../hooks/useStopRecording";
+import {useEffect} from "react";
 
 const RecordingBackdrop = () => {
   const stopRecording = useStopRecording();
   const onPress = () => {
     stopRecording();
   };
+  const scale = useSharedValue(1);
+  const bulgeStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: scale.value
+        }
+      ]
+    };
+  });
+  useEffect(() => {
+    scale.value = withRepeat(
+      withTiming(1.2, {
+        duration: 850
+      }),
+      -1,
+      true,
+      () => {
+        scale.value = 1;
+      }
+    );
+  }, []);
   return (
     <Animated.View style={styles.block} entering={FadeIn} exiting={FadeOut}>
       <TouchableOpacity
@@ -29,7 +56,7 @@ const RecordingBackdrop = () => {
           entering={BounceIn}
           exiting={BounceOut}
           source={require("../assets/images/microphone.png")}
-          style={styles.microphone}
+          style={[styles.microphone, bulgeStyle]}
         />
       </TouchableOpacity>
     </Animated.View>
@@ -50,10 +77,10 @@ const styles = StyleSheet.create({
   },
   microphone: {
     position: "absolute",
-    width: 76,
-    height: 76,
+    width: 120,
+    height: 120,
     bottom: `${Constants.TOP_OFFSET * 100}%`,
-    left: "45%"
+    left: "43%"
   },
   speakNow: {
     position: "absolute",
