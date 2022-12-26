@@ -17,7 +17,7 @@ const Boundary = () => {
       style={[
         styles.boundary,
         {
-          height: Dimensions.get("window").width / 2.68
+          height: Dimensions.get("window").width / 2.52
         }
       ]}>
       <View style={styles.divider}>
