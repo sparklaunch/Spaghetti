@@ -38,6 +38,7 @@ import ResultsScreen from "./ResultsScreen";
 import useDeleteCache from "../hooks/useDeleteCache";
 import useClearCache from "../hooks/useClearCache";
 import LoadingStatusContext from "../contexts/LoadingStatusContext";
+import MiniMegaphoneButtons from "../components/MiniMegaphoneButtons";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
@@ -169,6 +170,7 @@ const RootScreen = () => {
           photo={true}
         />
         <Boundary />
+        <MiniMegaphoneButtons />
       </MaskedView>
       <Backdrop />
       <CameraButton onTap={onTap} />
