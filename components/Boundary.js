@@ -49,8 +49,9 @@ const styles = StyleSheet.create({
   },
   divider: {
     flex: 1,
-    borderRightWidth: 8,
-    borderRightColor: Constants.PRIMARY_COLOR
+    borderRightWidth: 1,
+    borderStyle: "dotted",
+    borderRightColor: Constants.BOUNDARY_BORDER_COLOR
   },
   placeholderDivider: {
     flex: 1
