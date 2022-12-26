@@ -19,6 +19,8 @@ const RecordingBackdrop = () => {
     stopRecording();
   };
   const scale = useSharedValue(1);
+  const glowScale = useSharedValue(1);
+  const glowOpacity = useSharedValue(0.5);
   const bulgeStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -28,9 +30,39 @@ const RecordingBackdrop = () => {
       ]
     };
   });
+  const glowStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: glowScale.value
+        }
+      ],
+      opacity: glowOpacity.value
+    };
+  });
   useEffect(() => {
     scale.value = withRepeat(
       withTiming(1.2, {
+        duration: 850
+      }),
+      -1,
+      true,
+      () => {
+        scale.value = 1;
+      }
+    );
+    glowScale.value = withRepeat(
+      withTiming(1.2, {
+        duration: 850
+      }),
+      -1,
+      true,
+      () => {
+        scale.value = 1;
+      }
+    );
+    glowOpacity.value = withRepeat(
+      withTiming(1, {
         duration: 850
       }),
       -1,
@@ -51,6 +83,11 @@ const RecordingBackdrop = () => {
           entering={BounceIn}
           exiting={BounceOut}
           style={styles.speakNow}
+        />
+        <Animated.Image
+          source={require("../assets/images/glow.png")}
+          style={[styles.glow, glowStyle]}
+          resizeMode={"cover"}
         />
         <Animated.Image
           entering={BounceIn}
@@ -88,6 +125,13 @@ const styles = StyleSheet.create({
     height: 33,
     top: `${Constants.TOP_OFFSET * 100}%`,
     left: "15%"
+  },
+  glow: {
+    position: "absolute",
+    width: 300,
+    height: 300,
+    bottom: `${Constants.TOP_OFFSET * -60}%`,
+    left: "32%"
   }
 });
 
