@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Bold",
     color: "black",
     letterSpacing: -3,
-    fontSize: 84
+    fontSize: 76
   }
 });
 
