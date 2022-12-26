@@ -5,8 +5,14 @@ import ChunkBoxContainer from "../../components/results/ChunkBoxContainer";
 import {StyleSheet} from "react-native";
 import GoodBackground from "../../components/results/good/GoodBackground";
 import GoodText from "../../components/results/good/GoodText";
+import usePlaySound from "../../hooks/usePlaySound";
+import {useEffect} from "react";
 
 const GoodScreen = () => {
+  const playSound = usePlaySound();
+  useEffect(() => {
+    playSound("good", () => {});
+  }, []);
   return (
     <Animated.View style={styles.container} entering={FadeIn} exiting={FadeOut}>
       <GoodBackground />

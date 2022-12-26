@@ -5,8 +5,14 @@ import ChunkBoxContainer from "../../components/results/ChunkBoxContainer";
 import {StyleSheet} from "react-native";
 import NiceTryBackground from "../../components/results/nicetry/NiceTryBackground";
 import NiceTryText from "../../components/results/nicetry/NiceTryText";
+import usePlaySound from "../../hooks/usePlaySound";
+import {useEffect} from "react";
 
 const NiceTryScreen = () => {
+  const playSound = usePlaySound();
+  useEffect(() => {
+    playSound("good", () => {});
+  }, []);
   return (
     <Animated.View style={styles.container} entering={FadeIn} exiting={FadeOut}>
       <NiceTryBackground />

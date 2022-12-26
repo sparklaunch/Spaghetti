@@ -5,8 +5,14 @@ import ExcellentText from "../../components/results/excellent/ExcellentText";
 import GoBackButton from "../../components/results/GoBackButton";
 import RetryButton from "../../components/results/RetryButton";
 import ChunkBoxContainer from "../../components/results/ChunkBoxContainer";
+import {useEffect} from "react";
+import usePlaySound from "../../hooks/usePlaySound";
 
 const ExcellentScreen = () => {
+  const playSound = usePlaySound();
+  useEffect(() => {
+    playSound("excellent", () => {});
+  }, []);
   return (
     <Animated.View style={styles.container} entering={FadeIn} exiting={FadeOut}>
       <ExcellentBackground />
