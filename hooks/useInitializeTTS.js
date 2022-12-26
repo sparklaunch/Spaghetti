@@ -7,6 +7,7 @@ const useInitializeTTS = () => {
     try {
       await Tts.setDefaultLanguage("en-US");
       await Tts.setDefaultRate(0.3);
+      await Tts.setDefaultPitch(2.0);
     } catch (error) {
       errorHandler("TTS_ENGINE_ERROR", error);
     }
