@@ -6,6 +6,7 @@ export const DeviceVisibilityContextProvider = ({children}) => {
   const [isCameraVisible, setIsCameraVisible] = useState(true);
   const [isMegaphoneVisible, setIsMegaphoneVisible] = useState(false);
   const [isMicrophoneVisible, setIsMicrophoneVisible] = useState(false);
+  const [areMegaphonesVisible, setAreMegaphonesVisible] = useState(false);
   return (
     <DeviceVisibilityContext.Provider
       value={{
@@ -14,7 +15,9 @@ export const DeviceVisibilityContextProvider = ({children}) => {
         isMegaphoneVisible,
         setIsMegaphoneVisible,
         isMicrophoneVisible,
-        setIsMicrophoneVisible
+        setIsMicrophoneVisible,
+        areMegaphonesVisible,
+        setAreMegaphonesVisible
       }}>
       {children}
     </DeviceVisibilityContext.Provider>

@@ -6,13 +6,18 @@ const useOnTTSFinished = () => {
   const {setIsTakingPhotoAvailable} = useContext(
     TakingPhotoAvailabilityContext
   );
-  const {setIsCameraVisible, setIsMegaphoneVisible, setIsMicrophoneVisible} =
-    useContext(DeviceVisibilityContext);
+  const {
+    setIsCameraVisible,
+    setIsMegaphoneVisible,
+    setIsMicrophoneVisible,
+    setAreMegaphonesVisible
+  } = useContext(DeviceVisibilityContext);
   return () => {
     setIsTakingPhotoAvailable(true);
     setIsCameraVisible(true);
     setIsMegaphoneVisible(true);
     setIsMicrophoneVisible(true);
+    setAreMegaphonesVisible(true);
   };
 };
 

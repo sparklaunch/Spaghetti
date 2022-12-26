@@ -68,8 +68,13 @@ const RootScreen = () => {
     setSecondChunkAnimation,
     setThirdChunkAnimation
   } = useContext(ChunkAnimationContext);
-  const {setIsCameraVisible, setIsMegaphoneVisible, setIsMicrophoneVisible} =
-    useContext(DeviceVisibilityContext);
+  const {
+    setIsCameraVisible,
+    setIsMegaphoneVisible,
+    setIsMicrophoneVisible,
+    setAreMegaphonesVisible,
+    areMegaphonesVisible
+  } = useContext(DeviceVisibilityContext);
   const {isTakingPhotoAvailable, setIsTakingPhotoAvailable} = useContext(
     TakingPhotoAvailabilityContext
   );
@@ -84,6 +89,7 @@ const RootScreen = () => {
     setIsTakingPhotoAvailable(false);
     setIsMegaphoneVisible(false);
     setIsMicrophoneVisible(false);
+    setAreMegaphonesVisible(false);
   };
   const playSession = () => {
     if (!isTakingPhotoAvailable) {
@@ -170,7 +176,7 @@ const RootScreen = () => {
           photo={true}
         />
         <Boundary />
-        <MiniMegaphoneButtons />
+        {areMegaphonesVisible && <MiniMegaphoneButtons />}
       </MaskedView>
       <Backdrop />
       <CameraButton onTap={onTap} />
