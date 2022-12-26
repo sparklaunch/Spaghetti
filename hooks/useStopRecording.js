@@ -7,8 +7,10 @@ import useErrorHandler from "./useErrorHandler";
 import RecordingStatusContext from "../contexts/RecordingStatusContext";
 import ResultsContext from "../contexts/ResultsContext";
 import ResultsStatusContext from "../contexts/ResultsStatusContext";
+import LoadingStatusContext from "../contexts/LoadingStatusContext";
 
 const useStopRecording = () => {
+  const {setIsLoading} = useContext(LoadingStatusContext);
   const {chunks} = useContext(ChunksContext);
   const {setResults} = useContext(ResultsContext);
   const {setIsRecording} = useContext(RecordingStatusContext);
@@ -16,6 +18,7 @@ const useStopRecording = () => {
   const errorHandler = useErrorHandler();
   return async () => {
     try {
+      setIsLoading(true);
       const {path} = await SoundRecorder.stop();
       console.log("Result saved in " + path);
       const formData = new FormData();
@@ -34,6 +37,7 @@ const useStopRecording = () => {
       });
       const {data} = response;
       setResults(data);
+      setIsLoading(false);
       setResultsScreenShown(true);
     } catch (error) {
       errorHandler("RECORDING_ERROR", error);

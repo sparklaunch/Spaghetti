@@ -37,6 +37,7 @@ import ResultsStatusContext from "../contexts/ResultsStatusContext";
 import ResultsScreen from "./ResultsScreen";
 import useDeleteCache from "../hooks/useDeleteCache";
 import useClearCache from "../hooks/useClearCache";
+import LoadingStatusContext from "../contexts/LoadingStatusContext";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
@@ -59,6 +60,7 @@ const RootScreen = () => {
   const {cameraPermission, microphonePermission} = useContext(
     DevicePermissionContext
   );
+  const {isLoading} = useContext(LoadingStatusContext);
   const camera = useRef(null);
   const {
     setFirstChunkAnimation,
@@ -173,6 +175,7 @@ const RootScreen = () => {
       <MegaphoneButton onReplay={onReplay} />
       <MicrophoneButton />
       {isRecording && <RecordingBackdrop />}
+      {isLoading && <LoadingScreen />}
 
       {/* BELOW IS THE DEBUGGING PART */}
       {croppedImagePaths.length > 0 && !resultsScreenShown && (

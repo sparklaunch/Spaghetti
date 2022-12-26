@@ -1,16 +1,22 @@
-import {ActivityIndicator, StyleSheet, View} from "react-native";
+import {ActivityIndicator, StyleSheet} from "react-native";
+import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
 
 const LoadingScreen = () => {
   return (
-    <View style={styles.block}>
-      <ActivityIndicator />
-    </View>
+    <Animated.View style={styles.block} entering={FadeIn} exiting={FadeOut}>
+      <ActivityIndicator size={"large"} />
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   block: {
-    flex: 1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(255, 255, 255, 0.75)",
     justifyContent: "center",
     alignItems: "center"
   }
