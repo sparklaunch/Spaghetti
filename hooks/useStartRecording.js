@@ -16,10 +16,8 @@ const useStartRecording = () => {
       });
       setIsRecording(true);
       await countDown(6000);
-      if (isRecording) {
-        console.log("No audio input in 6,000 milliseconds.");
-        stopRecording();
-      }
+      console.log("No audio input in 6,000 milliseconds.");
+      stopRecording();
     } catch (error) {
       errorHandler("RECORDING_ERROR", error);
     }
