@@ -1,11 +1,18 @@
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Star from "./Star";
 import Constants from "../../shared/Constants";
 import phonemeToOrthographyMapper from "../../utils/phonemeToOrthographyMapper";
+import phonemeToSignifierMapper from "../../utils/phonemeToSignifierMapper";
+import usePlaySound from "../../hooks/usePlaySound";
 
 const ChunkBox = ({chunk, grade}) => {
   let borderColor;
   let score;
+  const playSound = usePlaySound();
+  const onPress = () => {
+    let signifiedChunk = phonemeToSignifierMapper(chunk);
+    playSound(signifiedChunk, () => {});
+  };
   switch (grade) {
     case 3:
       borderColor = Constants.GOOD_BORDER_COLOR;
@@ -27,7 +34,10 @@ const ChunkBox = ({chunk, grade}) => {
       break;
   }
   return (
-    <View style={styles.block}>
+    <TouchableOpacity
+      style={styles.block}
+      activeOpacity={0.5}
+      onPress={onPress}>
       <View
         style={[
           styles.container,
@@ -45,7 +55,7 @@ const ChunkBox = ({chunk, grade}) => {
         <Star isFilled={score >= 2} />
         <Star isFilled={score >= 3} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
