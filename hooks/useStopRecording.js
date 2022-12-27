@@ -8,8 +8,6 @@ import RecordingStatusContext from "../contexts/RecordingStatusContext";
 import ResultsContext from "../contexts/ResultsContext";
 import ResultsStatusContext from "../contexts/ResultsStatusContext";
 import LoadingStatusContext from "../contexts/LoadingStatusContext";
-import {Alert} from "react-native";
-import logJSON from "../utils/logJSON";
 import useDeleteCache from "./useDeleteCache";
 
 const useStopRecording = () => {
@@ -45,14 +43,8 @@ const useStopRecording = () => {
       setIsLoading(false);
       setResultsScreenShown(true);
     } catch (error) {
-      logJSON(error);
       errorHandler("RECORDING_ERROR", error);
       setIsLoading(false);
-      Alert.alert("Error", error.message, [
-        {
-          text: "확인"
-        }
-      ]);
     }
     setIsRecording(false);
   };
