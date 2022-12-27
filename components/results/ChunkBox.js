@@ -7,15 +7,19 @@ const ChunkBox = ({chunk, grade}) => {
   let borderColor;
   let score;
   switch (grade) {
-    case "good":
+    case 3:
       borderColor = Constants.GOOD_BORDER_COLOR;
+      score = 3;
+      break;
+    case 2:
+      borderColor = Constants.MEDIOCRE_BORDER_COLOR;
       score = 2;
       break;
-    case "mediocre":
-      borderColor = Constants.MEDIOCRE_BORDER_COLOR;
+    case 1:
+      borderColor = Constants.BAD_BORDER_COLOR;
       score = 1;
       break;
-    case "bad":
+    case 0:
       borderColor = Constants.BAD_BORDER_COLOR;
       score = 0;
       break;
@@ -37,9 +41,9 @@ const ChunkBox = ({chunk, grade}) => {
         </Text>
       </View>
       <View style={styles.starContainer}>
-        <Star isFilled={score >= 0} />
         <Star isFilled={score >= 1} />
         <Star isFilled={score >= 2} />
+        <Star isFilled={score >= 3} />
       </View>
     </View>
   );
