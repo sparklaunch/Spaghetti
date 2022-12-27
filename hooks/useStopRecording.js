@@ -9,6 +9,7 @@ import ResultsContext from "../contexts/ResultsContext";
 import ResultsStatusContext from "../contexts/ResultsStatusContext";
 import LoadingStatusContext from "../contexts/LoadingStatusContext";
 import {Alert} from "react-native";
+import logJSON from "../utils/logJSON";
 
 const useStopRecording = () => {
   const {setIsLoading} = useContext(LoadingStatusContext);
@@ -41,7 +42,7 @@ const useStopRecording = () => {
       setIsLoading(false);
       setResultsScreenShown(true);
     } catch (error) {
-      console.log(error.response);
+      logJSON(error);
       errorHandler("RECORDING_ERROR", error);
       setIsLoading(false);
       Alert.alert("Error", error.message, [
