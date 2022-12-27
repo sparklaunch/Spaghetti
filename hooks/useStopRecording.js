@@ -10,6 +10,7 @@ import ResultsStatusContext from "../contexts/ResultsStatusContext";
 import LoadingStatusContext from "../contexts/LoadingStatusContext";
 import {Alert} from "react-native";
 import logJSON from "../utils/logJSON";
+import useDeleteCache from "./useDeleteCache";
 
 const useStopRecording = () => {
   const {setIsLoading} = useContext(LoadingStatusContext);
@@ -17,6 +18,7 @@ const useStopRecording = () => {
   const {setResults} = useContext(ResultsContext);
   const {setIsRecording} = useContext(RecordingStatusContext);
   const {setResultsScreenShown} = useContext(ResultsStatusContext);
+  const deleteCache = useDeleteCache();
   const errorHandler = useErrorHandler();
   return async () => {
     try {
@@ -37,6 +39,7 @@ const useStopRecording = () => {
           "Content-Type": "multipart/form-data"
         }
       });
+      await deleteCache(path);
       const {data} = response;
       setResults(data);
       setIsLoading(false);
