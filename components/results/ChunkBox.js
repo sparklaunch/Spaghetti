@@ -1,17 +1,40 @@
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Pressable, StyleSheet, View} from "react-native";
 import Star from "./Star";
 import Constants from "../../shared/Constants";
 import phonemeToOrthographyMapper from "../../utils/phonemeToOrthographyMapper";
 import phonemeToSignifierMapper from "../../utils/phonemeToSignifierMapper";
 import usePlaySound from "../../hooks/usePlaySound";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming
+} from "react-native-reanimated";
 
 const ChunkBox = ({chunk, grade}) => {
   let borderColor;
   let score;
+  const scale = useSharedValue(1);
+  const bounceStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: scale.value
+        }
+      ]
+    };
+  });
   const playSound = usePlaySound();
   const onPress = () => {
     let signifiedChunk = phonemeToSignifierMapper(chunk);
     playSound(signifiedChunk, () => {});
+    scale.value = withRepeat(
+      withTiming(1.5, {
+        duration: 200
+      }),
+      2,
+      true
+    );
   };
   switch (grade) {
     case 3:
@@ -34,10 +57,7 @@ const ChunkBox = ({chunk, grade}) => {
       break;
   }
   return (
-    <TouchableOpacity
-      style={styles.block}
-      activeOpacity={0.5}
-      onPress={onPress}>
+    <Pressable onPress={onPress} style={styles.block}>
       <View
         style={[
           styles.container,
@@ -46,16 +66,16 @@ const ChunkBox = ({chunk, grade}) => {
             borderWidth: 5
           }
         ]}>
-        <Text style={styles.chunkText}>
+        <Animated.Text style={[styles.chunkText, bounceStyle]}>
           {phonemeToOrthographyMapper(chunk)}
-        </Text>
+        </Animated.Text>
       </View>
       <View style={styles.starContainer}>
         <Star isFilled={score >= 1} />
         <Star isFilled={score >= 2} />
         <Star isFilled={score >= 3} />
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
