@@ -1,5 +1,5 @@
 const countDown = duration => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _) => {
     setTimeout(() => {
       resolve("success");
     }, duration);
