@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View} from "react-native";
 import Star from "./Star";
 import Constants from "../../shared/Constants";
+import phonemeToOrthographyMapper from "../../utils/phonemeToOrthographyMapper";
 
 const ChunkBox = ({chunk, grade}) => {
   let borderColor;
@@ -31,7 +32,9 @@ const ChunkBox = ({chunk, grade}) => {
             borderWidth: 5
           }
         ]}>
-        <Text style={styles.chunkText}>{chunk}</Text>
+        <Text style={styles.chunkText}>
+          {phonemeToOrthographyMapper(chunk)}
+        </Text>
       </View>
       <View style={styles.starContainer}>
         <Star isFilled={score >= 0} />

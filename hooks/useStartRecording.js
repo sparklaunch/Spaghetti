@@ -6,7 +6,7 @@ import countDown from "../utils/countDown";
 import useStopRecording from "./useStopRecording";
 
 const useStartRecording = () => {
-  const {setIsRecording} = useContext(RecordingStatusContext);
+  const {isRecording, setIsRecording} = useContext(RecordingStatusContext);
   const stopRecording = useStopRecording();
   const errorHandler = useErrorHandler();
   return async () => {
@@ -16,8 +16,10 @@ const useStartRecording = () => {
       });
       setIsRecording(true);
       await countDown(6000);
-      console.log("No audio input in 6,000 milliseconds.");
-      stopRecording();
+      if (isRecording) {
+        console.log("No audio input in 6,000 milliseconds.");
+        stopRecording();
+      }
     } catch (error) {
       errorHandler("RECORDING_ERROR", error);
     }
