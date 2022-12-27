@@ -16,7 +16,6 @@ import {ResultsStatusContextProvider} from "./contexts/ResultsStatusContext";
 import RootScreen from "./screens/RootScreen";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {LoadingStatusContextProvider} from "./contexts/LoadingStatusContext";
-import {CountDownContextProvider} from "./contexts/CountDownContext";
 
 const App = () => {
   const errorHandler = useErrorHandler();
@@ -35,33 +34,31 @@ const App = () => {
   }, []);
   return (
     <SafeAreaProvider>
-      <CountDownContextProvider>
-        <LoadingStatusContextProvider>
-          <ResultsStatusContextProvider>
-            <ResultsContextProvider>
-              <RecordingStatusContextProvider>
-                <ChunksRefsContextProvider>
-                  <DevicePermissionContextProvider>
-                    <ChunkAnimationContextProvider>
-                      <DeviceVisibilityContextProvider>
-                        <CroppedImagePathsContextProvider>
-                          <ChunksContextProvider>
-                            <TakingPhotoAvailabilityContextProvider>
-                              <GestureHandlerRootView style={styles.block}>
-                                <RootScreen />
-                              </GestureHandlerRootView>
-                            </TakingPhotoAvailabilityContextProvider>
-                          </ChunksContextProvider>
-                        </CroppedImagePathsContextProvider>
-                      </DeviceVisibilityContextProvider>
-                    </ChunkAnimationContextProvider>
-                  </DevicePermissionContextProvider>
-                </ChunksRefsContextProvider>
-              </RecordingStatusContextProvider>
-            </ResultsContextProvider>
-          </ResultsStatusContextProvider>
-        </LoadingStatusContextProvider>
-      </CountDownContextProvider>
+      <LoadingStatusContextProvider>
+        <ResultsStatusContextProvider>
+          <ResultsContextProvider>
+            <RecordingStatusContextProvider>
+              <ChunksRefsContextProvider>
+                <DevicePermissionContextProvider>
+                  <ChunkAnimationContextProvider>
+                    <DeviceVisibilityContextProvider>
+                      <CroppedImagePathsContextProvider>
+                        <ChunksContextProvider>
+                          <TakingPhotoAvailabilityContextProvider>
+                            <GestureHandlerRootView style={styles.block}>
+                              <RootScreen />
+                            </GestureHandlerRootView>
+                          </TakingPhotoAvailabilityContextProvider>
+                        </ChunksContextProvider>
+                      </CroppedImagePathsContextProvider>
+                    </DeviceVisibilityContextProvider>
+                  </ChunkAnimationContextProvider>
+                </DevicePermissionContextProvider>
+              </ChunksRefsContextProvider>
+            </RecordingStatusContextProvider>
+          </ResultsContextProvider>
+        </ResultsStatusContextProvider>
+      </LoadingStatusContextProvider>
     </SafeAreaProvider>
   );
 };
