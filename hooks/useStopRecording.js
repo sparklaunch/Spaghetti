@@ -8,6 +8,7 @@ import RecordingStatusContext from "../contexts/RecordingStatusContext";
 import ResultsContext from "../contexts/ResultsContext";
 import ResultsStatusContext from "../contexts/ResultsStatusContext";
 import LoadingStatusContext from "../contexts/LoadingStatusContext";
+import {Alert} from "react-native";
 
 const useStopRecording = () => {
   const {setIsLoading} = useContext(LoadingStatusContext);
@@ -42,6 +43,11 @@ const useStopRecording = () => {
     } catch (error) {
       errorHandler("RECORDING_ERROR", error);
       setIsLoading(false);
+      Alert.alert("Error", error.message, [
+        {
+          text: "확인"
+        }
+      ]);
     }
     setIsRecording(false);
   };
