@@ -10,6 +10,7 @@ import ResultsStatusContext from "../contexts/ResultsStatusContext";
 import LoadingStatusContext from "../contexts/LoadingStatusContext";
 import useDeleteCache from "./useDeleteCache";
 import TimerContext from "../contexts/TimerContext";
+import logJSON from "../utils/logJSON";
 
 const useStopRecording = () => {
   const {setIsLoading} = useContext(LoadingStatusContext);
@@ -43,6 +44,7 @@ const useStopRecording = () => {
       });
       await deleteCache(path);
       const {data} = response;
+      logJSON(data);
       setResults(data);
       setIsLoading(false);
       setResultsScreenShown(true);
@@ -53,4 +55,5 @@ const useStopRecording = () => {
     setIsRecording(false);
   };
 };
+
 export default useStopRecording;
