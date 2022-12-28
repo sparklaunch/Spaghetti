@@ -20,12 +20,10 @@ const useStartRecording = () => {
       });
       setIsRecording(true);
       await countDown(6000);
-      if (!isLoading && !resultsScreenShown) {
-        console.log("No audio input in 6,000 milliseconds.");
-        const {path} = await SoundRecorder.stop();
-        await deleteCache(path);
-        setIsRecording(false);
-      }
+      console.log("No audio input in 6,000 milliseconds.");
+      const {path} = await SoundRecorder.stop();
+      await deleteCache(path);
+      setIsRecording(false);
     } catch (error) {
       errorHandler("RECORDING_ERROR", error);
     }
