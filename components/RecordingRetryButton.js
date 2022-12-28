@@ -3,11 +3,21 @@ import Constants from "../shared/Constants";
 import Animated, {BounceIn, FadeOut} from "react-native-reanimated";
 import {useContext} from "react";
 import RecordingRetryContext from "../contexts/RecordingRetryContext";
+import RecordingStatusContext from "../contexts/RecordingStatusContext";
+import usePlaySound from "../hooks/usePlaySound";
+import useStartRecording from "../hooks/useStartRecording";
 
 const RecordingRetryButton = () => {
   const {setRecordingRetry} = useContext(RecordingRetryContext);
+  const {setIsRecording} = useContext(RecordingStatusContext);
+  const startRecording = useStartRecording();
+  const playSound = usePlaySound();
   const onPress = () => {
     setRecordingRetry(false);
+    setIsRecording(true);
+    playSound("click", () => {
+      startRecording();
+    });
   };
   return (
     <Animated.View
