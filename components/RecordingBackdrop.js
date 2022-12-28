@@ -1,16 +1,11 @@
 import {StyleSheet, TouchableOpacity} from "react-native";
-import Animated, {
-  BounceIn,
-  BounceOut,
-  FadeIn,
-  FadeOut
-} from "react-native-reanimated";
-import Constants from "../shared/Constants";
+import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
 import useStopRecording from "../hooks/useStopRecording";
 import {useContext} from "react";
 import RecordingRetryContext from "../contexts/RecordingRetryContext";
 import SwellingMicrophone from "./SwellingMicrophone";
 import RecordingRetryButton from "./RecordingRetryButton";
+import SpeakNowText from "./SpeakNowText";
 
 const RecordingBackdrop = () => {
   const {recordingRetry} = useContext(RecordingRetryContext);
@@ -20,16 +15,11 @@ const RecordingBackdrop = () => {
   };
   return (
     <Animated.View style={styles.block} entering={FadeIn} exiting={FadeOut}>
+      <SpeakNowText />
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={onPress}
         style={styles.touchableOpacity}>
-        <Animated.Image
-          source={require("../assets/images/speak_now.png")}
-          entering={BounceIn}
-          exiting={BounceOut}
-          style={styles.speakNow}
-        />
         {recordingRetry ? <RecordingRetryButton /> : <SwellingMicrophone />}
       </TouchableOpacity>
     </Animated.View>
@@ -47,13 +37,6 @@ const styles = StyleSheet.create({
   },
   touchableOpacity: {
     flex: 1
-  },
-  speakNow: {
-    position: "absolute",
-    width: 561,
-    height: 33,
-    top: `${Constants.TOP_OFFSET * 100}%`,
-    left: "15%"
   }
 });
 
