@@ -23,7 +23,6 @@ const useStartRecording = () => {
       const {path} = await SoundRecorder.stop();
       setRecordingRetry(true);
       await deleteCache(path);
-      setIsRecording(false);
     } catch (error) {
       errorHandler("RECORDING_ERROR", error);
     }
