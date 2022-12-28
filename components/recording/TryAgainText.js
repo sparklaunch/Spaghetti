@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
   tryAgain: {
     position: "absolute",
     top: `${Constants.TOP_OFFSET * 100}%`,
-    left: "37%"
+    left: "37.5%"
   },
   text: {
-    width: 206,
+    width: 214,
     height: 54
   }
 });
