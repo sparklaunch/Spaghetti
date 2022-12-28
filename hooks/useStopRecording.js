@@ -9,6 +9,7 @@ import ResultsContext from "../contexts/ResultsContext";
 import ResultsStatusContext from "../contexts/ResultsStatusContext";
 import LoadingStatusContext from "../contexts/LoadingStatusContext";
 import useDeleteCache from "./useDeleteCache";
+import TimerContext from "../contexts/TimerContext";
 
 const useStopRecording = () => {
   const {setIsLoading} = useContext(LoadingStatusContext);
@@ -16,12 +17,15 @@ const useStopRecording = () => {
   const {setResults} = useContext(ResultsContext);
   const {setIsRecording} = useContext(RecordingStatusContext);
   const {setResultsScreenShown} = useContext(ResultsStatusContext);
+  const {timer} = useContext(TimerContext);
   const deleteCache = useDeleteCache();
   const errorHandler = useErrorHandler();
   return async () => {
     try {
       setIsLoading(true);
       const {path} = await SoundRecorder.stop();
+      clearTimeout(timer);
+      console.log("Timer cleared.");
       console.log("Result saved in " + path);
       const formData = new FormData();
       formData.append("audio", {

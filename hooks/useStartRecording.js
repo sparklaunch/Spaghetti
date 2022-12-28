@@ -2,17 +2,14 @@ import SoundRecorder from "react-native-sound-recorder";
 import {useContext} from "react";
 import RecordingStatusContext from "../contexts/RecordingStatusContext";
 import useErrorHandler from "./useErrorHandler";
-import countDown from "../utils/countDown";
-import LoadingStatusContext from "../contexts/LoadingStatusContext";
-import ResultsStatusContext from "../contexts/ResultsStatusContext";
+import useCountDown from "./useCountDown";
 import useDeleteCache from "./useDeleteCache";
 
 const useStartRecording = () => {
   const {setIsRecording} = useContext(RecordingStatusContext);
-  const {isLoading} = useContext(LoadingStatusContext);
-  const {resultsScreenShown} = useContext(ResultsStatusContext);
   const deleteCache = useDeleteCache();
   const errorHandler = useErrorHandler();
+  const countDown = useCountDown();
   return async () => {
     try {
       await SoundRecorder.start(SoundRecorder.PATH_CACHE + "/record.aac", {
