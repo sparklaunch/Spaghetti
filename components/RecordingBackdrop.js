@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableOpacity, View} from "react-native";
+import {StyleSheet, TouchableOpacity} from "react-native";
 import Animated, {
   BounceIn,
   BounceOut,
@@ -10,6 +10,7 @@ import useStopRecording from "../hooks/useStopRecording";
 import {useContext} from "react";
 import RecordingRetryContext from "../contexts/RecordingRetryContext";
 import SwellingMicrophone from "./SwellingMicrophone";
+import RecordingRetryButton from "./RecordingRetryButton";
 
 const RecordingBackdrop = () => {
   const {recordingRetry} = useContext(RecordingRetryContext);
@@ -29,11 +30,7 @@ const RecordingBackdrop = () => {
           exiting={BounceOut}
           style={styles.speakNow}
         />
-        {recordingRetry ? (
-          <View style={styles.container}></View>
-        ) : (
-          <SwellingMicrophone />
-        )}
+        {recordingRetry ? <RecordingRetryButton /> : <SwellingMicrophone />}
       </TouchableOpacity>
     </Animated.View>
   );
