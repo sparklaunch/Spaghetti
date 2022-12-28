@@ -19,7 +19,6 @@ import Animated, {
   withRepeat,
   withTiming
 } from "react-native-reanimated";
-import {Gesture, GestureDetector} from "react-native-gesture-handler";
 
 Sound.setCategory("Playback");
 
@@ -54,7 +53,8 @@ const Chunk = forwardRef(({chunk, delay = 0}, ref) => {
       ]
     };
   });
-  const onTap = Gesture.Tap().onStart(() => {
+  const onTapChunk = () => {
+    const chunkName = phonemeToSignifierMapper(chunk);
     tapScale.value = withRepeat(
       withTiming(2, {
         duration: 250
@@ -65,9 +65,6 @@ const Chunk = forwardRef(({chunk, delay = 0}, ref) => {
         tapScale.value = 1;
       }
     );
-  });
-  const onTapChunk = () => {
-    const chunkName = phonemeToSignifierMapper(chunk);
     const sound = new Sound(`${chunkName}.mp3`, Sound.MAIN_BUNDLE, error => {
       if (error) {
         console.log("PLAY_SOUND_ERROR: ", error);
@@ -87,20 +84,18 @@ const Chunk = forwardRef(({chunk, delay = 0}, ref) => {
     setVisibleChunk(visibleChunk);
   }, []);
   return (
-    <GestureDetector gesture={onTap}>
-      <Animated.View
-        style={[styles.block, bounceStyle]}
-        entering={BounceIn}
-        exiting={BounceOut}
-        ref={ref}
-        layout={Layout.duration(200)}>
-        <View style={styles.block}>
-          <Pressable onPress={onTapChunk}>
-            <Text style={styles.text}>{visibleChunk}</Text>
-          </Pressable>
-        </View>
-      </Animated.View>
-    </GestureDetector>
+    <Animated.View
+      style={[styles.block, bounceStyle]}
+      entering={BounceIn}
+      exiting={BounceOut}
+      ref={ref}
+      layout={Layout.duration(200)}>
+      <View style={styles.block}>
+        <Pressable onPress={onTapChunk}>
+          <Text style={styles.text}>{visibleChunk}</Text>
+        </Pressable>
+      </View>
+    </Animated.View>
   );
 });
 
