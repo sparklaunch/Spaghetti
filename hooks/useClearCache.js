@@ -1,4 +1,4 @@
-import RNFS from "react-native-fs";
+import FileSystem from "react-native-fs";
 import useErrorHandler from "./useErrorHandler";
 
 const useClearCache = () => {
@@ -6,7 +6,7 @@ const useClearCache = () => {
   return async paths => {
     try {
       for (const path of paths) {
-        await RNFS.unlink(path);
+        await FileSystem.unlink(path);
       }
       console.log("Cache clear succeeded.");
     } catch (error) {
