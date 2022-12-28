@@ -6,6 +6,7 @@ import RecordingRetryContext from "../../contexts/RecordingRetryContext";
 import SwellingMicrophone from "./SwellingMicrophone";
 import RecordingRetryButton from "./RecordingRetryButton";
 import SpeakNowText from "./SpeakNowText";
+import TryAgainText from "./TryAgainText";
 
 const RecordingBackdrop = () => {
   const {recordingRetry} = useContext(RecordingRetryContext);
@@ -15,7 +16,7 @@ const RecordingBackdrop = () => {
   };
   return (
     <Animated.View style={styles.block} entering={FadeIn} exiting={FadeOut}>
-      <SpeakNowText />
+      {recordingRetry ? <TryAgainText /> : <SpeakNowText />}
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={onPress}
