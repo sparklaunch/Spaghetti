@@ -1,11 +1,11 @@
 import {StyleSheet} from "react-native";
 import Animated, {BounceIn, BounceOut} from "react-native-reanimated";
-import Constants from "../shared/Constants";
+import Constants from "../../shared/Constants";
 
 const SpeakNowText = () => {
   return (
     <Animated.Image
-      source={require("../assets/images/speak_now.png")}
+      source={require("../../assets/images/speak_now.png")}
       entering={BounceIn}
       exiting={BounceOut}
       style={styles.speakNow}

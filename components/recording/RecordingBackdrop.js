@@ -1,8 +1,8 @@
 import {StyleSheet, TouchableOpacity} from "react-native";
 import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
-import useStopRecording from "../hooks/useStopRecording";
+import useStopRecording from "../../hooks/useStopRecording";
 import {useContext} from "react";
-import RecordingRetryContext from "../contexts/RecordingRetryContext";
+import RecordingRetryContext from "../../contexts/RecordingRetryContext";
 import SwellingMicrophone from "./SwellingMicrophone";
 import RecordingRetryButton from "./RecordingRetryButton";
 import SpeakNowText from "./SpeakNowText";

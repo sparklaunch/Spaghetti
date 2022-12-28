@@ -8,7 +8,7 @@ import Animated, {
 } from "react-native-reanimated";
 import {StyleSheet, View} from "react-native";
 import {useEffect} from "react";
-import Constants from "../shared/Constants";
+import Constants from "../../shared/Constants";
 
 const SwellingMicrophone = () => {
   const scale = useSharedValue(1);
@@ -68,14 +68,14 @@ const SwellingMicrophone = () => {
   return (
     <View style={styles.container}>
       <Animated.Image
-        source={require("../assets/images/glow.png")}
+        source={require("../../assets/images/glow.png")}
         style={[styles.glow, glowStyle]}
         resizeMode={"cover"}
       />
       <Animated.Image
         entering={BounceIn}
         exiting={BounceOut}
-        source={require("../assets/images/microphone.png")}
+        source={require("../../assets/images/microphone.png")}
         style={[styles.microphone, bulgeStyle]}
       />
     </View>

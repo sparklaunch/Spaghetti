@@ -1,11 +1,11 @@
 import {Image, StyleSheet, TouchableOpacity} from "react-native";
-import Constants from "../shared/Constants";
+import Constants from "../../shared/Constants";
 import Animated, {BounceIn, FadeOut} from "react-native-reanimated";
 import {useContext} from "react";
-import RecordingRetryContext from "../contexts/RecordingRetryContext";
-import RecordingStatusContext from "../contexts/RecordingStatusContext";
-import usePlaySound from "../hooks/usePlaySound";
-import useStartRecording from "../hooks/useStartRecording";
+import RecordingRetryContext from "../../contexts/RecordingRetryContext";
+import RecordingStatusContext from "../../contexts/RecordingStatusContext";
+import usePlaySound from "../../hooks/usePlaySound";
+import useStartRecording from "../../hooks/useStartRecording";
 
 const RecordingRetryButton = () => {
   const {setRecordingRetry} = useContext(RecordingRetryContext);
@@ -25,7 +25,7 @@ const RecordingRetryButton = () => {
       exiting={FadeOut}
       style={styles.retryButton}>
       <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
-        <Image source={require("../assets/images/retry.png")} />
+        <Image source={require("../../assets/images/retry.png")} />
       </TouchableOpacity>
     </Animated.View>
   );
