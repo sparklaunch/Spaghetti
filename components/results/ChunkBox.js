@@ -13,7 +13,6 @@ import Animated, {
 
 const ChunkBox = ({chunk, grade}) => {
   let borderColor;
-  let score;
   const scale = useSharedValue(1);
   const bounceStyle = useAnimatedStyle(() => {
     return {
@@ -39,19 +38,15 @@ const ChunkBox = ({chunk, grade}) => {
   switch (grade) {
     case 3:
       borderColor = Constants.GOOD_BORDER_COLOR;
-      score = 3;
       break;
     case 2:
       borderColor = Constants.MEDIOCRE_BORDER_COLOR;
-      score = 2;
       break;
     case 1:
       borderColor = Constants.BAD_BORDER_COLOR;
-      score = 1;
       break;
     case 0:
       borderColor = Constants.BAD_BORDER_COLOR;
-      score = 0;
       break;
     default:
       break;
@@ -71,9 +66,9 @@ const ChunkBox = ({chunk, grade}) => {
         </Animated.Text>
       </View>
       <View style={styles.starContainer}>
-        <Star isFilled={score >= 1} />
-        <Star isFilled={score >= 2} />
-        <Star isFilled={score >= 3} />
+        <Star isFilled={grade >= 1} />
+        <Star isFilled={grade >= 2} />
+        <Star isFilled={grade >= 3} />
       </View>
     </Pressable>
   );
