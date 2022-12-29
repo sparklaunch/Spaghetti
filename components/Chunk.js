@@ -22,7 +22,7 @@ import Animated, {
 
 Sound.setCategory("Playback");
 
-const Chunk = forwardRef(({chunk, delay = 0}, ref) => {
+const Chunk = forwardRef(({chunk, delay = 0, isFinalChunk = false}, ref) => {
   const [visibleChunk, setVisibleChunk] = useState(chunk);
   const tapScale = useSharedValue(1);
   useImperativeHandle(ref, () => {
@@ -65,7 +65,13 @@ const Chunk = forwardRef(({chunk, delay = 0}, ref) => {
         tapScale.value = 1;
       }
     );
-    const sound = new Sound(`${chunkName}.mp3`, Sound.MAIN_BUNDLE, error => {
+    let audio;
+    if (isFinalChunk && (chunkName === "n" || chunkName === "m")) {
+      audio = "m_or_n.wav";
+    } else {
+      audio = chunkName + ".mp3";
+    }
+    const sound = new Sound(audio, Sound.MAIN_BUNDLE, error => {
       if (error) {
         console.log("PLAY_SOUND_ERROR: ", error);
       } else {

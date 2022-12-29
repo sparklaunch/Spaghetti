@@ -125,14 +125,20 @@ const RootScreen = () => {
           setSecondChunkAnimation(true);
           playSound(refinedChunks[1], () => {
             setThirdChunkAnimation(true);
-            playSound(refinedChunks[2], () => {
-              const middleChunk = phonemeToOrthographyMapper(refinedChunks[1]);
-              wave();
-              Tts.speak(
-                [refinedChunks[0], middleChunk, refinedChunks[2]].join("")
-              );
-              onTTSFinished();
-            });
+            playSound(
+              refinedChunks[2],
+              () => {
+                const middleChunk = phonemeToOrthographyMapper(
+                  refinedChunks[1]
+                );
+                wave();
+                Tts.speak(
+                  [refinedChunks[0], middleChunk, refinedChunks[2]].join("")
+                );
+                onTTSFinished();
+              },
+              true
+            );
           });
         });
       } catch (error) {

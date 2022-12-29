@@ -24,7 +24,7 @@ const ChunkBoxContainer = () => {
     <View style={styles.chunkBoxContainer}>
       <ChunkBox chunk={chunks[0]} grade={grades[0]} />
       <ChunkBox chunk={chunks[1]} grade={grades[1]} />
-      <ChunkBox chunk={chunks[2]} grade={grades[2]} />
+      <ChunkBox chunk={chunks[2]} grade={grades[2]} isFinalChunk={true} />
     </View>
   );
 };

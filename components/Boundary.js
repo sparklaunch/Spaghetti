@@ -30,7 +30,12 @@ const Boundary = () => {
       </View>
       <View style={styles.placeholderDivider}>
         {thirdChunkAnimation && (
-          <Chunk chunk={chunks[2]} ref={thirdChunkRef} delay={200} />
+          <Chunk
+            chunk={chunks[2]}
+            ref={thirdChunkRef}
+            delay={200}
+            isFinalChunk={true}
+          />
         )}
       </View>
     </View>

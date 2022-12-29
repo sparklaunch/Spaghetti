@@ -11,7 +11,7 @@ import Animated, {
   withTiming
 } from "react-native-reanimated";
 
-const ChunkBox = ({chunk, grade}) => {
+const ChunkBox = ({chunk, grade, isFinalChunk = false}) => {
   let borderColor;
   const scale = useSharedValue(1);
   const bounceStyle = useAnimatedStyle(() => {
@@ -26,7 +26,7 @@ const ChunkBox = ({chunk, grade}) => {
   const playSound = usePlaySound();
   const onPress = () => {
     let signifiedChunk = phonemeToSignifierMapper(chunk);
-    playSound(signifiedChunk, () => {});
+    playSound(signifiedChunk, () => {}, isFinalChunk);
     scale.value = withRepeat(
       withTiming(1.5, {
         duration: 200
