@@ -12,6 +12,7 @@ const LoadingScreen = () => {
 const styles = StyleSheet.create({
   block: {
     position: "absolute",
+    zIndex: 3,
     top: 0,
     left: 0,
     right: 0,
