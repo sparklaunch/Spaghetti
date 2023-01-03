@@ -27,7 +27,7 @@ const GoodScreen = () => {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    zIndex: 1,
+    zIndex: 3,
     top: 0,
     left: 0,
     right: 0,

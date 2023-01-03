@@ -12,7 +12,7 @@ const Notice = () => {
 
 const styles = StyleSheet.create({
   noticeContainer: {
-    zIndex: 1,
+    zIndex: 2,
     position: "absolute",
     top: 25,
     left: 0,

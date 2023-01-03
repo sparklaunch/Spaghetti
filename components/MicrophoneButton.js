@@ -57,7 +57,7 @@ const MicrophoneButton = () => {
 const styles = StyleSheet.create({
   speakButton: {
     position: "absolute",
-    zIndex: 1,
+    zIndex: 2,
     right: "5%",
     bottom: "8%"
   }

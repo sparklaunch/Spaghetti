@@ -40,7 +40,7 @@ const CameraButton = ({onTap}) => {
 const styles = StyleSheet.create({
   tapButton: {
     position: "absolute",
-    zIndex: 1,
+    zIndex: 2,
     right: "5%",
     top: "50%",
     transform: [

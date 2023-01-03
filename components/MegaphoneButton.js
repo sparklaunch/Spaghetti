@@ -45,7 +45,7 @@ const MegaphoneButton = ({onReplay}) => {
 
 const styles = StyleSheet.create({
   playButton: {
-    zIndex: 1,
+    zIndex: 2,
     position: "absolute",
     bottom: "8%",
     left: "50%"
