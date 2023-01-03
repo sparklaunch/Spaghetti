@@ -20,6 +20,12 @@ const Boundary = () => {
           height: Dimensions.get("window").width / 2.52
         }
       ]}>
+      <View style={styles.borderContainer}>
+        <View style={styles.topLeftBorder} />
+        <View style={styles.topRightBorder} />
+        <View style={styles.bottomLeftBorder} />
+        <View style={styles.bottomRightBorder} />
+      </View>
       <View style={styles.divider}>
         {firstChunkAnimation && <Chunk chunk={chunks[0]} ref={firstChunkRef} />}
       </View>
@@ -48,8 +54,6 @@ const styles = StyleSheet.create({
     left: `${Constants.LEFT_OFFSET * 100}%`,
     top: `${Constants.TOP_OFFSET * 100}%`,
     right: `${Constants.LEFT_OFFSET * 100}%`,
-    borderWidth: 8,
-    borderColor: Constants.PRIMARY_COLOR,
     flexDirection: "row"
   },
   divider: {
@@ -60,6 +64,57 @@ const styles = StyleSheet.create({
   },
   placeholderDivider: {
     flex: 1
+  },
+  borderContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
+  },
+  topLeftBorder: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: 50,
+    height: 50,
+    borderWidth: 8,
+    borderRightWidth: 0,
+    borderBottomWidth: 0,
+    borderColor: Constants.PRIMARY_COLOR
+  },
+  topRightBorder: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    width: 50,
+    height: 50,
+    borderWidth: 8,
+    borderLeftWidth: 0,
+    borderBottomWidth: 0,
+    borderColor: Constants.PRIMARY_COLOR
+  },
+  bottomLeftBorder: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    width: 50,
+    height: 50,
+    borderWidth: 8,
+    borderRightWidth: 0,
+    borderTopWidth: 0,
+    borderColor: Constants.PRIMARY_COLOR
+  },
+  bottomRightBorder: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    width: 50,
+    height: 50,
+    borderWidth: 8,
+    borderLeftWidth: 0,
+    borderTopWidth: 0,
+    borderColor: Constants.PRIMARY_COLOR
   }
 });
 
