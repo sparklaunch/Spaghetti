@@ -39,6 +39,7 @@ import useDeleteCache from "../hooks/useDeleteCache";
 import useClearCache from "../hooks/useClearCache";
 import LoadingStatusContext from "../contexts/LoadingStatusContext";
 import MiniMegaphoneButtons from "../components/MiniMegaphoneButtons";
+import Notice from "../components/Notice";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
@@ -173,6 +174,7 @@ const RootScreen = () => {
   }
   return (
     <View style={styles.block}>
+      <Notice />
       <MaskedView style={styles.maskedView} maskElement={<MaskElement />}>
         <Camera
           ref={camera}
