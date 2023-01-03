@@ -38,7 +38,6 @@ import ResultsScreen from "./results/ResultsScreen";
 import useDeleteCache from "../hooks/useDeleteCache";
 import useClearCache from "../hooks/useClearCache";
 import LoadingStatusContext from "../contexts/LoadingStatusContext";
-import MiniMegaphoneButtons from "../components/MiniMegaphoneButtons";
 import Notice from "../components/Notice";
 
 const RootScreen = () => {
@@ -184,7 +183,7 @@ const RootScreen = () => {
           photo={true}
         />
         <Boundary />
-        {areMegaphonesVisible && <MiniMegaphoneButtons />}
+        {/*{areMegaphonesVisible && <MiniMegaphoneButtons />}*/}
       </MaskedView>
       <Backdrop />
       <CameraButton onTap={onTap} />
