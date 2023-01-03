@@ -30,6 +30,7 @@ const RecordingBackdrop = () => {
 const styles = StyleSheet.create({
   block: {
     position: "absolute",
+    zIndex: 2,
     top: 0,
     left: 0,
     right: 0,

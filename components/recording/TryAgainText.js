@@ -1,13 +1,10 @@
-import Animated, {BounceIn, BounceOut} from "react-native-reanimated";
+import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
 import {Image, StyleSheet} from "react-native";
 import Constants from "../../shared/Constants";
 
 const TryAgainText = () => {
   return (
-    <Animated.View
-      entering={BounceIn}
-      exiting={BounceOut}
-      style={styles.tryAgain}>
+    <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.tryAgain}>
       <Image
         source={require("../../assets/images/try_again.png")}
         resizeMethod={"scale"}
