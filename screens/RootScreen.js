@@ -193,7 +193,6 @@ const RootScreen = () => {
               });
           })
           .catch(error => {
-            logJSON(error);
             axios
               .post(Constants.OCR_API_ENDPOINT, formData, {
                 headers: {
