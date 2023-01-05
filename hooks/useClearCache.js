@@ -8,7 +8,6 @@ const useClearCache = () => {
       for (const path of paths) {
         await FileSystem.unlink(path);
       }
-      console.log("Cache clear succeeded.");
     } catch (error) {
       errorHandler("CACHE_CLEAR_ERROR", error);
     }

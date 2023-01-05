@@ -27,7 +27,6 @@ import useLoadModel from "../hooks/useLoadModel";
 import useClassifyChunk from "../hooks/useClassifyChunk";
 import phonemeToOrthographyMapper from "../utils/phonemeToOrthographyMapper";
 import ChunksRefsContext from "../contexts/ChunksRefsContext";
-import refineChunk from "../utils/refineChunk";
 import useRecognizeChunks from "../hooks/useRecognizeChunks";
 import MicrophoneButton from "../components/MicrophoneButton";
 import Backdrop from "../components/Backdrop";
@@ -39,6 +38,9 @@ import useDeleteCache from "../hooks/useDeleteCache";
 import useClearCache from "../hooks/useClearCache";
 import LoadingStatusContext from "../contexts/LoadingStatusContext";
 import Notice from "../components/Notice";
+import axios from "axios";
+import Constants from "../shared/Constants";
+import logJSON from "../utils/logJSON";
 
 const RootScreen = () => {
   const tensorflowLite = new TensorflowLite();
@@ -101,48 +103,176 @@ const RootScreen = () => {
         const {path, width, height} = await takePhoto(camera);
         const croppedPaths = await cropImage(path, width, height);
         await deleteCache(path);
-        const chunks = await recognizeChunks(croppedPaths);
-        const refinedChunks = chunks.map(refineChunk);
-        const targetChunkIndices = refinedChunks.reduce(
-          (acc, element, index) =>
-            element === "" || element === "ow" || element === "oo"
-              ? acc.concat(index)
-              : acc,
-          []
-        );
-        loadModel(tensorflowLite);
-        for (const index of targetChunkIndices) {
-          refinedChunks[index] = await classifyChunk(
-            tensorflowLite,
-            croppedPaths[index]
-          );
-        }
-        await clearCache(croppedPaths);
-        tensorflowLite.close();
-        setChunks(refinedChunks);
-        setFirstChunkAnimation(true);
-        playSound(refinedChunks[0], () => {
-          setSecondChunkAnimation(true);
-          playSound(refinedChunks[1], () => {
-            setThirdChunkAnimation(true);
-            playSound(
-              refinedChunks[2],
-              () => {
-                const middleChunk = phonemeToOrthographyMapper(
-                  refinedChunks[1]
-                );
-                wave();
-                Tts.speak(
-                  [refinedChunks[0], middleChunk, refinedChunks[2]].join("")
-                );
-                onTTSFinished();
-              },
-              true
-            );
-          });
+        const formData = new FormData();
+        formData.append("img_1", {
+          uri: "file://" + croppedPaths[0],
+          type: "image/jpeg",
+          name: "img_1"
         });
+        formData.append("img_2", {
+          uri: "file://" + croppedPaths[1],
+          type: "image/jpeg",
+          name: "img_2"
+        });
+        formData.append("img_3", {
+          uri: "file://" + croppedPaths[2],
+          type: "image/jpeg",
+          name: "img_3"
+        });
+        axios
+          .post(Constants.OCR_API_ENDPOINT, formData, {
+            headers: {
+              "X-API-KEY": Constants.API_KEY,
+              accept: "application/json",
+              "Content-Type": "multipart/form-data",
+              "Cache-Control": "no-store",
+              Pragma: "no-store",
+              Expires: "0"
+            }
+          })
+          .then(response => {
+            const {data} = response;
+            const {result} = data;
+            const refinedChunks = result.map(chunk => {
+              return chunk
+                .toLowerCase()
+                .replace("+", "t")
+                .replace("in", "ir")
+                .replace("-", "l")
+                .replace("1", "i")
+                .replace(/[^a-z]/g, "");
+            });
+            // const chunks = await recognizeChunks(croppedPaths);
+            // const refinedChunks = chunks.map(refineChunk);
+            // const targetChunkIndices = refinedChunks.reduce(
+            //   (acc, element, index) =>
+            //     element === "" || element === "ow" || element === "oo"
+            //       ? acc.concat(index)
+            //       : acc,
+            //   []
+            // );
+            // loadModel(tensorflowLite);
+            // for (const index of targetChunkIndices) {
+            //   refinedChunks[index] = await classifyChunk(
+            //     tensorflowLite,
+            //     croppedPaths[index]
+            //   );
+            // }
+            clearCache(croppedPaths)
+              .then(response => {
+                // tensorflowLite.close();
+                setChunks(refinedChunks);
+                setFirstChunkAnimation(true);
+                playSound(refinedChunks[0], () => {
+                  setSecondChunkAnimation(true);
+                  playSound(refinedChunks[1], () => {
+                    setThirdChunkAnimation(true);
+                    playSound(
+                      refinedChunks[2],
+                      () => {
+                        const middleChunk = phonemeToOrthographyMapper(
+                          refinedChunks[1]
+                        );
+                        wave();
+                        Tts.speak(
+                          [
+                            refinedChunks[0],
+                            middleChunk,
+                            refinedChunks[2]
+                          ].join("")
+                        );
+                        onTTSFinished();
+                      },
+                      true
+                    );
+                  });
+                });
+              })
+              .catch(error => {
+                logJSON(error);
+              });
+          })
+          .catch(error => {
+            logJSON(error);
+            axios
+              .post(Constants.OCR_API_ENDPOINT, formData, {
+                headers: {
+                  "X-API-KEY": Constants.API_KEY,
+                  accept: "application/json",
+                  "Content-Type": "multipart/form-data",
+                  "Cache-Control": "no-store",
+                  Pragma: "no-store",
+                  Expires: "0"
+                }
+              })
+              .then(response => {
+                const {data} = response;
+                const {result} = data;
+                const refinedChunks = result.map(chunk => {
+                  return chunk
+                    .toLowerCase()
+                    .replace("+", "t")
+                    .replace("in", "ir")
+                    .replace("-", "l")
+                    .replace("1", "i")
+                    .replace(/[^a-z]/g, "");
+                });
+                // const chunks = await recognizeChunks(croppedPaths);
+                // const refinedChunks = chunks.map(refineChunk);
+                // const targetChunkIndices = refinedChunks.reduce(
+                //   (acc, element, index) =>
+                //     element === "" || element === "ow" || element === "oo"
+                //       ? acc.concat(index)
+                //       : acc,
+                //   []
+                // );
+                // loadModel(tensorflowLite);
+                // for (const index of targetChunkIndices) {
+                //   refinedChunks[index] = await classifyChunk(
+                //     tensorflowLite,
+                //     croppedPaths[index]
+                //   );
+                // }
+                clearCache(croppedPaths)
+                  .then(response => {
+                    // tensorflowLite.close();
+                    setChunks(refinedChunks);
+                    setFirstChunkAnimation(true);
+                    playSound(refinedChunks[0], () => {
+                      setSecondChunkAnimation(true);
+                      playSound(refinedChunks[1], () => {
+                        setThirdChunkAnimation(true);
+                        playSound(
+                          refinedChunks[2],
+                          () => {
+                            const middleChunk = phonemeToOrthographyMapper(
+                              refinedChunks[1]
+                            );
+                            wave();
+                            Tts.speak(
+                              [
+                                refinedChunks[0],
+                                middleChunk,
+                                refinedChunks[2]
+                              ].join("")
+                            );
+                            onTTSFinished();
+                          },
+                          true
+                        );
+                      });
+                    });
+                  })
+                  .catch(error => {
+                    logJSON(error);
+                  });
+              })
+              .catch(error => {
+                logJSON(error);
+              });
+          });
       } catch (error) {
-        errorHandler(error);
+        logJSON(error);
       }
     });
   };

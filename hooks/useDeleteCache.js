@@ -6,7 +6,6 @@ const useDeleteCache = () => {
   return async path => {
     try {
       await FileSystem.unlink(path);
-      console.log("Cache deletion succeeded.");
     } catch (error) {
       errorHandler("CACHE_DELETION_ERROR", error);
     }
