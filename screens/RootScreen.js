@@ -1,7 +1,7 @@
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Alert, Image, StyleSheet, Text, View} from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import {Camera} from "react-native-vision-camera";
-import {useContext, useEffect, useRef} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import ChunksContext from "../contexts/ChunksContext";
 import CroppedImagePathsContext from "../contexts/CroppedImagePathsContext";
 import DevicePermissionContext from "../contexts/DevicePermissionContext";
@@ -93,6 +93,39 @@ const RootScreen = () => {
     setIsMicrophoneVisible(false);
     setAreMegaphonesVisible(false);
   };
+  const [alertChunk, setAlertChunk] = useState("");
+  const alert = type => {
+    return Alert.alert("음소 선택", "음소를 선택하세요", [
+      {
+        text: type === "oo" ? "oo (장모음)" : "ow (장모음)",
+        onPress: () => {
+          switch (type) {
+            case "oo":
+              setAlertChunk("oo(uu)");
+              break;
+            case "ow":
+              setAlertChunk("ow(au)");
+              break;
+          }
+        },
+        style: "default"
+      },
+      {
+        text: type === "oo" ? "oo (단모음)" : "ow (단모음)",
+        onPress: () => {
+          switch (type) {
+            case "oo":
+              setAlertChunk("oo(u)");
+              break;
+            case "ow":
+              setAlertChunk("ow(ou)");
+              break;
+          }
+        },
+        style: "default"
+      }
+    ]);
+  };
   const playSession = () => {
     if (!isTakingPhotoAvailable) {
       return;
@@ -133,7 +166,7 @@ const RootScreen = () => {
           .then(response => {
             const {data} = response;
             const {result} = data;
-            const refinedChunks = result.map(chunk => {
+            let refinedChunks = result.map(chunk => {
               return chunk
                 .toLowerCase()
                 .replace("+", "t")
@@ -142,25 +175,15 @@ const RootScreen = () => {
                 .replace("1", "i")
                 .replace(/[^a-z]/g, "");
             });
-            // const chunks = await recognizeChunks(croppedPaths);
-            // const refinedChunks = chunks.map(refineChunk);
-            // const targetChunkIndices = refinedChunks.reduce(
-            //   (acc, element, index) =>
-            //     element === "" || element === "ow" || element === "oo"
-            //       ? acc.concat(index)
-            //       : acc,
-            //   []
-            // );
-            // loadModel(tensorflowLite);
-            // for (const index of targetChunkIndices) {
-            //   refinedChunks[index] = await classifyChunk(
-            //     tensorflowLite,
-            //     croppedPaths[index]
-            //   );
-            // }
             clearCache(croppedPaths)
               .then(response => {
-                // tensorflowLite.close();
+                if (refinedChunks[1] == "oo") {
+                  alert("oo");
+                }
+                if (refinedChunks[1] == "ow") {
+                  alert("ow");
+                }
+                refinedChunks[1] = alertChunk;
                 setChunks(refinedChunks);
                 setFirstChunkAnimation(true);
                 playSound(refinedChunks[0], () => {
@@ -182,6 +205,7 @@ const RootScreen = () => {
                           ].join("")
                         );
                         onTTSFinished();
+                        setAlertChunk("");
                       },
                       true
                     );
@@ -216,25 +240,8 @@ const RootScreen = () => {
                     .replace("1", "i")
                     .replace(/[^a-z]/g, "");
                 });
-                // const chunks = await recognizeChunks(croppedPaths);
-                // const refinedChunks = chunks.map(refineChunk);
-                // const targetChunkIndices = refinedChunks.reduce(
-                //   (acc, element, index) =>
-                //     element === "" || element === "ow" || element === "oo"
-                //       ? acc.concat(index)
-                //       : acc,
-                //   []
-                // );
-                // loadModel(tensorflowLite);
-                // for (const index of targetChunkIndices) {
-                //   refinedChunks[index] = await classifyChunk(
-                //     tensorflowLite,
-                //     croppedPaths[index]
-                //   );
-                // }
                 clearCache(croppedPaths)
                   .then(response => {
-                    // tensorflowLite.close();
                     setChunks(refinedChunks);
                     setFirstChunkAnimation(true);
                     playSound(refinedChunks[0], () => {
@@ -312,7 +319,6 @@ const RootScreen = () => {
           photo={true}
         />
         <Boundary />
-        {/*{areMegaphonesVisible && <MiniMegaphoneButtons />}*/}
       </MaskedView>
       <Backdrop />
       <CameraButton onTap={onTap} />
