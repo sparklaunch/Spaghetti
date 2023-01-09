@@ -94,17 +94,17 @@ const RootScreen = () => {
     setAreMegaphonesVisible(false);
   };
   const [alertChunk, setAlertChunk] = useState("");
-  const alert = type => {
+  const alert = (type, refinedChunks) => {
     return Alert.alert("음소 선택", "음소를 선택하세요", [
       {
         text: type === "oo" ? "oo (장모음)" : "ow (장모음)",
         onPress: () => {
           switch (type) {
             case "oo":
-              setAlertChunk("oo(uu)");
+              playAfterSession("oo(uu)", refinedChunks);
               break;
             case "ow":
-              setAlertChunk("ow(au)");
+              playAfterSession("ow(au)", refinedChunks);
               break;
           }
         },
@@ -115,16 +115,40 @@ const RootScreen = () => {
         onPress: () => {
           switch (type) {
             case "oo":
-              setAlertChunk("oo(u)");
+              playAfterSession("oo(u)", refinedChunks);
               break;
             case "ow":
-              setAlertChunk("ow(ou)");
+              playAfterSession("ow(ou)", refinedChunks);
               break;
           }
         },
         style: "default"
       }
     ]);
+  };
+  const playAfterSession = (chunk, refinedChunks) => {
+    refinedChunks[1] = chunk;
+    setChunks(refinedChunks);
+    setFirstChunkAnimation(true);
+    playSound(refinedChunks[0], () => {
+      setSecondChunkAnimation(true);
+      playSound(refinedChunks[1], () => {
+        setThirdChunkAnimation(true);
+        playSound(
+          refinedChunks[2],
+          () => {
+            const middleChunk = phonemeToOrthographyMapper(refinedChunks[1]);
+            wave();
+            Tts.speak(
+              [refinedChunks[0], middleChunk, refinedChunks[2]].join("")
+            );
+            onTTSFinished();
+            setAlertChunk("");
+          },
+          true
+        );
+      });
+    });
   };
   const playSession = () => {
     if (!isTakingPhotoAvailable) {
@@ -178,39 +202,11 @@ const RootScreen = () => {
             clearCache(croppedPaths)
               .then(response => {
                 if (refinedChunks[1] == "oo") {
-                  alert("oo");
+                  alert("oo", refinedChunks);
                 }
                 if (refinedChunks[1] == "ow") {
-                  alert("ow");
+                  alert("ow", refinedChunks);
                 }
-                refinedChunks[1] = alertChunk;
-                setChunks(refinedChunks);
-                setFirstChunkAnimation(true);
-                playSound(refinedChunks[0], () => {
-                  setSecondChunkAnimation(true);
-                  playSound(refinedChunks[1], () => {
-                    setThirdChunkAnimation(true);
-                    playSound(
-                      refinedChunks[2],
-                      () => {
-                        const middleChunk = phonemeToOrthographyMapper(
-                          refinedChunks[1]
-                        );
-                        wave();
-                        Tts.speak(
-                          [
-                            refinedChunks[0],
-                            middleChunk,
-                            refinedChunks[2]
-                          ].join("")
-                        );
-                        onTTSFinished();
-                        setAlertChunk("");
-                      },
-                      true
-                    );
-                  });
-                });
               })
               .catch(error => {
                 logJSON(error);
@@ -242,32 +238,12 @@ const RootScreen = () => {
                 });
                 clearCache(croppedPaths)
                   .then(response => {
-                    setChunks(refinedChunks);
-                    setFirstChunkAnimation(true);
-                    playSound(refinedChunks[0], () => {
-                      setSecondChunkAnimation(true);
-                      playSound(refinedChunks[1], () => {
-                        setThirdChunkAnimation(true);
-                        playSound(
-                          refinedChunks[2],
-                          () => {
-                            const middleChunk = phonemeToOrthographyMapper(
-                              refinedChunks[1]
-                            );
-                            wave();
-                            Tts.speak(
-                              [
-                                refinedChunks[0],
-                                middleChunk,
-                                refinedChunks[2]
-                              ].join("")
-                            );
-                            onTTSFinished();
-                          },
-                          true
-                        );
-                      });
-                    });
+                    if (refinedChunks[1] == "oo") {
+                      alert("oo", refinedChunks);
+                    }
+                    if (refinedChunks[1] == "ow") {
+                      alert("ow", refinedChunks);
+                    }
                   })
                   .catch(error => {
                     logJSON(error);
