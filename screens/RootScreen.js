@@ -203,9 +203,10 @@ const RootScreen = () => {
               .then(response => {
                 if (refinedChunks[1] == "oo") {
                   alert("oo", refinedChunks);
-                }
-                if (refinedChunks[1] == "ow") {
+                } else if (refinedChunks[1] == "ow") {
                   alert("ow", refinedChunks);
+                } else {
+                  playAfterSession(refinedChunks[1], refinedChunks);
                 }
               })
               .catch(error => {
@@ -240,9 +241,10 @@ const RootScreen = () => {
                   .then(response => {
                     if (refinedChunks[1] == "oo") {
                       alert("oo", refinedChunks);
-                    }
-                    if (refinedChunks[1] == "ow") {
+                    } else if (refinedChunks[1] == "ow") {
                       alert("ow", refinedChunks);
+                    } else {
+                      playAfterSession(refinedChunks[1], refinedChunks);
                     }
                   })
                   .catch(error => {
