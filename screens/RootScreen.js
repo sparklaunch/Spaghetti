@@ -84,7 +84,7 @@ const RootScreen = () => {
     setIsMicrophoneVisible(false);
     setAreMegaphonesVisible(false);
   };
-  const [alertChunk, setAlertChunk] = useState("");
+  const [_, setAlertChunk] = useState("");
   const alert = (type, refinedChunks) => {
     return Alert.alert("음소 선택", "음소를 선택하세요", [
       {
@@ -192,9 +192,9 @@ const RootScreen = () => {
             });
             clearCache(croppedPaths)
               .then(response => {
-                if (refinedChunks[1] == "oo") {
+                if (refinedChunks[1] === "oo") {
                   alert("oo", refinedChunks);
-                } else if (refinedChunks[1] == "ow") {
+                } else if (refinedChunks[1] === "ow") {
                   alert("ow", refinedChunks);
                 } else {
                   playAfterSession(refinedChunks[1], refinedChunks);
@@ -230,9 +230,9 @@ const RootScreen = () => {
                 });
                 clearCache(croppedPaths)
                   .then(response => {
-                    if (refinedChunks[1] == "oo") {
+                    if (refinedChunks[1] === "oo") {
                       alert("oo", refinedChunks);
-                    } else if (refinedChunks[1] == "ow") {
+                    } else if (refinedChunks[1] === "ow") {
                       alert("ow", refinedChunks);
                     } else {
                       playAfterSession(refinedChunks[1], refinedChunks);
