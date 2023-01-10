@@ -22,12 +22,8 @@ import CameraButton from "../components/CameraButton";
 import MegaphoneButton from "../components/MegaphoneButton";
 import LoadingScreen from "./LoadingScreen";
 import useInitializeTTS from "../hooks/useInitializeTTS";
-import TensorflowLite from "tflite-react-native";
-import useLoadModel from "../hooks/useLoadModel";
-import useClassifyChunk from "../hooks/useClassifyChunk";
 import phonemeToOrthographyMapper from "../utils/phonemeToOrthographyMapper";
 import ChunksRefsContext from "../contexts/ChunksRefsContext";
-import useRecognizeChunks from "../hooks/useRecognizeChunks";
 import MicrophoneButton from "../components/MicrophoneButton";
 import Backdrop from "../components/Backdrop";
 import RecordingStatusContext from "../contexts/RecordingStatusContext";
@@ -43,10 +39,6 @@ import Constants from "../shared/Constants";
 import logJSON from "../utils/logJSON";
 
 const RootScreen = () => {
-  const tensorflowLite = new TensorflowLite();
-  const recognizeChunks = useRecognizeChunks();
-  const classifyChunk = useClassifyChunk();
-  const loadModel = useLoadModel();
   const deleteCache = useDeleteCache();
   const clearCache = useClearCache();
   const takePhoto = useTakePhoto();
@@ -74,8 +66,7 @@ const RootScreen = () => {
     setIsCameraVisible,
     setIsMegaphoneVisible,
     setIsMicrophoneVisible,
-    setAreMegaphonesVisible,
-    areMegaphonesVisible
+    setAreMegaphonesVisible
   } = useContext(DeviceVisibilityContext);
   const {isTakingPhotoAvailable, setIsTakingPhotoAvailable} = useContext(
     TakingPhotoAvailabilityContext
