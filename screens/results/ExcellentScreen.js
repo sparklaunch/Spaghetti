@@ -11,7 +11,9 @@ import usePlaySound from "../../hooks/usePlaySound";
 const ExcellentScreen = () => {
   const playSound = usePlaySound();
   useEffect(() => {
-    playSound("excellent", () => {});
+    playSound("excellent", () => {
+      // TODO: NOTHING TO DO.
+    });
   }, []);
   return (
     <Animated.View style={styles.container} entering={FadeIn} exiting={FadeOut}>
